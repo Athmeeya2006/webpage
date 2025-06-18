@@ -232,3 +232,30 @@ function createStars() {
 
 // Call function to create stars
 createStars();
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');  
+}
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.remove('active'); 
+  });
+});
+
+
+  const hamburger = document.querySelector('.hamburger');
+  const navMenu = document.querySelector('.nav-menu');
+
+  // Toggle menu
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', function (e) {
+    const isClickInside = navMenu.contains(e.target) || hamburger.contains(e.target);
+
+    if (!isClickInside) {
+      navMenu.classList.remove('active');
+    }
+  });
