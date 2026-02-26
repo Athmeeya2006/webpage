@@ -1,422 +1,1525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athmeeya M Kashyap - Interactive Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#333333">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <!-- External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.0.0/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/3.18.0/tf.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Athmeeya M Kashyap</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cyan: #00FFE5;
+  --orange: #FF4500;
+  --white: #F0F0F0;
+  --black: #000000;
+  --dark: #050508;
+  --mid: #0a0a12;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+#cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--cyan);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 99999;
+  transform: translate(-50%,-50%);
+  transition: transform .1s, width .2s, height .2s, background .2s;
+  box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+}
+#cursor-ring {
+  width: 40px; height: 40px;
+  border: 1.5px solid var(--cyan);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 99998;
+  transform: translate(-50%,-50%);
+  transition: transform .08s, width .3s, height .3s, opacity .3s, border-color .2s;
+  opacity: .5;
+}
+body.cursor-hover #cursor-dot { width:14px; height:14px; background: var(--orange); box-shadow: 0 0 15px var(--orange); }
+body.cursor-hover #cursor-ring { width:60px; height:60px; border-color: var(--orange); opacity:.8; }
+
+/* ─── PRELOADER ─── */
+#preloader {
+  position: fixed; inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+}
+#boot-terminal {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(11px, 1.5vw, 14px);
+  color: var(--cyan);
+  width: min(600px, 90vw);
+  line-height: 1.8;
+}
+#boot-terminal .line { opacity: 0; white-space: nowrap; overflow: hidden; }
+#boot-terminal .line.visible { opacity: 1; }
+.boot-bar {
+  margin-top: 20px;
+  width: min(600px, 90vw);
+  height: 3px;
+  background: #111;
+  border-radius: 2px;
+}
+.boot-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--orange));
+  width: 0%;
+  transition: width .05s linear;
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--cyan);
+}
+.boot-pct { color: var(--orange); font-size: 12px; margin-top: 8px; }
+
+#preloader.shatter {
+  animation: shatterOut .6s forwards;
+}
+@keyframes shatterOut {
+  0% { opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  40% { clip-path: polygon(5% 0, 95% 5%, 100% 95%, 0% 100%); transform: scale(1.02); }
+  100% { opacity: 0; clip-path: polygon(20% 10%, 80% 0, 100% 80%, 10% 100%); transform: scale(1.1); pointer-events: none; }
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 20px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all .4s;
+}
+nav.scrolled {
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(20px);
+  padding: 14px 40px;
+  border-bottom: 1px solid rgba(0,255,229,.1);
+}
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--cyan);
+  text-decoration: none;
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px var(--cyan);
+  position: relative;
+}
+.nav-logo:hover { animation: neonFlicker .3s infinite; }
+@keyframes neonFlicker {
+  0%,100% { text-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan); }
+  50% { text-shadow: none; }
+}
+.nav-links { display: flex; gap: 30px; list-style: none; }
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: rgba(240,240,240,.6);
+  text-decoration: none;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  position: relative;
+  transition: color .3s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--cyan);
+  transition: width .3s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
+.nav-hamburger span { width: 25px; height: 2px; background: var(--cyan); transition: all .3s; }
+.mobile-menu {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.97);
+  z-index: 999; align-items: center; justify-content: center; flex-direction: column; gap: 40px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: 'Bebas Neue'; font-size: 48px; color: var(--white); text-decoration: none; letter-spacing: 6px; transition: color .3s; }
+.mobile-menu a:hover { color: var(--cyan); }
+.mobile-close { position: absolute; top: 20px; right: 30px; font-size: 30px; color: var(--cyan); cursor: none; }
+
+/* ─── HERO ─── */
+#hero {
+  position: relative; height: 100vh; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+#starCanvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+}
+.hero-content {
+  position: relative; z-index: 2; text-align: center;
+}
+.hero-scan {
+  position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  box-shadow: 0 0 20px var(--cyan);
+  animation: scanDown 1.5s ease-in-out forwards;
+  z-index: 3;
+}
+@keyframes scanDown {
+  from { top: 0; opacity: 1; }
+  to { top: 100%; opacity: 0; }
+}
+.hero-initials {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(16px, 3vw, 24px);
+  letter-spacing: 20px;
+  color: var(--cyan);
+  opacity: 0;
+  animation: fadeUp .6s 1.8s forwards;
+  margin-bottom: 10px;
+}
+.hero-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(52px, 11vw, 140px);
+  line-height: .9;
+  letter-spacing: 6px;
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 0 4px;
+  margin-bottom: 20px;
+}
+.hero-name .letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(60px) scale(1.4);
+  transition: opacity .5s, transform .5s cubic-bezier(0.34,1.56,0.64,1);
+  color: var(--white);
+  text-shadow: 0 0 60px rgba(0,255,229,.2);
+}
+.hero-name .letter.visible { opacity: 1; transform: translateY(0) scale(1); }
+.hero-name .space { width: 20px; }
+.hero-subtitle {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(12px, 2vw, 16px);
+  color: var(--cyan);
+  letter-spacing: 2px;
+  min-height: 24px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp .5s 2.8s forwards;
+}
+.hero-ctas {
+  display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp .5s 3.2s forwards;
+}
+.btn-primary {
+  font-family: 'Orbitron', monospace;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--black);
+  background: var(--cyan);
+  padding: 14px 32px;
+  border: none;
+  cursor: none;
+  text-decoration: none;
+  display: inline-block;
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: all .3s;
+  font-weight: 700;
+}
+.btn-primary:hover { background: var(--orange); transform: scale(1.05); box-shadow: 0 0 30px var(--orange); }
+.btn-secondary {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--orange);
+  border: 1px solid var(--orange);
+  padding: 14px 32px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all .3s;
+  background: transparent;
+}
+.btn-secondary:hover { background: var(--orange); color: var(--black); box-shadow: 0 0 30px var(--orange); }
+.scroll-indicator {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  font-size: 10px; letter-spacing: 4px; color: rgba(255,255,255,.3);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: fadeUp .5s 3.6s forwards;
+}
+.scroll-arrow {
+  width: 1px; height: 40px; background: linear-gradient(var(--cyan), transparent);
+  animation: scrollPulse 1.5s infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+/* ─── SECTION SHARED ─── */
+section { position: relative; }
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: var(--cyan);
+  opacity: .6;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.section-title {
+  font-family: 'Bebas Neue';
+  font-size: clamp(48px, 8vw, 90px);
+  line-height: 1;
+  letter-spacing: 4px;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity .8s, transform .8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ─── DIVIDER ─── */
+.section-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: .2;
+  margin: 0;
+}
+
+/* ─── ABOUT ─── */
+#about {
+  padding: 120px 40px;
+  background: var(--dark);
+  overflow: hidden;
+}
+.about-grid {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.about-photo-wrap {
+  position: relative;
+}
+.about-photo-frame {
+  position: relative;
+  display: inline-block;
+  clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
+  overflow: hidden;
+}
+.about-photo-frame img {
+  width: 100%; max-width: 380px;
+  display: block;
+  filter: grayscale(20%) contrast(1.1);
+  transition: filter .3s;
+}
+.about-photo-frame:hover img { filter: grayscale(0%) contrast(1.2); }
+.about-photo-frame .scanlines {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,229,.03) 2px, rgba(0,255,229,.03) 4px);
+  pointer-events: none;
+}
+.about-photo-frame .glitch-overlay {
+  position: absolute; inset: 0;
+  opacity: 0;
+  background: rgba(0,255,229,.1);
+  transition: opacity .1s;
+}
+.about-photo-frame:hover .glitch-overlay { animation: glitchFlash .4s; }
+@keyframes glitchFlash {
+  0%,100%{opacity:0} 20%{opacity:.5; transform: translateX(3px)} 40%{opacity:0; transform:translateX(-3px)} 60%{opacity:.3} 80%{opacity:0}
+}
+.about-svg-border {
+  position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
+  pointer-events: none;
+}
+.about-svg-border rect {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.5;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawBorder 2s 3.5s forwards, borderFlow 3s 5.5s infinite linear;
+}
+@keyframes drawBorder { to { stroke-dashoffset: 0; } }
+@keyframes borderFlow { from{stroke-dashoffset:0} to{stroke-dashoffset:-800} }
+
+.about-text { padding-left: 20px; }
+.about-file-tag {
+  font-size: 11px; letter-spacing: 4px; color: var(--orange);
+  margin-bottom: 30px; display: block;
+}
+.about-bio {
+  font-size: 15px; line-height: 1.9;
+  color: rgba(240,240,240,.75);
+  margin-bottom: 40px;
+}
+.about-bio strong { color: var(--cyan); }
+.about-tags {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 40px;
+}
+.about-tag {
+  font-size: 11px; letter-spacing: 2px;
+  border: 1px solid rgba(0,255,229,.3);
+  color: var(--cyan);
+  padding: 6px 14px;
+  transition: all .3s;
+  clip-path: polygon(6px 0, 100% 0, calc(100%-6px) 100%, 0 100%);
+}
+.about-tag:hover { background: var(--cyan); color: var(--black); box-shadow: 0 0 15px var(--cyan); }
+.about-stats {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+}
+.stat-box {
+  border: 1px solid rgba(0,255,229,.15);
+  padding: 16px 20px;
+  background: rgba(0,255,229,.02);
+  transition: all .3s;
+}
+.stat-box:hover { border-color: var(--cyan); background: rgba(0,255,229,.05); }
+.stat-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 28px; font-weight: 900;
+  color: var(--cyan);
+  display: block;
+}
+.stat-label {
+  font-size: 10px; letter-spacing: 2px;
+  color: rgba(240,240,240,.5);
+  text-transform: uppercase;
+}
+
+/* ─── EDUCATION ─── */
+#education {
+  padding: 120px 40px;
+  background: var(--black);
+  overflow: hidden;
+}
+.edu-header { max-width: 1200px; margin: 0 auto 80px; }
+.edu-timeline {
+  max-width: 900px; margin: 0 auto;
+  position: relative;
+}
+.edu-line {
+  position: absolute; left: 50%; top: 40px; bottom: 40px;
+  width: 1px;
+  background: rgba(0,255,229,.1);
+  transform: translateX(-50%);
+}
+.edu-line-fill {
+  width: 100%; background: var(--cyan);
+  height: 0%;
+  transition: height 2s ease;
+  box-shadow: 0 0 10px var(--cyan);
+}
+.edu-item {
+  display: grid; grid-template-columns: 1fr 60px 1fr;
+  align-items: center; margin-bottom: 80px;
+  gap: 0 20px;
+}
+.edu-item:nth-child(odd) .edu-card { grid-column: 1; }
+.edu-item:nth-child(odd) .edu-dot { grid-column: 2; }
+.edu-item:nth-child(odd) .edu-empty { grid-column: 3; }
+.edu-item:nth-child(even) .edu-empty { grid-column: 1; }
+.edu-item:nth-child(even) .edu-dot { grid-column: 2; }
+.edu-item:nth-child(even) .edu-card { grid-column: 3; }
+
+.edu-dot {
+  width: 20px; height: 20px;
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  background: var(--black);
+  justify-self: center;
+  position: relative;
+  transition: all .3s;
+  box-shadow: 0 0 0 0 var(--cyan);
+}
+.edu-dot.pulse { animation: dotPulse 1.5s infinite; box-shadow: 0 0 20px var(--cyan); background: var(--cyan); }
+@keyframes dotPulse {
+  0%,100%{ box-shadow: 0 0 0 0 rgba(0,255,229,.4); }
+  50%{ box-shadow: 0 0 0 12px rgba(0,255,229,0); }
+}
+.edu-card {
+  border: 1px solid rgba(0,255,229,.15);
+  padding: 24px 28px;
+  background: rgba(0,255,229,.02);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: all .3s;
+}
+.edu-card:hover { border-color: var(--cyan); background: rgba(0,255,229,.05); transform: translateY(-4px); }
+.edu-level {
+  font-size: 10px; letter-spacing: 4px; color: var(--orange);
+  margin-bottom: 8px; text-transform: uppercase;
+}
+.edu-degree {
+  font-family: 'Orbitron', monospace;
+  font-size: 16px; font-weight: 700;
+  color: var(--white); margin-bottom: 4px;
+}
+.edu-school {
+  font-size: 13px; color: rgba(240,240,240,.5);
+  letter-spacing: 1px;
+}
+.edu-xp {
+  margin-top: 12px;
+  height: 3px; background: rgba(255,255,255,.1); border-radius: 2px;
+}
+.edu-xp-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--orange));
+  width: 0%; transition: width 1.5s ease;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+/* ─── SKILLS ─── */
+#skills {
+  padding: 120px 40px;
+  background: var(--dark);
+}
+.skills-header { max-width: 1200px; margin: 0 auto 60px; }
+#skillCanvas {
+  display: block; margin: 0 auto;
+  max-width: 100%;
+}
+.skills-legend {
+  display: flex; justify-content: center; gap: 30px; margin-top: 30px; flex-wrap: wrap;
+}
+.legend-item {
+  font-size: 11px; letter-spacing: 2px; display: flex; align-items: center; gap: 8px;
+}
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* ─── ACHIEVEMENTS ─── */
+#achievements {
+  padding: 120px 0;
+  background: var(--black);
+}
+.ach-header { padding: 0 40px 60px; max-width: 1200px; margin: 0 auto; }
+.ach-scroll-track {
+  display: flex; gap: 0;
+  overflow-x: auto; padding: 0 40px 40px;
+  scrollbar-width: thin; scrollbar-color: var(--cyan) #111;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.ach-scroll-track::-webkit-scrollbar { height: 4px; }
+.ach-scroll-track::-webkit-scrollbar-track { background: #111; }
+.ach-scroll-track::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
+.ach-panel {
+  flex: 0 0 min(380px, 85vw);
+  height: 480px;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+  border: 1px solid rgba(255,255,255,.08);
+  margin-right: 20px;
+  cursor: none;
+  transition: border-color .3s, transform .3s;
+}
+.ach-panel:hover { border-color: var(--cyan); transform: translateY(-8px); }
+.ach-panel-bg {
+  position: absolute; inset: 0;
+  background: var(--mid);
+  transition: opacity .3s;
+}
+.ach-panel:hover .ach-panel-bg { opacity: .7; }
+.ach-panel-content {
+  position: absolute; inset: 0; padding: 40px 32px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  background: linear-gradient(to top, rgba(0,0,0,.9) 40%, transparent);
+}
+.ach-icon { font-size: 42px; margin-bottom: 12px; }
+.ach-tag { font-size: 10px; letter-spacing: 4px; color: var(--cyan); margin-bottom: 8px; text-transform: uppercase; }
+.ach-title { font-family: 'Bebas Neue'; font-size: 44px; letter-spacing: 3px; line-height: 1; margin-bottom: 12px; }
+.ach-desc { font-size: 13px; color: rgba(240,240,240,.6); line-height: 1.7; }
+.ach-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 64px; font-weight: 900;
+  position: absolute; top: 20px; right: 24px;
+  opacity: .08; line-height: 1;
+  pointer-events: none;
+}
+
+/* panel themes */
+.ach-panel.math .ach-panel-bg { background: radial-gradient(ellipse at 30% 30%, #001a1a, #000); }
+.ach-panel.math .ach-title { color: var(--cyan); }
+.ach-panel.swim .ach-panel-bg { background: radial-gradient(ellipse at 50% 100%, #001020, #000); }
+.ach-panel.swim .ach-title { color: #4499ff; }
+.ach-panel.cube .ach-panel-bg { background: radial-gradient(ellipse at 70% 30%, #1a0a00, #000); }
+.ach-panel.cube .ach-title { color: var(--orange); }
+.ach-panel.code .ach-panel-bg { background: radial-gradient(ellipse at 30% 70%, #001a08, #000); }
+.ach-panel.code .ach-title { color: #00ff88; }
+.ach-panel.score .ach-panel-bg { background: radial-gradient(ellipse at 50% 50%, #1a1a00, #000); }
+.ach-panel.score .ach-title { color: #ffd700; }
+.ach-panel.tt .ach-panel-bg { background: radial-gradient(ellipse at 60% 40%, #150015, #000); }
+.ach-panel.tt .ach-title { color: #ff44ff; }
+
+/* wave animation for swim */
+.wave-container {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 80px; overflow: hidden;
+}
+.wave { position: absolute; bottom: 0; width: 200%; height: 60px; animation: waveMove 3s infinite linear; }
+.wave svg { width: 100%; height: 100%; }
+.wave2 { animation-delay: -1.5s; opacity: .5; }
+@keyframes waveMove { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* cube animation */
+.css-cube {
+  width: 60px; height: 60px;
+  position: absolute; top: 24px; left: 32px;
+  transform-style: preserve-3d;
+  animation: rotateCube 4s infinite linear;
+  perspective: 200px;
+}
+@keyframes rotateCube {
+  from{transform:rotateX(30deg) rotateY(0deg)}
+  to{transform:rotateX(30deg) rotateY(360deg)}
+}
+.cube-face {
+  position: absolute; width: 60px; height: 60px;
+  border: 2px solid rgba(255,69,0,.5);
+  opacity: .7;
+}
+.cube-front  { transform: rotateY(0)   translateZ(30px); background: rgba(255,69,0,.1); }
+.cube-back   { transform: rotateY(180deg) translateZ(30px); background: rgba(255,69,0,.1); }
+.cube-left   { transform: rotateY(-90deg) translateZ(30px); background: rgba(255,100,0,.1); }
+.cube-right  { transform: rotateY(90deg)  translateZ(30px); background: rgba(255,100,0,.1); }
+.cube-top    { transform: rotateX(90deg)  translateZ(30px); background: rgba(255,150,0,.1); }
+.cube-bottom { transform: rotateX(-90deg) translateZ(30px); background: rgba(255,150,0,.1); }
+
+/* matrix rain for code panel */
+#codeCanvas { position: absolute; inset: 0; opacity: .35; }
+
+/* countdown for cube */
+.cube-countdown {
+  font-family: 'Orbitron', monospace;
+  font-size: 52px; font-weight: 900;
+  color: var(--orange);
+  position: absolute; top: 20px; left: 32px;
+  text-shadow: 0 0 20px var(--orange);
+}
+
+/* ─── MANGALORE ─── */
+#mangalore {
+  padding: 120px 40px;
+  background: var(--dark);
+  overflow: hidden;
+}
+.mang-header { max-width: 1200px; margin: 0 auto 20px; }
+.mang-sub { font-size: 15px; color: rgba(240,240,240,.5); margin-bottom: 60px; font-style: italic; }
+.mang-grid {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: 300px;
+  gap: 16px;
+}
+.mang-card {
+  position: relative; overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);
+  cursor: none;
+}
+.mang-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s; filter: brightness(.7) saturate(.8);
+}
+.mang-card:hover img { transform: scale(1.08); filter: brightness(.9) saturate(1.1); }
+.mang-overlay {
+  position: absolute; inset: 0;
+  transition: opacity .4s;
+}
+.mang-card:nth-child(1) .mang-overlay { background: linear-gradient(to top, rgba(0,100,255,.5), transparent); }
+.mang-card:nth-child(2) .mang-overlay { background: linear-gradient(to top, rgba(255,69,0,.5), transparent); }
+.mang-card:nth-child(3) .mang-overlay { background: linear-gradient(to top, rgba(255,200,0,.4), transparent); }
+.mang-label {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 24px;
+  font-family: 'Bebas Neue'; font-size: 28px; letter-spacing: 4px;
+  background: linear-gradient(transparent, rgba(0,0,0,.8));
+}
+.mang-coords {
+  text-align: center; margin-top: 40px;
+  font-size: 11px; letter-spacing: 6px; color: rgba(240,240,240,.25);
+  font-family: 'Orbitron', monospace;
+}
+
+/* ─── CONTACT ─── */
+#contact {
+  padding: 120px 40px;
+  background: var(--black);
+  overflow: hidden;
+}
+.contact-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.contact-left {}
+#radarCanvas {
+  width: 320px; height: 320px; display: block; margin: 0 auto;
+}
+.contact-right {}
+.contact-signals { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+.signal-line {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: rgba(240,240,240,.6);
+  padding: 16px 20px;
+  border: 1px solid rgba(0,255,229,.1);
+  display: flex; align-items: center; gap: 12px;
+  transition: all .3s;
+  text-decoration: none;
+}
+.signal-line:hover { border-color: var(--cyan); background: rgba(0,255,229,.03); color: var(--cyan); }
+.signal-ping {
+  font-size: 10px; letter-spacing: 2px; color: var(--cyan);
+  border: 1px solid var(--cyan); padding: 2px 8px; margin-left: auto;
+  animation: pingPulse 2s infinite;
+}
+@keyframes pingPulse { 0%,100%{opacity:.4} 50%{opacity:1; box-shadow: 0 0 10px var(--cyan);} }
+
+.cv-btn {
+  margin-top: 40px;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px; letter-spacing: 2px;
+  background: transparent;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  padding: 16px 32px;
+  cursor: none;
+  display: inline-block;
+  text-decoration: none;
+  transition: all .3s;
+  position: relative; overflow: hidden;
+}
+.cv-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--orange);
+  transform: translateX(-100%);
+  transition: transform .3s;
+  z-index: -1;
+}
+.cv-btn:hover { color: var(--black); box-shadow: 0 0 30px var(--orange); }
+.cv-btn:hover::before { transform: translateX(0); }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 40px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; letter-spacing: 2px; color: rgba(240,240,240,.2);
+}
+footer span { font-family: 'Orbitron', monospace; color: var(--cyan); }
+
+/* ─── HEX BG ─── */
+.hex-bg {
+  position: absolute; inset: 0; pointer-events: none; opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34z' fill='none' stroke='%2300FFE5' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 56px 100px;
+}
+
+/* ─── UTILS ─── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+.stagger-1 { transition-delay: .1s !important; }
+.stagger-2 { transition-delay: .2s !important; }
+.stagger-3 { transition-delay: .3s !important; }
+.stagger-4 { transition-delay: .4s !important; }
+.stagger-5 { transition-delay: .5s !important; }
+.stagger-6 { transition-delay: .6s !important; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-text { padding-left: 0; }
+  .about-photo-frame { max-width: 280px; }
+  .edu-item { grid-template-columns: 1fr; }
+  .edu-item .edu-empty { display: none; }
+  .edu-item .edu-dot { display: none; }
+  .edu-line { display: none; }
+  .contact-inner { grid-template-columns: 1fr; }
+  #radarCanvas { width: 240px; height: 240px; }
+  .mang-grid { grid-template-columns: 1fr; grid-template-rows: 220px 180px 180px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  body { cursor: auto; }
+  #cursor-dot, #cursor-ring { display: none; }
+}
+@media (max-width: 600px) {
+  nav { padding: 16px 20px; }
+  #about, #education, #skills, #achievements, #mangalore, #contact { padding: 80px 20px; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+}
+</style>
 </head>
 <body>
-    <!-- 3D Background Canvas -->
-    <canvas id="webgl-background"></canvas>
 
-    <!-- Loading Screen -->
-    <div class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-cube-wrapper">
-                <div class="loading-cube">
-                    <div class="face front"></div>
-                    <div class="face back"></div>
-                    <div class="face right"></div>
-                    <div class="face left"></div>
-                    <div class="face top"></div>
-                    <div class="face bottom"></div>
-                </div>
-            </div>
-            <div class="loading-text">Loading Experience</div>
-            <div class="loading-progress">
-                <div class="loading-bar"></div>
-            </div>
-        </div>
-    </div>
+<!-- CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
 
-    <!-- Navigation Header -->
-   <header>
-  <div class="logo">AMK</div>
-
-  <nav>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#hero" data-text="Home">Home</a></li>
-      <li><a href="#about" data-text="About">About</a></li>
-      <li><a href="#education" data-text="Education">Education</a></li>
-      <li><a href="#skills" data-text="Skills">Skills</a></li>
-      <li><a href="#achievements" data-text="Achievements">Achievements</a></li>
-      <li><a href="#text-analysis" data-text="Text Analysis">Text Analysis</a></li>
-      <li><a href="#contact" data-text="Contact">Contact</a></li>
-      <li><a href="#cv" data-text="CV">CV</a></li>
-    </ul>
-  </nav>
-
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+<!-- PRELOADER -->
+<div id="preloader">
+  <div id="boot-terminal">
+    <div class="line" id="bl0">> INITIALIZING AMK_OS v2.6...</div>
+    <div class="line" id="bl1">> Loading neural modules <span class="bar-inline">............ [<span id="bar-text">          </span>] <span id="bar-pct">0</span>%</span></div>
+    <div class="line" id="bl2">> Mounting Codeforces database....... <span style="color:#00ff88">250+ problems OK</span></div>
+    <div class="line" id="bl3">> Calibrating Rubik's solver......... <span style="color:var(--orange)">19.4s ✓</span></div>
+    <div class="line" id="bl4">> SGFI swimming records.............. <span style="color:#4499ff">NATIONAL LOADED</span></div>
+    <div class="line" id="bl5">> INMO qualification status.......... <span style="color:var(--cyan)">VERIFIED</span></div>
+    <div class="line" id="bl6">> Perfect score Karnataka State...... <span style="color:#ffd700">100% ✓</span></div>
+    <div class="line" id="bl7" style="color:var(--orange)">⚠ WARNING: Exceptional human detected.</div>
+    <div class="line" id="bl8">> LAUNCHING INTERFACE...<span id="blink-cursor" style="animation:blink 0.8s infinite">█</span></div>
   </div>
-</header>
+  <div class="boot-bar"><div class="boot-fill" id="bootFill"></div></div>
+  <div class="boot-pct" id="bootPct">0%</div>
+</div>
 
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">AMK</a>
+  <ul class="nav-links">
+    <li><a href="#hero">home</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#achievements">achievements</a></li>
+    <li><a href="#mangalore">mangalore</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="#hero" onclick="closeMobile()">home</a>
+  <a href="#about" onclick="closeMobile()">about</a>
+  <a href="#education" onclick="closeMobile()">education</a>
+  <a href="#skills" onclick="closeMobile()">skills</a>
+  <a href="#achievements" onclick="closeMobile()">achievements</a>
+  <a href="#mangalore" onclick="closeMobile()">mangalore</a>
+  <a href="#contact" onclick="closeMobile()">contact</a>
+</div>
 
-   <!-- Hero Section with 3D Name -->
-<section id="hero" class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <div id="hero-3d-container"></div>
-        <h1 class="animated-name"><span class="first">Athmeeya</span> <span class="middle">M</span> <span class="last">Kashyap</span></h1>
-        <div class="typing-container">
-            <span id="typing-text"></span><span class="cursor">|</span>
-        </div>            
+<!-- ── HERO ── -->
+<section id="hero">
+  <canvas id="starCanvas"></canvas>
+  <div class="hero-scan"></div>
+  <div class="hero-content">
+    <div class="hero-initials">A . M . K</div>
+    <div class="hero-name" id="heroName"></div>
+    <div class="hero-subtitle" id="heroSubtitle"></div>
+    <div class="hero-ctas">
+      <a href="#about" class="btn-primary">EXPLORE →</a>
+      <a href="assets/cv.pdf" download class="btn-secondary">$ ./download_cv</a>
     </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>SCROLL TO ENTER</span>
+    <div class="scroll-arrow"></div>
+  </div>
 </section>
 
-    <!-- About Section with Parallax -->
-    <section id="about" class="about-section">
+<div class="section-divider"></div>
 
-        <div class="parallax-background"></div>
-        <div class="about-container">
-            <div class="section-heading">
-                <h2>About Me</h2>
-                <div class="heading-underline"></div>
-            </div>
-            <div class="about-content">
-                <div class="profile-pic-container">
-                    <div class="profile-pic-wrapper">
-                        <img src="assets/athmeeyacv.jpg" alt="Athmeeya M Kashyap" class="profile-pic">
-                        <div class="profile-pic-glitch"></div>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <p>I am <span class="highlight">Athmeeya M Kashyap</span>, a computer science student at IIIT Hyderabad with a passion for technology and innovation. Originally from Mangalore, Karnataka, I combine technical expertise with creative problem-solving.</p>
-                    <p>My interests span from web development and artificial intelligence to competitive programming. When I'm not coding, you'll find me engaged in various sports including cricket, chess, swimming, basketball, table tennis, and badminton. I'm also an avid speedcuber, solving Rubik's cubes at competitive speeds.</p>
-                    <div class="interest-icons">
-                        <div class="interest-icon"><i class="fas fa-code"></i><span>Coding</span></div>
-                        <div class="interest-icon"><i class="fas fa-chess"></i><span>Chess</span></div>
-                        <div class="interest-icon"><i class="fas fa-swimming-pool"></i><span>Swimming</span></div>
-                        <div class="interest-icon"><i class="fas fa-table-tennis"></i><span>Table Tennis</span></div>
-                        <div class="interest-icon"><i class="fas fa-cube"></i><span>Speedcubing</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="hometown-gallery">
-                <h3>My Hometown: Mangalore</h3>
-                <div class="gallery">
-                    <div class="gallery-item">
-                        <img src="assets/manglore beach.jpg" alt="Mangalore Beach">
-                        <div class="gallery-caption">Stunning Beaches</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="assets/maglore temple.jpg" alt="Mangalore Temple">
-                        <div class="gallery-caption">Rich Cultural Heritage</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="assets/maglore food.jpg" alt="Mangalore Food">
-                        <div class="gallery-caption">Delicious Cuisine</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Timeline Section -->
-<section id="education" class="education-section">
-    <div class="section-heading">
-        <h2>Education Journey</h2>
-        <div class="heading-underline"></div>
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo-wrap reveal">
+      <div class="about-photo-frame">
+        <img src="assets/athmeeyacv.jpg" alt="Athmeeya M Kashyap">
+        <div class="scanlines"></div>
+        <div class="glitch-overlay"></div>
+      </div>
+      <svg class="about-svg-border" viewBox="0 0 400 480" preserveAspectRatio="none">
+        <rect x="5" y="5" width="390" height="470" rx="2"/>
+      </svg>
     </div>
-    <div class="timeline-container">
-        <div class="timeline">
-            <div class="timeline-item" data-year="2024 - Present">
-                <div class="timeline-content">
-                    <h3>B.Tech in Computer Science</h3>
-                    <h4>IIIT Hyderabad</h4>
-                    <p></p>
-                </div>
-            </div>
-            <div class="timeline-item" data-year="2022 - 2024">
-                <div class="timeline-content">
-                    <h3>Higher Secondary Education</h3>
-                    <h4>CFAL</h4>
-                    <p></p>
-                </div>
-            </div>
-            <div class="timeline-item" data-year="2020 - 2022">
-                <div class="timeline-content">
-                    <h3>Secondary Education</h3>
-                    <h4>VEMS</h4>
-                    <p></p>
-                </div>
-            </div>
+    <div class="about-text">
+      <span class="about-file-tag reveal">// SUBJECT_FILE.TXT</span>
+      <div class="section-label reveal">ABOUT</div>
+      <h2 class="section-title reveal" style="margin-bottom:24px">THE<br>PERSON</h2>
+      <p class="about-bio reveal">
+        CS student at <strong>IIIT Hyderabad</strong> with a passion for technology and innovation. Originally from <strong>Mangalore, Karnataka</strong> — combining technical precision with creative problem-solving across everything from olympiad mathematics to competitive swimming.
+      </p>
+      <p class="about-bio reveal" style="margin-top:-20px">
+        When not solving problems on Codeforces, you'll find me on the chess board, in the pool, or racing a Rubik's cube against the clock. I don't just build things — I obsess over them.
+      </p>
+      <div class="about-tags reveal">
+        <span class="about-tag">Competitive Programming</span>
+        <span class="about-tag">Chess</span>
+        <span class="about-tag">Swimming</span>
+        <span class="about-tag">Speedcubing</span>
+        <span class="about-tag">Cricket</span>
+        <span class="about-tag">Basketball</span>
+        <span class="about-tag">Table Tennis</span>
+        <span class="about-tag">Badminton</span>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-box">
+          <span class="stat-num" data-count="250" data-suffix="+">0</span>
+          <span class="stat-label">Problems Solved</span>
         </div>
+        <div class="stat-box">
+          <span class="stat-num" data-count="19" data-suffix="s">0</span>
+          <span class="stat-label">Rubik's Average</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num" data-count="100" data-suffix="%">0</span>
+          <span class="stat-label">Board Score</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num" data-suffix="NATL">—</span>
+          <span class="stat-label">Swimming Level</span>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
+<div class="section-divider"></div>
 
-  <section id="skills" class="skills-section">
-    <div class="section-heading">
-        <h2>Technical Skills</h2>
-        <div class="heading-underline"></div>
+<!-- ── EDUCATION ── -->
+<section id="education">
+  <div class="hex-bg"></div>
+  <div class="edu-header">
+    <div class="section-label reveal">// EDUCATION.LOG</div>
+    <h2 class="section-title reveal">LEVEL<br>UNLOCKED</h2>
+  </div>
+  <div class="edu-timeline">
+    <div class="edu-line"><div class="edu-line-fill" id="eduLineFill"></div></div>
+
+    <div class="edu-item reveal">
+      <div class="edu-card" style="text-align:right">
+        <div class="edu-level">ORIGIN POINT</div>
+        <div class="edu-degree">Secondary Education</div>
+        <div class="edu-school">VEMS</div>
+        <div class="edu-xp"><div class="edu-xp-fill" data-width="100"></div></div>
+      </div>
+      <div class="edu-dot pulse" id="dot1"></div>
+      <div class="edu-empty"></div>
     </div>
 
-    <!-- Added FA image container to the left side -->
-    <div class="skills-decoration">
-        <i class="fa fa-code skills-decoration-icon"></i>
+    <div class="edu-item reveal stagger-2">
+      <div class="edu-empty"></div>
+      <div class="edu-dot" id="dot2"></div>
+      <div class="edu-card">
+        <div class="edu-level">POWER SURGE</div>
+        <div class="edu-degree">Higher Secondary</div>
+        <div class="edu-school">CFAL</div>
+        <div class="edu-xp"><div class="edu-xp-fill" data-width="100"></div></div>
+      </div>
     </div>
 
-    <div class="skills-container">
-        <div class="skills-left">
-            <div class="skill-category">
-                <h3>Programming Languages</h3>
-                <div class="skill-items">
-                    <div class="skill-item" data-skill="JavaScript">
-                        <div class="skill-icon"><i class="fab fa-js"></i></div>
-                        <div class="skill-info">
-                            <h4>C/C++</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 75%"></div>
-                            </div>
-                            <span class="skill-level">Intermediate</span>
-                        </div>
-                    </div>
-                    <div class="skill-item" data-skill="Python">
-                        <div class="skill-icon"><i class="fab fa-python"></i></div>
-                        <div class="skill-info">
-                            <h4>Python</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 65%"></div>
-                            </div>
-                            <span class="skill-level">Intermediate</span>
-                        </div>
-                    </div>
-                    <div class="skill-item" data-skill="Java">
-                        <div class="skill-icon"><i class="fab fa-java"></i></div>
-                        <div class="skill-info">
-                            <h4>JavaScript</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 50%"></div>
-                            </div>
-                            <span class="skill-level">Beginner</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="skills-right">
-            <div class="skill-category">
-                <h3>Tools & Technologies</h3>
-                <div class="skill-items">
-                    <div class="skill-item" data-skill="Git">
-                        <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
-                        <div class="skill-info">
-                            <h4>Git</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 70%"></div>
-                            </div>
-                            <span class="skill-level">Intermediate</span>
-                        </div>
-                    </div>
-                    <div class="skill-item" data-skill="Docker">
-                        <div class="skill-icon"><i class="fab fa-docker"></i></div>
-                        <div class="skill-info">
-                            <h4>Fastapi, Jinja and Postman</h4>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 40%"></div>
-                            </div>
-                            <span class="skill-level">Beginner</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="edu-item reveal stagger-4">
+      <div class="edu-card" style="text-align:right; border-color: rgba(0,255,229,.4);">
+        <div class="edu-level" style="color:var(--cyan)">FINAL FORM</div>
+        <div class="edu-degree" style="color:var(--cyan)">B.Tech Computer Science</div>
+        <div class="edu-school">IIIT Hyderabad</div>
+        <div class="edu-xp"><div class="edu-xp-fill" data-width="45" id="iiitXP"></div></div>
+        <div style="font-size:10px;color:var(--cyan);margin-top:6px;letter-spacing:2px">IN PROGRESS █</div>
+      </div>
+      <div class="edu-dot" id="dot3" style="border-color:var(--cyan);"></div>
+      <div class="edu-empty"></div>
     </div>
-
-    <div class="skills-bottom">
-        <div class="skill-category">
-            <h3>Web Technologies and Databases</h3>
-            <div class="skill-items">
-                <div class="skill-item" data-skill="HTML/CSS">
-                    <div class="skill-icon"><i class="fab fa-html5"></i></div>
-                    <div class="skill-info">
-                        <h4>HTML/CSS</h4>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 85%"></div>
-                        </div>
-                        <span class="skill-level">Advanced</span>
-                    </div>
-                </div>
-                <div class="skill-item" data-skill="React">
-                    <div class="skill-icon"><i class="fab fa-react"></i></div>
-                    <div class="skill-info">
-                        <h4>SQL and MongoDB</h4>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 60%"></div>
-                        </div>
-                        <span class="skill-level">Intermediate</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="skills-3d-visualization">
-        <div id="skills-3d-container"></div>
-    </div>
+  </div>
 </section>
 
+<div class="section-divider"></div>
 
-    <!-- Achievements Section -->
-    <section id="achievements" class="achievements-section">
-        <div class="section-heading">
-            <h2>Achievements</h2>
-            <div class="heading-underline"></div>
-        </div>
-        <div class="achievements-container">
-            <div class="achievement-card">
-                <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
-                <h3>Competitive Programming</h3>
-                <p>Solved about 250 problems in codeforces</p>
-                <p>Participated in various contests and improved problem-solving skills.</p>
-            </div>
-            <div class="achievement-card">
-                <div class="achievement-icon"><i class="fas fa-medal"></i></div>
-                <h3>Sports</h3>
-                <p>Participated in School Games Federation of India(SGFI) National level swimming competition</p>
-                <p>Participated in various Table Tennis Tournaments</p>
-            </div>
-            <div class="achievement-card">
-                <div class="achievement-icon"><i class="fas fa-award"></i></div>
-                <h3>Academics</h3>
-                <p>Qualified for INMO after cracking IOQM and RMO</p>
-                <p>Achieved a perfect score in Karnataka state Board Examination</p>
-            </div>
-            <div class="achievement-card">
-                <div class="achievement-icon"><i class="fas fa-cube"></i></div>
-                <h3>Speedcubing</h3>
-                <p>Sub-20 seconds average in 3x3 Rubik's Cube</p>
-                <p>Participated in various speedcubing competitions</p>
-            </div>
-        </div>
-    </section>
-<!-- Advanced Text Analysis Section -->
-<section id="text-analysis" class="text-analysis-section">
-    <div class="section-heading">
-        <h2>Advanced Text Analysis</h2>
-        <div class="heading-underline"></div>
-    </div>
-    <div class="text-analysis-container">
-        <div class="text-input-area">
-            <textarea id="input-text" rows="15" placeholder="Paste your text here for analysis..."></textarea>
-            <button id="analyze-text-btn" onclick="analyzeText()">Analyze Text</button>
-        </div>
-        <div class="text-analysis-results">
-            <div class="basic-metrics">
-                <div class="metric-card">
-                    <div class="metric-icon"><i class="fas fa-font"></i></div>
-                    <div class="metric-value" id="letter-count">0</div>
-                    <div class="metric-label">Letters</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon"><i class="fas fa-align-left"></i></div>
-                    <div class="metric-value" id="word-count">0</div>
-                    <div class="metric-label">Words</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon"><i class="fas fa-indent"></i></div>
-                    <div class="metric-value" id="sentence-count">0</div>
-                    <div class="metric-label">Sentences</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon"><i class="fas fa-paragraph"></i></div>
-                    <div class="metric-value" id="paragraph-count">0</div>
-                    <div class="metric-label">Paragraphs</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon"><i class="fas fa-space-shuttle"></i></div>
-                    <div class="metric-value" id="space-count">0</div>
-                    <div class="metric-label">Spaces</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon"><i class="fas fa-exclamation"></i></div>
-                    <div class="metric-value" id="symbol-count">0</div>
-                    <div class="metric-label">Special Symbols</div>
-                </div>
-                <!-- Adding new metrics -->
-                <div class="metric-card">
-                    <div class="metric-icon"><i class="fas fa-user"></i></div>
-                    <div class="metric-value" id="pronoun-count">0</div>
-                    <div class="metric-label">Pronouns</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon"><i class="fas fa-cogs"></i></div>
-                    <div class="metric-value" id="preposition-count">0</div>
-                    <div class="metric-label">Prepositions</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon"><i class="fas fa-book"></i></div>
-                    <div class="metric-value" id="article-count">0</div>
-                    <div class="metric-label">Indefinite Articles</div>
-                </div>                
-            </div>
-        </div>
-    </div>
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="skills-header">
+    <div class="section-label reveal">// SKILLS.MAP</div>
+    <h2 class="section-title reveal">NEURAL<br>NETWORK</h2>
+    <p class="reveal" style="color:rgba(240,240,240,.4);font-size:13px;margin-top:12px;letter-spacing:1px">Hover nodes to explore connections</p>
+  </div>
+  <canvas id="skillCanvas" width="900" height="500"></canvas>
+  <div class="skills-legend reveal">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cyan)"></div> Programming</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div> Tools</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#8844ff"></div> Web & DB</div>
+  </div>
 </section>
 
-<!-- Contact Section with WebGL Background -->
-<section id="contact" class="contact-section">
-    <div id="contact-webgl-background"></div>
-    <div class="section-heading">
-        <h2>Get In Touch</h2>
-        <div class="heading-underline"></div>
+<div class="section-divider"></div>
+
+<!-- ── ACHIEVEMENTS ── -->
+<section id="achievements">
+  <div class="ach-header">
+    <div class="section-label reveal">// ACHIEVEMENTS.DAT</div>
+    <h2 class="section-title reveal">HALL OF<br>LEGENDS</h2>
+    <p class="reveal" style="color:rgba(240,240,240,.4);font-size:13px;margin-top:12px;letter-spacing:1px">Scroll right →</p>
+  </div>
+  <div class="ach-scroll-track">
+
+    <!-- INMO -->
+    <div class="ach-panel math reveal">
+      <div class="ach-panel-bg"></div>
+      <div class="ach-num">01</div>
+      <div class="ach-panel-content">
+        <div class="ach-icon">∑</div>
+        <div class="ach-tag">Mathematics</div>
+        <div class="ach-title" style="color:var(--cyan)">INMO<br>QUALIFIER</div>
+        <div class="ach-desc">Cracked IOQM → RMO → INMO. Among the top math olympiad qualifiers in India.</div>
+      </div>
     </div>
-    <div class="contact-container">
-        <div class="contact-info">
-            <div class="contact-card">
-                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                <h3>Email</h3>
-                <p><a href="mailto:athmeeyakashyap@gmail.com">athmeeyakashyap@gmail.com</a></p>
-            </div>
-            <div class="contact-card">
-                <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <h3>Location</h3>
-                <p>IIIT Hyderabad, Telangana, India</p>
-            </div>
-            <div class="contact-card">
-                <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                <h3>Phone</h3>
-                <p><a href="tel:+919353211491">+91 9353211491</a></p>
-            </div>
+
+    <!-- SGFI -->
+    <div class="ach-panel swim reveal stagger-1">
+      <div class="ach-panel-bg"></div>
+      <div class="wave-container">
+        <div class="wave">
+          <svg viewBox="0 0 800 60" preserveAspectRatio="none">
+            <path d="M0 30 Q100 0 200 30 T400 30 T600 30 T800 30 L800 60 L0 60Z" fill="rgba(0,100,255,0.3)"/>
+          </svg>
         </div>
+        <div class="wave wave2">
+          <svg viewBox="0 0 800 60" preserveAspectRatio="none">
+            <path d="M0 30 Q100 60 200 30 T400 30 T600 30 T800 30 L800 60 L0 60Z" fill="rgba(0,150,255,0.2)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="ach-num">02</div>
+      <div class="ach-panel-content">
+        <div class="ach-icon">🏊</div>
+        <div class="ach-tag">Athletics</div>
+        <div class="ach-title" style="color:#4499ff">SGFI<br>NATIONALS</div>
+        <div class="ach-desc">Represented at School Games Federation of India — National Level Swimming Competition.</div>
+      </div>
     </div>
-    <div class="social-links">
-        <a href="https://github.com/Athmeeya2006" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://www.instagram.com/athmeeya_kashyap/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+
+    <!-- CUBE -->
+    <div class="ach-panel cube reveal stagger-2">
+      <div class="ach-panel-bg"></div>
+      <div class="css-cube" style="position:absolute;top:24px;left:32px;width:60px;height:60px;transform-style:preserve-3d;animation:rotateCube 4s infinite linear">
+        <div class="cube-face cube-front"></div>
+        <div class="cube-face cube-back"></div>
+        <div class="cube-face cube-left"></div>
+        <div class="cube-face cube-right"></div>
+        <div class="cube-face cube-top"></div>
+        <div class="cube-face cube-bottom"></div>
+      </div>
+      <div class="ach-num">03</div>
+      <div class="ach-panel-content">
+        <div class="ach-tag">Speedcubing</div>
+        <div class="ach-title" style="color:var(--orange)">SUB-20<br>SECONDS</div>
+        <div class="cube-avg" id="cubeCountdown" style="font-family:'Orbitron',monospace;font-size:36px;font-weight:900;color:var(--orange);text-shadow:0 0 20px var(--orange);margin-bottom:8px">19.4s</div>
+        <div class="ach-desc">3x3 Rubik's Cube average. Multiple competition finishes.</div>
+      </div>
     </div>
+
+    <!-- CODE -->
+    <div class="ach-panel code reveal stagger-3" style="position:relative">
+      <div class="ach-panel-bg"></div>
+      <canvas id="codeCanvas"></canvas>
+      <div class="ach-num">04</div>
+      <div class="ach-panel-content">
+        <div class="ach-icon" style="font-size:32px;font-family:'Space Mono'">{}</div>
+        <div class="ach-tag">Competitive Programming</div>
+        <div class="ach-title" style="color:#00ff88">250+<br>PROBLEMS</div>
+        <div class="ach-desc">Codeforces grinder. Multiple contests. Consistent improvement in algorithmic thinking.</div>
+      </div>
+    </div>
+
+    <!-- PERFECT SCORE -->
+    <div class="ach-panel score reveal stagger-4">
+      <div class="ach-panel-bg"></div>
+      <div class="ach-num">05</div>
+      <div class="ach-panel-content">
+        <div class="ach-icon">★</div>
+        <div class="ach-tag">Academics</div>
+        <div class="ach-title" style="color:#ffd700">PERFECT<br>SCORE</div>
+        <div class="ach-desc">100% in Karnataka State Board Examination. Absolute precision in academics.</div>
+      </div>
+    </div>
+
+    <!-- TABLE TENNIS -->
+    <div class="ach-panel tt reveal stagger-5">
+      <div class="ach-panel-bg"></div>
+      <div class="ach-num">06</div>
+      <div class="ach-panel-content">
+        <div class="ach-icon">🏓</div>
+        <div class="ach-tag">Sports</div>
+        <div class="ach-title" style="color:#ff44ff">TABLE<br>TENNIS</div>
+        <div class="ach-desc">Tournament competitor. Precision, reflexes, and adaptability — on the table and off.</div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
-    <!-- CV Download -->
-    <section id="cv" class="cv-section">
-        <div class="cv-container">
-            <h2>My Curriculum Vitae</h2>
-            <p>Download my complete CV to learn more about my qualifications, experience, and skills.</p>
-            <a href="assets/cv.pdf" class="download-btn">Download CV</a>
-        </div>
-    </section>
-    <script src="scripts.js"></script>
-    <script src="track.js"></script>
+<div class="section-divider"></div>
 
+<!-- ── MANGALORE ── -->
+<section id="mangalore">
+  <div class="mang-header">
+    <div class="section-label reveal">// ORIGIN.CITY</div>
+    <h2 class="section-title reveal">WHERE IT<br>ALL STARTED</h2>
+  </div>
+  <p class="mang-sub reveal">Born in the city of beaches, temples, and gold. Mangalore made me.</p>
+  <div class="mang-grid reveal">
+    <div class="mang-card">
+      <img src="assets/manglore beach.jpg" alt="Mangalore Beach">
+      <div class="mang-overlay"></div>
+      <div class="mang-label">THE OCEAN</div>
+    </div>
+    <div class="mang-card">
+      <img src="assets/maglore temple.jpg" alt="Mangalore Temple">
+      <div class="mang-overlay"></div>
+      <div class="mang-label">THE HERITAGE</div>
+    </div>
+    <div class="mang-card">
+      <img src="assets/maglore food.jpg" alt="Mangalore Food">
+      <div class="mang-overlay"></div>
+      <div class="mang-label">THE CULTURE</div>
+    </div>
+  </div>
+  <div class="mang-coords reveal">12°N 74°E · MANGALORE, KARNATAKA · ARABIAN SEA</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <canvas id="radarCanvas" width="320" height="320"></canvas>
+    </div>
+    <div class="contact-right">
+      <div class="section-label reveal">// ESTABLISH CONNECTION</div>
+      <h2 class="section-title reveal" style="margin-bottom:10px">LET'S<br>CONNECT</h2>
+      <div class="contact-signals reveal">
+        <a href="mailto:athmeeyakashyap@gmail.com" class="signal-line">
+          <span style="color:var(--cyan);letter-spacing:3px;font-size:10px">EMAIL</span>
+          <span>athmeeyakashyap@gmail.com</span>
+          <span class="signal-ping">PING</span>
+        </a>
+        <a href="tel:+919353211491" class="signal-line">
+          <span style="color:var(--cyan);letter-spacing:3px;font-size:10px">PHONE</span>
+          <span>+91 9353211491</span>
+          <span class="signal-ping">PING</span>
+        </a>
+        <div class="signal-line" style="cursor:default">
+          <span style="color:var(--cyan);letter-spacing:3px;font-size:10px">LOCATION</span>
+          <span>IIIT Hyderabad, India</span>
+          <span class="signal-ping" style="border-color:var(--orange);color:var(--orange);animation:none">LOCKED</span>
+        </div>
+      </div>
+      <a href="assets/cv.pdf" download class="cv-btn reveal">$ execute download_cv.sh</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2024 ATHMEEYA M KASHYAP</div>
+  <div>BUILT WITH <span>PASSION</span> · IIIT HYDERABAD</div>
+</footer>
+
+<style>
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+</style>
+
+<script>
+// ── CURSOR ──
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('a, button, .ach-panel, .mang-card, .edu-card, .stat-box, .about-tag').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+// ── PRELOADER ──
+const bootLines = ['bl0','bl1','bl2','bl3','bl4','bl5','bl6','bl7','bl8'];
+const bootFill = document.getElementById('bootFill');
+const bootPct = document.getElementById('bootPct');
+let lineIdx = 0;
+function showNextLine() {
+  if (lineIdx >= bootLines.length) return;
+  const el = document.getElementById(bootLines[lineIdx]);
+  if (el) el.classList.add('visible');
+  lineIdx++;
+  const pct = Math.round((lineIdx / bootLines.length) * 100);
+  bootFill.style.width = pct + '%';
+  bootPct.textContent = pct + '%';
+  const delay = lineIdx < 3 ? 400 : lineIdx < 6 ? 350 : 300;
+  if (lineIdx < bootLines.length) setTimeout(showNextLine, delay);
+  else setTimeout(launchSite, 700);
+}
+setTimeout(showNextLine, 600);
+function launchSite() {
+  const pre = document.getElementById('preloader');
+  pre.classList.add('shatter');
+  setTimeout(() => { pre.style.display = 'none'; startHero(); }, 700);
+}
+
+// ── HERO ──
+function startHero() {
+  const name = 'ATHMEEYA M KASHYAP';
+  const container = document.getElementById('heroName');
+  name.split('').forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.className = 'letter' + (ch === ' ' ? ' space' : '');
+    span.textContent = ch === ' ' ? ' ' : ch;
+    if (ch !== ' ') {
+      span.style.transitionDelay = (i * 60) + 'ms';
+      setTimeout(() => span.classList.add('visible'), 300 + i * 60);
+    }
+    container.appendChild(span);
+  });
+  typeSubtitle();
+}
+function typeSubtitle() {
+  const el = document.getElementById('heroSubtitle');
+  const text = '> CS Student. Olympiad Qualifier. National Swimmer. Speedcuber.';
+  el.style.opacity = 1;
+  let i = 0;
+  const iv = setInterval(() => {
+    el.textContent = text.slice(0, ++i) + (i < text.length ? '█' : '');
+    if (i >= text.length) clearInterval(iv);
+  }, 40);
+}
+
+// ── STARFIELD ──
+const sc = document.getElementById('starCanvas');
+const sctx = sc.getContext('2d');
+let W, H, stars = [], mouseX = 0, mouseY = 0;
+function resizeStar() {
+  W = sc.width = window.innerWidth;
+  H = sc.height = window.innerHeight;
+}
+resizeStar(); window.addEventListener('resize', resizeStar);
+for (let i = 0; i < 200; i++) {
+  stars.push({ x: Math.random()*2-1, y: Math.random()*2-1, z: Math.random() });
+}
+document.addEventListener('mousemove', e => {
+  mouseX = (e.clientX/window.innerWidth - .5) * .05;
+  mouseY = (e.clientY/window.innerHeight - .5) * .05;
+});
+function drawStars() {
+  sctx.fillStyle = 'rgba(0,0,0,0.15)';
+  sctx.fillRect(0,0,W,H);
+  stars.forEach(s => {
+    s.z -= 0.003;
+    if (s.z <= 0) { s.z = 1; s.x = Math.random()*2-1; s.y = Math.random()*2-1; }
+    const sx = (s.x + mouseX) / s.z * W/2 + W/2;
+    const sy = (s.y + mouseY) / s.z * H/2 + H/2;
+    const r = Math.max(0.3, (1 - s.z) * 2.5);
+    const alpha = 1 - s.z;
+    sctx.beginPath();
+    sctx.arc(sx, sy, r, 0, Math.PI*2);
+    sctx.fillStyle = `rgba(200,240,255,${alpha})`;
+    sctx.fill();
+    if (r > 1.5) {
+      sctx.beginPath();
+      sctx.arc(sx, sy, r*2, 0, Math.PI*2);
+      sctx.fillStyle = `rgba(0,255,229,${alpha*0.15})`;
+      sctx.fill();
+    }
+  });
+  requestAnimationFrame(drawStars);
+}
+drawStars();
+
+// ── SCROLL REVEALS ──
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+// ── STAT COUNTERS ──
+const statNums = document.querySelectorAll('.stat-num[data-count]');
+const statObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      let start = 0;
+      const inc = target / 60;
+      const iv = setInterval(() => {
+        start = Math.min(start + inc, target);
+        el.textContent = Math.round(start) + suffix;
+        if (start >= target) clearInterval(iv);
+      }, 20);
+      statObs.unobserve(el);
+    }
+  });
+}, { threshold: .5 });
+statNums.forEach(n => statObs.observe(n));
+
+// ── EDU LINE ──
+const eduObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.getElementById('eduLineFill').style.height = '100%';
+      document.querySelectorAll('.edu-xp-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      document.getElementById('dot2').classList.add('pulse');
+      document.getElementById('dot3').classList.add('pulse');
+      eduObs.disconnect();
+    }
+  });
+}, { threshold: .2 });
+const eduSec = document.getElementById('education');
+if (eduSec) eduObs.observe(eduSec);
+
+// ── SKILLS NEURAL NETWORK ──
+const skillCanvas = document.getElementById('skillCanvas');
+const skctx = skillCanvas.getContext('2d');
+const isMobile = window.innerWidth < 768;
+if (isMobile) { skillCanvas.width = window.innerWidth - 40; skillCanvas.height = 380; }
+const SW = skillCanvas.width, SH = skillCanvas.height;
+
+const skillNodes = [
+  { id:0, label:'C/C++', level:'Intermediate', x:.18, y:.3, r:28, cat:0 },
+  { id:1, label:'Python', level:'Intermediate', x:.35, y:.2, r:28, cat:0 },
+  { id:2, label:'JavaScript', level:'Beginner', x:.52, y:.3, r:22, cat:0 },
+  { id:3, label:'Git', level:'Intermediate', x:.68, y:.2, r:24, cat:1 },
+  { id:4, label:'FastAPI', level:'Beginner', x:.82, y:.35, r:20, cat:1 },
+  { id:5, label:'Jinja', level:'Beginner', x:.75, y:.55, r:18, cat:1 },
+  { id:6, label:'HTML/CSS', level:'Advanced', x:.2, y:.7, r:34, cat:2 },
+  { id:7, label:'SQL', level:'Intermediate', x:.42, y:.75, r:26, cat:2 },
+  { id:8, label:'MongoDB', level:'Intermediate', x:.62, y:.7, r:26, cat:2 },
+];
+const edges = [[0,1],[0,6],[1,4],[1,7],[2,5],[2,6],[3,4],[4,5],[6,7],[7,8],[2,8],[3,0]];
+const catColors = ['#00FFE5','#FF4500','#8844ff'];
+
+skillNodes.forEach(n => { n.px = n.x * SW; n.py = n.y * SH; n.vx = (Math.random()-.5)*0.3; n.vy = (Math.random()-.5)*0.3; n.hover=false; });
+let hoverNode = null;
+skillCanvas.addEventListener('mousemove', e => {
+  const rect = skillCanvas.getBoundingClientRect();
+  const mx = (e.clientX - rect.left) * (SW/rect.width);
+  const my = (e.clientY - rect.top) * (SH/rect.height);
+  hoverNode = null;
+  skillNodes.forEach(n => {
+    const d = Math.hypot(mx - n.px, my - n.py);
+    n.hover = d < n.r + 10;
+    if (n.hover) { hoverNode = n; document.body.classList.add('cursor-hover'); }
+  });
+  if (!hoverNode) document.body.classList.remove('cursor-hover');
+});
+
+const packets = [];
+function spawnPacket() {
+  const e = edges[Math.floor(Math.random()*edges.length)];
+  packets.push({ from: e[0], to: e[1], t: 0, speed: .005 + Math.random()*.01 });
+}
+setInterval(spawnPacket, 600);
+
+function drawSkills() {
+  skctx.clearRect(0,0,SW,SH);
+  // drift
+  skillNodes.forEach(n => {
+    n.px += n.vx; n.py += n.vy;
+    if (n.px < n.r || n.px > SW-n.r) n.vx *= -1;
+    if (n.py < n.r || n.py > SH-n.r) n.vy *= -1;
+  });
+  // edges
+  edges.forEach(([a,b]) => {
+    const na = skillNodes[a], nb = skillNodes[b];
+    const active = hoverNode && (hoverNode.id===a || hoverNode.id===b);
+    skctx.beginPath();
+    skctx.moveTo(na.px, na.py);
+    skctx.lineTo(nb.px, nb.py);
+    skctx.strokeStyle = active ? 'rgba(0,255,229,0.5)' : 'rgba(0,255,229,0.08)';
+    skctx.lineWidth = active ? 1.5 : .8;
+    skctx.stroke();
+  });
+  // packets
+  packets.forEach((p, i) => {
+    p.t += p.speed;
+    if (p.t >= 1) { packets.splice(i,1); return; }
+    const na = skillNodes[p.from], nb = skillNodes[p.to];
+    const x = na.px + (nb.px - na.px) * p.t;
+    const y = na.py + (nb.py - na.py) * p.t;
+    skctx.beginPath();
+    skctx.arc(x, y, 3, 0, Math.PI*2);
+    skctx.fillStyle = catColors[na.cat];
+    skctx.shadowBlur = 10; skctx.shadowColor = catColors[na.cat];
+    skctx.fill();
+    skctx.shadowBlur = 0;
+  });
+  // nodes
+  skillNodes.forEach(n => {
+    const col = catColors[n.cat];
+    const isHov = n.hover || (hoverNode && edges.some(([a,b]) => (a===hoverNode.id||b===hoverNode.id) && (a===n.id||b===n.id)));
+    const scale = isHov ? 1.3 : 1;
+    const r = n.r * scale;
+    // glow
+    skctx.beginPath();
+    skctx.arc(n.px, n.py, r+8, 0, Math.PI*2);
+    skctx.fillStyle = col.replace(')',`,${isHov?.15:.04})`).replace('rgb','rgba').replace('#','rgba(').replace(/([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/i, (m,r,g,b)=>`${parseInt(r,16)},${parseInt(g,16)},${parseInt(b,16)}`);
+    // simpler glow
+    const grad = skctx.createRadialGradient(n.px,n.py,0,n.px,n.py,r+12);
+    grad.addColorStop(0, col + (isHov?'33':'11'));
+    grad.addColorStop(1, 'transparent');
+    skctx.fillStyle = grad;
+    skctx.fill();
+    // circle
+    skctx.beginPath();
+    skctx.arc(n.px, n.py, r, 0, Math.PI*2);
+    skctx.fillStyle = isHov ? col + '22' : '#050508';
+    skctx.fill();
+    skctx.strokeStyle = isHov ? col : col + '66';
+    skctx.lineWidth = isHov ? 2 : 1;
+    skctx.shadowBlur = isHov ? 20 : 0;
+    skctx.shadowColor = col;
+    skctx.stroke();
+    skctx.shadowBlur = 0;
+    // label
+    skctx.fillStyle = isHov ? col : 'rgba(240,240,240,0.7)';
+    skctx.font = `${isHov?'bold ':''} ${Math.round(r*.38)}px Space Mono, monospace`;
+    skctx.textAlign = 'center'; skctx.textBaseline = 'middle';
+    skctx.fillText(n.label, n.px, n.py);
+    if (isHov) {
+      skctx.font = `10px Space Mono, monospace`;
+      skctx.fillStyle = 'rgba(240,240,240,0.5)';
+      skctx.fillText(n.level, n.px, n.py + r + 14);
+    }
+  });
+  requestAnimationFrame(drawSkills);
+}
+drawSkills();
+
+// ── MATRIX RAIN ──
+const codeC = document.getElementById('codeCanvas');
+if (codeC) {
+  const panel = codeC.closest('.ach-panel');
+  codeC.width = panel ? panel.offsetWidth : 380;
+  codeC.height = panel ? panel.offsetHeight : 480;
+  const mctx = codeC.getContext('2d');
+  const cols = Math.floor(codeC.width / 16);
+  const drops = Array(cols).fill(0);
+  function drawMatrix() {
+    mctx.fillStyle = 'rgba(0,0,0,0.05)';
+    mctx.fillRect(0,0,codeC.width,codeC.height);
+    mctx.fillStyle = '#FF4500';
+    mctx.font = '14px Space Mono, monospace';
+    drops.forEach((y, i) => {
+      const ch = Math.random() > .5 ? '1' : '0';
+      mctx.fillText(ch, i*16, y*16);
+      if (y*16 > codeC.height && Math.random() > .95) drops[i] = 0;
+      else drops[i]++;
+    });
+  }
+  setInterval(drawMatrix, 60);
+}
+
+// ── RADAR ──
+const radarC = document.getElementById('radarCanvas');
+const rctx = radarC.getContext('2d');
+const RW = radarC.width, RH = radarC.height;
+const CX = RW/2, CY = RH/2, MAX_R = RW/2 - 20;
+let radarAngle = 0;
+const blips = [
+  { angle: 0.8, dist:.6, label:'IIIT HYD' },
+  { angle: 2.1, dist:.4, label:'MANGALORE' },
+  { angle: 4.5, dist:.75, label:'CODEFORCES' },
+  { angle: 3.2, dist:.5, label:'SGFI' },
+];
+function drawRadar() {
+  rctx.clearRect(0,0,RW,RH);
+  // circles
+  [.25,.5,.75,1].forEach(f => {
+    rctx.beginPath();
+    rctx.arc(CX,CY,MAX_R*f,0,Math.PI*2);
+    rctx.strokeStyle = 'rgba(0,255,229,0.15)';
+    rctx.lineWidth = 1;
+    rctx.stroke();
+  });
+  // crosshair
+  rctx.strokeStyle = 'rgba(0,255,229,0.1)';
+  rctx.beginPath(); rctx.moveTo(CX,20); rctx.lineTo(CX,RH-20); rctx.stroke();
+  rctx.beginPath(); rctx.moveTo(20,CY); rctx.lineTo(RW-20,CY); rctx.stroke();
+  // sweep
+  const grad = rctx.createConicalGradient ? null : null;
+  rctx.save();
+  rctx.translate(CX,CY);
+  rctx.rotate(radarAngle);
+  const sg = rctx.createLinearGradient(0,0,MAX_R,0);
+  sg.addColorStop(0,'rgba(0,255,229,0.8)');
+  sg.addColorStop(1,'transparent');
+  rctx.beginPath();
+  rctx.moveTo(0,0);
+  rctx.arc(0,0,MAX_R,-0.3,0);
+  rctx.fillStyle = sg;
+  rctx.fill();
+  rctx.restore();
+  radarAngle += 0.03;
+  // blips
+  blips.forEach(b => {
+    const diff = ((b.angle - radarAngle) % (Math.PI*2) + Math.PI*2) % (Math.PI*2);
+    const fade = diff < 0.3 ? 1 : Math.max(0, 1 - (diff-0.3)/(Math.PI*.8));
+    if (fade < 0.01) return;
+    const bx = CX + Math.cos(b.angle)*MAX_R*b.dist;
+    const by = CY + Math.sin(b.angle)*MAX_R*b.dist;
+    rctx.beginPath();
+    rctx.arc(bx,by,4,0,Math.PI*2);
+    rctx.fillStyle = `rgba(0,255,229,${fade})`;
+    rctx.shadowBlur = 10; rctx.shadowColor = '#00FFE5';
+    rctx.fill();
+    rctx.shadowBlur = 0;
+    rctx.fillStyle = `rgba(0,255,229,${fade*.7})`;
+    rctx.font = '9px Space Mono, monospace';
+    rctx.fillText(b.label, bx+8, by+4);
+  });
+  requestAnimationFrame(drawRadar);
+}
+drawRadar();
+
+// ── NAV SCROLL ──
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  navEl.classList.toggle('scrolled', window.scrollY > 60);
+  // active section
+  const secs = ['hero','about','education','skills','achievements','mangalore','contact'];
+  let active = 'hero';
+  secs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 200) active = id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#'+active);
+  });
+});
+
+// ── MOBILE MENU ──
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// ── MAGNETIC BUTTONS ──
+document.querySelectorAll('.btn-primary, .btn-secondary, .cv-btn').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width/2;
+    const y = e.clientY - r.top - r.height/2;
+    btn.style.transform = `translate(${x*.2}px, ${y*.2}px)`;
+  });
+  btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+});
+
+// ── ACHIEVEMENT PANEL 3D TILT ──
+document.querySelectorAll('.ach-panel').forEach(panel => {
+  panel.addEventListener('mousemove', e => {
+    const r = panel.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5;
+    const y = (e.clientY - r.top) / r.height - .5;
+    panel.style.transform = `perspective(600px) rotateY(${x*12}deg) rotateX(${-y*12}deg) translateY(-8px)`;
+  });
+  panel.addEventListener('mouseleave', () => { panel.style.transform = ''; });
+});
+</script>
 </body>
 </html>
