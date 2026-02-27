@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Athmeeya M Kashyap — CS student at IIIT Hyderabad. INMO qualifier, national swimmer, competitive programmer.">
+    content="Athmeeya M Kashyap | CS student at IIIT Hyderabad. INMO qualifier, national swimmer, competitive programmer.">
   <meta name="theme-color" content="#000000">
-  <meta property="og:title" content="Athmeeya M Kashyap — Portfolio">
+  <meta property="og:title" content="Athmeeya M Kashyap | Portfolio">
   <meta property="og:description" content="CS Student. Olympiad Qualifier. National Swimmer. Competitive Programmer.">
-  <title>Athmeeya M Kashyap — Portfolio</title>
+  <title>Athmeeya M Kashyap | Portfolio</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet">
@@ -27,7 +27,7 @@
       --border-subtle: rgba(255, 255, 255, 0.04);
     }
 
-    /* ─── SCROLL PROGRESS BAR ─── */
+    /* SCROLL PROGRESS BAR */
     #scroll-progress {
       position: fixed;
       top: 0;
@@ -52,7 +52,7 @@
       }
     }
 
-    /* ─── FILM GRAIN ─── */
+    /* FILM GRAIN */
     #grain {
       position: fixed;
       inset: 0;
@@ -65,7 +65,7 @@
       image-rendering: pixelated;
     }
 
-    /* ─── SMOOTH SECTION TRANSITIONS ─── */
+    /* SMOOTH SECTION TRANSITIONS */
     section {
       position: relative;
     }
@@ -82,7 +82,7 @@
       z-index: 0;
     }
 
-    /* ─── BACK TO TOP ─── */
+    /* BACK TO TOP */
     #back-to-top {
       position: fixed;
       bottom: 30px;
@@ -131,6 +131,7 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 80px;
       scrollbar-width: thin;
       scrollbar-color: rgba(0, 255, 229, .12) var(--black);
     }
@@ -167,7 +168,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ─── CUSTOM CURSOR ─── */
+    /* CUSTOM CURSOR */
     #cursor-dot {
       width: 8px;
       height: 8px;
@@ -179,8 +180,9 @@
       pointer-events: none;
       z-index: 99999;
       transform: translate(-50%, -50%);
-      transition: transform .1s, width .2s, height .2s, background .2s;
+      transition: width .35s cubic-bezier(0.16, 1, 0.3, 1), height .35s cubic-bezier(0.16, 1, 0.3, 1), background .35s ease;
       box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+      will-change: left, top, width, height;
     }
 
     #cursor-ring {
@@ -194,8 +196,9 @@
       pointer-events: none;
       z-index: 99998;
       transform: translate(-50%, -50%);
-      transition: transform .08s, width .3s, height .3s, opacity .3s, border-color .2s;
+      transition: width .4s cubic-bezier(0.16, 1, 0.3, 1), height .4s cubic-bezier(0.16, 1, 0.3, 1), opacity .4s ease, border-color .35s ease;
       opacity: .5;
+      will-change: left, top, width, height;
     }
 
     body.cursor-hover #cursor-dot {
@@ -223,10 +226,10 @@
       z-index: 99997;
       transform: translate(-50%, -50%);
       opacity: .6;
-      transition: opacity .6s, transform .6s;
+      will-change: left, top;
     }
 
-    /* ─── PRELOADER ─── */
+    /* PRELOADER */
     #preloader {
       position: fixed;
       inset: 0;
@@ -280,29 +283,37 @@
     }
 
     #preloader.shatter {
-      animation: shatterOut .6s forwards;
+      animation: shatterOut .9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     @keyframes shatterOut {
       0% {
         opacity: 1;
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        filter: blur(0);
       }
 
-      40% {
+      30% {
         clip-path: polygon(5% 0, 95% 5%, 100% 95%, 0% 100%);
         transform: scale(1.02);
+        filter: blur(0);
+      }
+
+      70% {
+        opacity: .4;
+        filter: blur(4px);
       }
 
       100% {
         opacity: 0;
         clip-path: polygon(20% 10%, 80% 0, 100% 80%, 10% 100%);
-        transform: scale(1.1);
+        transform: scale(1.08);
+        filter: blur(10px);
         pointer-events: none;
       }
     }
 
-    /* ─── NAV ─── */
+    /* NAV */
     nav {
       position: fixed;
       top: 0;
@@ -313,11 +324,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: all .5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: padding .6s cubic-bezier(0.16, 1, 0.3, 1), background .6s ease, backdrop-filter .6s ease, border-color .6s ease, box-shadow .6s ease;
       background: rgba(0, 0, 0, .2);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255, 255, 255, .03);
+      will-change: padding, background;
     }
 
     nav.scrolled {
@@ -381,7 +393,7 @@
       width: 0;
       height: 1px;
       background: var(--cyan);
-      transition: width .3s;
+      transition: width .4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .nav-links a:hover,
@@ -420,7 +432,7 @@
       display: flex;
       opacity: 0;
       visibility: hidden;
-      transition: opacity .4s, visibility .4s;
+      transition: opacity .6s cubic-bezier(0.16, 1, 0.3, 1), visibility .6s;
     }
 
     .mobile-menu.open {
@@ -450,7 +462,7 @@
       cursor: none;
     }
 
-    /* ─── HERO ─── */
+    /* HERO */
     #hero {
       position: relative;
       height: 100vh;
@@ -619,11 +631,12 @@
     .hero-name .letter {
       display: inline-block;
       opacity: 0;
-      transform: translateY(80px) scale(1.5);
-      transition: opacity .6s, transform .6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: translateY(60px) scale(1.3);
+      transition: opacity .8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform .8s cubic-bezier(0.16, 1, 0.3, 1);
       color: var(--white);
       text-shadow: 0 0 80px rgba(0, 255, 229, .12), 0 4px 40px rgba(0, 0, 0, .5);
       position: relative;
+      will-change: opacity, transform;
     }
 
     .hero-name .letter:hover {
@@ -815,12 +828,12 @@
       }
     }
 
-    /* ─── TEXT SCRAMBLE ON REVEAL ─── */
+    /* TEXT SCRAMBLE ON REVEAL */
     .scramble-text {
       position: relative;
     }
 
-    /* ─── FLOATING SHAPES ─── */
+    /* FLOATING SHAPES */
     .floating-shapes {
       position: absolute;
       inset: 0;
@@ -912,7 +925,7 @@
       }
     }
 
-    /* ─── SECTION SHARED ─── */
+    /* SECTION SHARED */
     .section-label {
       font-family: 'Space Mono', monospace;
       font-size: 14px;
@@ -947,8 +960,8 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(50px);
-      transition: opacity .8s, transform .8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
     }
 
@@ -959,8 +972,9 @@
 
     .reveal-left {
       opacity: 0;
-      transform: translateX(-60px);
-      transition: opacity .8s, transform .8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateX(-50px);
+      transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
     }
 
     .reveal-left.visible {
@@ -970,8 +984,9 @@
 
     .reveal-right {
       opacity: 0;
-      transform: translateX(60px);
-      transition: opacity .8s, transform .8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateX(50px);
+      transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
     }
 
     .reveal-right.visible {
@@ -979,7 +994,7 @@
       transform: none;
     }
 
-    /* ─── DIVIDER ─── */
+    /* DIVIDER */
     .section-divider {
       width: 100%;
       height: 1px;
@@ -988,7 +1003,16 @@
       margin: 0;
     }
 
-    /* ─── ABOUT ─── */
+    /* GLOBAL SMOOTHNESS */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    section {
+      transform: translateZ(0);
+    }
+
+    /* ABOUT */
     #about {
       padding: clamp(80px, 12vw, 180px) 40px;
       background: var(--dark);
@@ -1199,7 +1223,7 @@
       text-transform: uppercase;
     }
 
-    /* ─── EDUCATION ─── */
+    /* EDUCATION */
     #education {
       padding: clamp(80px, 12vw, 180px) 40px;
       background: var(--black);
@@ -1302,7 +1326,7 @@
       padding: 28px 32px;
       background: linear-gradient(135deg, rgba(0, 255, 229, .02), rgba(5, 5, 12, .95));
       clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-      transition: all .4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: border-color .5s ease, background .5s ease, transform .5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .5s ease;
     }
 
     .edu-card:hover {
@@ -1350,7 +1374,7 @@
       box-shadow: 0 0 8px var(--cyan);
     }
 
-    /* ─── SKILLS ─── */
+    /* SKILLS */
     #skills {
       padding: clamp(80px, 12vw, 180px) 40px;
       background: var(--dark);
@@ -1389,7 +1413,7 @@
       border-radius: 50%;
     }
 
-    /* ─── ACHIEVEMENTS ─── */
+    /* ACHIEVEMENTS */
     #achievements {
       padding: clamp(80px, 12vw, 180px) 40px;
       background: var(--black);
@@ -1415,7 +1439,8 @@
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, .05);
       cursor: none;
-      transition: border-color .4s cubic-bezier(0.16, 1, 0.3, 1), transform .4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .4s;
+      transition: border-color .5s ease, transform .5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .5s ease;
+      will-change: transform;
     }
 
     .ach-panel:hover {
@@ -1687,7 +1712,7 @@
       text-shadow: 0 0 20px var(--orange);
     }
 
-    /* ─── MANGALORE ─── */
+    /* MANGALORE */
     #mangalore {
       padding: clamp(80px, 12vw, 180px) 40px;
       background: var(--dark);
@@ -1730,7 +1755,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform .6s;
+      transition: transform .8s cubic-bezier(0.16, 1, 0.3, 1), filter .8s ease;
       filter: brightness(.7) saturate(.8);
     }
 
@@ -1778,7 +1803,7 @@
       font-family: 'Orbitron', monospace;
     }
 
-    /* ─── CONTACT ─── */
+    /* CONTACT */
     #contact {
       padding: clamp(80px, 12vw, 180px) 40px;
       background: var(--black);
@@ -1907,7 +1932,7 @@
       fill: currentColor;
     }
 
-    /* ─── PROJECTS ─── */
+    /* PROJECTS */
     #projects {
       padding: clamp(80px, 12vw, 180px) 40px;
       background: var(--dark);
@@ -1934,8 +1959,9 @@
       border: 1px solid rgba(0, 255, 229, .06);
       background: linear-gradient(145deg, rgba(0, 255, 229, .02), rgba(5, 5, 12, .95));
       padding: 40px 32px 32px;
-      transition: all .4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: border-color .5s ease, transform .5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .5s ease;
       clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+      will-change: transform;
     }
 
     .project-card::before {
@@ -2068,7 +2094,7 @@
       gap: 12px;
     }
 
-    /* ─── FOOTER ─── */
+    /* FOOTER */
     footer {
       padding: 60px 48px;
       border-top: 1px solid rgba(255, 255, 255, .04);
@@ -2100,7 +2126,7 @@
       opacity: .15;
     }
 
-    /* ─── HEX BG ─── */
+    /* HEX BG */
     .hex-bg {
       position: absolute;
       inset: 0;
@@ -2110,7 +2136,7 @@
       background-size: 56px 100px;
     }
 
-    /* ─── UTILS ─── */
+    /* UTILS */
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -2124,38 +2150,38 @@
     }
 
     .stagger-1 {
-      transition-delay: .1s !important;
+      transition-delay: .12s !important;
     }
 
     .stagger-2 {
-      transition-delay: .2s !important;
+      transition-delay: .24s !important;
     }
 
     .stagger-3 {
-      transition-delay: .3s !important;
+      transition-delay: .36s !important;
     }
 
     .stagger-4 {
-      transition-delay: .4s !important;
+      transition-delay: .48s !important;
     }
 
     .stagger-5 {
-      transition-delay: .5s !important;
+      transition-delay: .60s !important;
     }
 
     .stagger-6 {
-      transition-delay: .6s !important;
+      transition-delay: .72s !important;
     }
 
     .stagger-7 {
-      transition-delay: .7s !important;
+      transition-delay: .84s !important;
     }
 
     .stagger-8 {
-      transition-delay: .8s !important;
+      transition-delay: .96s !important;
     }
 
-    /* ─── BENTO GRID ─── */
+    /* BENTO GRID */
     #bento {
       padding: clamp(80px, 12vw, 180px) 40px;
       background: var(--black);
@@ -2185,10 +2211,11 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      transition: all .5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: border-color .5s ease, transform .5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .5s ease;
       cursor: none;
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
+      will-change: transform;
     }
 
     .bento-card::before {
@@ -2339,7 +2366,7 @@
       border-color: rgba(255, 165, 0, .3);
     }
 
-    /* ─── MICRO-INTERACTION POLISH ─── */
+    /* MICRO-INTERACTION POLISH */
     /* Universal spring transitions */
     .edu-card,
     .stat-box,
@@ -2472,7 +2499,7 @@
       transition-delay: .35s;
     }
 
-    /* ─── RESPONSIVE ─── */
+    /* RESPONSIVE */
     @media (max-width: 900px) {
       .about-grid {
         grid-template-columns: 1fr;
@@ -2808,7 +2835,7 @@
     <a href="#contact" onclick="closeMobile()">CONTACT</a>
   </div>
 
-  <!-- ── HERO ── -->
+  <!-- HERO -->
   <section id="hero">
     <canvas id="starCanvas"></canvas>
     <div class="floating-shapes">
@@ -2833,7 +2860,7 @@
 
   <div class="section-divider"></div>
 
-  <!-- ── ABOUT ── -->
+  <!-- ABOUT -->
   <section id="about">
     <div class="about-grid">
       <div class="about-photo-wrap reveal">
@@ -2850,18 +2877,18 @@
         <div class="section-label reveal">ABOUT</div>
         <h2 class="section-title reveal" style="margin-bottom:24px">THE<br>PERSON</h2>
         <p class="about-bio reveal">
-          I don't dabble — I <strong>lock in</strong>. Whether it's cracking an INMO problem at 3 AM or 
+          I don't dabble. I <strong>lock in</strong>. Whether it's cracking an INMO problem at 3 AM or 
           architecting a system from first principles, I operate at one speed: <strong>all in</strong>. 
           CS at <strong>IIIT Hyderabad</strong> gave me the playground. Everything else, I built myself.
         </p>
         <p class="about-bio reveal">
-          I think in structures — proofs, algorithms, systems. The kind of person who reverse-engineers 
+          I think in structures: proofs, algorithms, systems. The kind of person who reverse-engineers 
           how things work before deciding whether to use them. Mediocrity is physically uncomfortable; 
           I'd rather fail at something hard than coast through something easy.
         </p>
         <p class="about-bio reveal">
           Olympiad mathematics sharpened the blade. Competitive programming keeps it lethal. 
-          I don't build things to finish them — I build things to <strong>understand</strong> them. 
+          I don't build things to finish them. I build things to <strong>understand</strong> them. 
           And once I understand something, I want to push it further than anyone expected.
         </p>
         <div class="about-tags reveal">
@@ -2879,7 +2906,7 @@
 
 
 
-  <!-- ── EDUCATION ── -->
+  <!-- EDUCATION -->
   <section id="education">
     <div class="hex-bg"></div>
     <div class="edu-header">
@@ -2935,7 +2962,7 @@
 
   <div class="section-divider"></div>
 
-  <!-- ── SKILLS ── -->
+  <!-- SKILLS -->
   <section id="skills">
     <div class="skills-header">
       <div class="section-label reveal">SKILLS</div>
@@ -2962,7 +2989,7 @@
 
   <div class="section-divider"></div>
 
-  <!-- ── ACHIEVEMENTS ── -->
+  <!-- ACHIEVEMENTS -->
   <section id="achievements">
     <div class="ach-header">
       <div class="section-label reveal">ACHIEVEMENTS</div>
@@ -3020,7 +3047,7 @@
           <div class="ach-title" style="color:var(--cyan)">TOP 1%<br>STATE</div>
           <div class="ach-subtitle">NSEA 2024</div>
           <div class="ach-stat">Top 1%</div>
-          <div class="ach-desc">Ranked in the top 1% statewide in the National Standard Examination in Astronomy (NSEA) — Karnataka. Conducted by IAPT.</div>
+          <div class="ach-desc">Ranked in the top 1% statewide in the National Standard Examination in Astronomy (NSEA), Karnataka. Conducted by IAPT.</div>
         </div>
       </div>
 
@@ -3056,7 +3083,7 @@
           <div class="ach-icon">🏊</div>
           <div class="ach-tag">Athletics</div>
           <div class="ach-title" style="color:#4499ff">SGFI<br>NATIONALS</div>
-          <div class="ach-desc">Represented at School Games Federation of India — National Level Swimming Competition.</div>
+          <div class="ach-desc">Represented at School Games Federation of India (SGFI) National Level Swimming Competition.</div>
         </div>
       </div>
 
@@ -3065,7 +3092,7 @@
 
   <div class="section-divider"></div>
 
-  <!-- ── PROJECTS ── -->
+  <!-- PROJECTS -->
   <section id="projects">
     <div class="floating-shapes">
       <div class="floating-shape"></div>
@@ -3123,7 +3150,7 @@
 
   <div class="section-divider"></div>
 
-  <!-- ── CONTACT ── -->
+  <!-- CONTACT -->
   <section id="contact">
     <div class="contact-inner">
       <div class="contact-left reveal">
@@ -3195,10 +3222,10 @@
   </style>
 
   <script>
-    // ── CURSOR + TRAIL ──
+    // CURSOR + TRAIL
     const dot = document.getElementById('cursor-dot');
     const ring = document.getElementById('cursor-ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
+    let mx = 0, my = 0, dx = 0, dy = 0, rx = 0, ry = 0;
     const trailDots = [];
     const TRAIL_LENGTH = 8;
     for (let i = 0; i < TRAIL_LENGTH; i++) {
@@ -3210,15 +3237,27 @@
       trailDots.push({ el: d, x: 0, y: 0 });
     }
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    // Smooth lerp helper
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
     function animCursor() {
-      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      // Smooth dot follow with lerp
+      dx = lerp(dx, mx, 0.25);
+      dy = lerp(dy, my, 0.25);
+      dot.style.left = dx + 'px'; dot.style.top = dy + 'px';
+
+      // Even smoother ring follow
+      rx = lerp(rx, mx, 0.08);
+      ry = lerp(ry, my, 0.08);
       ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-      // trail
+
+      // Smooth trail with cascading lerp
       trailDots.forEach((t, i) => {
-        const prev = i === 0 ? { x: mx, y: my } : trailDots[i - 1];
-        t.x += (prev.x - t.x) * (0.3 - i * 0.02);
-        t.y += (prev.y - t.y) * (0.3 - i * 0.02);
+        const prev = i === 0 ? { x: dx, y: dy } : trailDots[i - 1];
+        const factor = 0.18 - i * 0.012;
+        t.x = lerp(t.x, prev.x, Math.max(factor, 0.04));
+        t.y = lerp(t.y, prev.y, Math.max(factor, 0.04));
         t.el.style.left = t.x + 'px';
         t.el.style.top = t.y + 'px';
       });
@@ -3230,31 +3269,48 @@
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
 
-    // ── PRELOADER ──
+    // PRELOADER
     const bootLines = ['bl0', 'bl1', 'bl2', 'bl3', 'bl4', 'bl5', 'bl6', 'bl7', 'bl8'];
     const bootFill = document.getElementById('bootFill');
     const bootPct = document.getElementById('bootPct');
     let lineIdx = 0;
+    let smoothBootPct = 0;
+    
+    function animateBootBar(target) {
+      function step() {
+        smoothBootPct = lerp(smoothBootPct, target, 0.12);
+        bootFill.style.width = smoothBootPct + '%';
+        bootPct.textContent = Math.round(smoothBootPct) + '%';
+        if (Math.abs(smoothBootPct - target) > 0.5) requestAnimationFrame(step);
+        else { bootFill.style.width = target + '%'; bootPct.textContent = target + '%'; }
+      }
+      requestAnimationFrame(step);
+    }
+    
     function showNextLine() {
       if (lineIdx >= bootLines.length) return;
       const el = document.getElementById(bootLines[lineIdx]);
       if (el) el.classList.add('visible');
       lineIdx++;
       const pct = Math.round((lineIdx / bootLines.length) * 100);
-      bootFill.style.width = pct + '%';
-      bootPct.textContent = pct + '%';
+      animateBootBar(pct);
       const delay = lineIdx < 3 ? 400 : lineIdx < 6 ? 350 : 300;
       if (lineIdx < bootLines.length) setTimeout(showNextLine, delay);
-      else setTimeout(launchSite, 700);
+      else setTimeout(launchSite, 600);
     }
     setTimeout(showNextLine, 600);
     function launchSite() {
       const pre = document.getElementById('preloader');
       pre.classList.add('shatter');
-      setTimeout(() => { pre.style.display = 'none'; startHero(); }, 700);
+      // Let the shatter animation play smoothly before removing
+      setTimeout(() => { 
+        pre.style.display = 'none'; 
+        document.body.style.overflow = '';
+        startHero(); 
+      }, 900);
     }
 
-    // ── HERO ──
+    // HERO
     function startHero() {
       const name = 'ATHMEEYA M KASHYAP';
       const container = document.getElementById('heroName');
@@ -3268,8 +3324,9 @@
           const span = document.createElement('span');
           span.className = 'letter';
           span.textContent = ch;
-          span.style.transitionDelay = (ci * 60) + 'ms';
-          setTimeout(() => span.classList.add('visible'), 300 + ci * 60);
+          // Smoother stagger: longer delays with easing overlap
+          span.style.transitionDelay = (ci * 50) + 'ms';
+          setTimeout(() => span.classList.add('visible'), 200 + ci * 50);
           wordWrap.appendChild(span);
           ci++;
         });
@@ -3281,7 +3338,8 @@
           ci++;
         }
       });
-      typeSubtitle();
+      // Start subtitle with smooth delay sync
+      setTimeout(typeSubtitle, ci * 50 + 400);
     }
     function typeSubtitle() {
       const el = document.getElementById('heroSubtitle');
@@ -3291,10 +3349,10 @@
       const iv = setInterval(() => {
         el.textContent = text.slice(0, ++i) + (i < text.length ? '█' : '');
         if (i >= text.length) clearInterval(iv);
-      }, 40);
+      }, 35);
     }
 
-    // ── STARFIELD ──
+    // STARFIELD
     const sc = document.getElementById('starCanvas');
     const sctx = sc.getContext('2d');
     let W, H, stars = [], mouseX = 0, mouseY = 0;
@@ -3311,15 +3369,15 @@
       mouseY = (e.clientY / window.innerHeight - .5) * .05;
     });
     function drawStars() {
-      sctx.fillStyle = 'rgba(0,0,0,0.15)';
+      sctx.fillStyle = 'rgba(0,0,0,0.12)';
       sctx.fillRect(0, 0, W, H);
       stars.forEach(s => {
-        s.z -= 0.003;
+        s.z -= 0.0025;
         if (s.z <= 0) { s.z = 1; s.x = Math.random() * 2 - 1; s.y = Math.random() * 2 - 1; }
         const sx = (s.x + mouseX) / s.z * W / 2 + W / 2;
         const sy = (s.y + mouseY) / s.z * H / 2 + H / 2;
         const r = Math.max(0.3, (1 - s.z) * 2.5);
-        const alpha = 1 - s.z;
+        const alpha = Math.pow(1 - s.z, 1.5); // smoother alpha curve
         sctx.beginPath();
         sctx.arc(sx, sy, r, 0, Math.PI * 2);
         sctx.fillStyle = `rgba(200,240,255,${alpha})`;
@@ -3327,7 +3385,7 @@
         if (r > 1.5) {
           sctx.beginPath();
           sctx.arc(sx, sy, r * 2, 0, Math.PI * 2);
-          sctx.fillStyle = `rgba(0,255,229,${alpha * 0.15})`;
+          sctx.fillStyle = `rgba(0,255,229,${alpha * 0.12})`;
           sctx.fill();
         }
       });
@@ -3335,14 +3393,33 @@
     }
     drawStars();
 
-    // ── SCROLL REVEALS ──
+    // SCROLL REVEALS (staggered + smoother)
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.1 });
-    reveals.forEach(r => observer.observe(r));
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          // Get all sibling reveals within the same parent for stagger sync
+          const parent = e.target.parentElement;
+          const siblings = parent ? Array.from(parent.querySelectorAll(':scope > .reveal')) : [];
+          const idx = siblings.indexOf(e.target);
+          const staggerDelay = idx >= 0 ? idx * 80 : 0;
+          
+          // Only add delay if the element doesn't already have a stagger class
+          if (!e.target.className.match(/stagger-\d/)) {
+            e.target.style.transitionDelay = staggerDelay + 'ms';
+          }
+          
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              e.target.classList.add('visible');
+            });
+          });
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(r => revealObserver.observe(r));
 
-    // ── STAT COUNTERS ──
+    // STAT COUNTERS (eased)
     const statNums = document.querySelectorAll('.stat-num[data-count]');
     const statObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
@@ -3350,37 +3427,53 @@
           const el = e.target;
           const target = parseInt(el.dataset.count);
           const suffix = el.dataset.suffix || '';
-          let start = 0;
-          const inc = target / 60;
-          const iv = setInterval(() => {
-            start = Math.min(start + inc, target);
-            el.textContent = Math.round(start) + suffix;
-            if (start >= target) clearInterval(iv);
-          }, 20);
+          let current = 0;
+          const duration = 1500;
+          const start = performance.now();
+          
+          function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+          
+          function animate(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            current = Math.round(easeOutQuart(progress) * target);
+            el.textContent = current + suffix;
+            if (progress < 1) requestAnimationFrame(animate);
+          }
+          requestAnimationFrame(animate);
           statObs.unobserve(el);
         }
       });
     }, { threshold: .5 });
     statNums.forEach(n => statObs.observe(n));
 
-    // ── EDU LINE ──
+    // EDU LINE (staggered smooth fill)
     const eduObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          document.getElementById('eduLineFill').style.height = '100%';
-          document.querySelectorAll('.edu-xp-fill').forEach(bar => {
-            bar.style.width = bar.dataset.width + '%';
+          // Smooth sequential fill
+          const lineFill = document.getElementById('eduLineFill');
+          lineFill.style.transition = 'height 2.5s cubic-bezier(0.16, 1, 0.3, 1)';
+          lineFill.style.height = '100%';
+          
+          // Stagger XP bars to sync with timeline fill
+          document.querySelectorAll('.edu-xp-fill').forEach((bar, i) => {
+            bar.style.transition = `width 1.8s cubic-bezier(0.16, 1, 0.3, 1) ${400 + i * 500}ms`;
+            setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 200 + i * 500);
           });
-          document.getElementById('dot2').classList.add('pulse');
-          document.getElementById('dot3').classList.add('pulse');
+          
+          // Stagger dot pulses in sync
+          setTimeout(() => document.getElementById('dot2').classList.add('pulse'), 800);
+          setTimeout(() => document.getElementById('dot3').classList.add('pulse'), 1600);
+          
           eduObs.disconnect();
         }
       });
-    }, { threshold: .2 });
+    }, { threshold: .15 });
     const eduSec = document.getElementById('education');
     if (eduSec) eduObs.observe(eduSec);
 
-    // ── SKILLS NEURAL NETWORK ──
+    // SKILLS NEURAL NETWORK
     const skillCanvas = document.getElementById('skillCanvas');
     const skctx = skillCanvas.getContext('2d');
     const isMobile = window.innerWidth < 768;
@@ -3566,7 +3659,7 @@
     }
     drawSkills();
 
-    // ── MATRIX RAIN ──
+    // MATRIX RAIN
     const codeC = document.getElementById('codeCanvas');
     if (codeC) {
       const panel = codeC.closest('.ach-panel');
@@ -3590,12 +3683,13 @@
       setInterval(drawMatrix, 60);
     }
 
-    // ── RADAR ──
+    // RADAR
     const radarC = document.getElementById('radarCanvas');
     const rctx = radarC.getContext('2d');
     const RW = radarC.width, RH = radarC.height;
     const CX = RW / 2, CY = RH / 2, MAX_R = RW / 2 - 20;
     let radarAngle = 0;
+    let smoothRadarAngle = 0;
     const blips = [
       { angle: 0.8, dist: .6, label: 'IIIT HYD' },
 
@@ -3630,7 +3724,8 @@
       rctx.fillStyle = sg;
       rctx.fill();
       rctx.restore();
-      radarAngle += 0.03;
+      radarAngle += 0.025;
+      smoothRadarAngle = lerp(smoothRadarAngle, radarAngle, 0.15);
       // blips
       blips.forEach(b => {
         const diff = ((b.angle - radarAngle) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
@@ -3652,36 +3747,63 @@
     }
     drawRadar();
 
-    // ── NAV SCROLL + SCROLL PROGRESS + BACK TO TOP ──
+    // NAV SCROLL + SCROLL PROGRESS + BACK TO TOP (rAF-throttled for smoothness)
     const navEl = document.getElementById('nav');
     const scrollProgress = document.getElementById('scroll-progress');
     const backToTop = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      navEl.classList.toggle('scrolled', window.scrollY > 60);
-      // scroll progress
+    let scrollTicking = false;
+    let smoothScrollProgress = 0;
+    let lastActiveSection = 'hero';
+    
+    function updateScroll() {
+      const sy = window.scrollY;
+      
+      // Smooth nav state
+      navEl.classList.toggle('scrolled', sy > 60);
+      
+      // Smooth scroll progress with lerp
       const docH = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docH > 0 ? (window.scrollY / docH) * 100 : 0;
-      scrollProgress.style.width = pct + '%';
-      // back to top
-      backToTop.classList.toggle('visible', window.scrollY > 500);
-      // active section
+      const targetPct = docH > 0 ? (sy / docH) * 100 : 0;
+      smoothScrollProgress = lerp(smoothScrollProgress, targetPct, 0.3);
+      scrollProgress.style.width = smoothScrollProgress + '%';
+      
+      // back to top (smooth opacity via class)
+      backToTop.classList.toggle('visible', sy > 500);
+      
+      // active section (with hysteresis to avoid flickering)
       const secs = ['hero', 'about', 'education', 'skills', 'achievements', 'projects', 'contact'];
       let active = 'hero';
       secs.forEach(id => {
         const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 200) active = id;
+        if (el && sy >= el.offsetTop - 250) active = id;
       });
-      document.querySelectorAll('.nav-links a').forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + active);
-      });
-    });
+      
+      if (active !== lastActiveSection) {
+        lastActiveSection = active;
+        document.querySelectorAll('.nav-links a').forEach(a => {
+          const isActive = a.getAttribute('href') === '#' + active;
+          if (isActive !== a.classList.contains('active')) {
+            a.classList.toggle('active', isActive);
+          }
+        });
+      }
+      
+      scrollTicking = false;
+    }
+    
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(updateScroll);
+        scrollTicking = true;
+      }
+    }, { passive: true });
 
-    // ── MOBILE MENU ──
+    // MOBILE MENU
     document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
     document.getElementById('mobileClose').addEventListener('click', closeMobile);
     function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 
-    // ── FILM GRAIN ──
+    // FILM GRAIN
     const grainC = document.getElementById('grain');
     const gctx = grainC.getContext('2d');
     function resizeGrain() {
@@ -3691,14 +3813,14 @@
     resizeGrain(); window.addEventListener('resize', resizeGrain);
     let grainFrame = 0;
     function drawGrain() {
-      if (++grainFrame % 4 === 0) {
+      if (++grainFrame % 3 === 0) {
         const w = grainC.width, h = grainC.height;
         const imgData = gctx.createImageData(w, h);
         const data = imgData.data;
         for (let i = 0; i < data.length; i += 4) {
           const v = Math.random() * 255;
           data[i] = data[i + 1] = data[i + 2] = v;
-          data[i + 3] = 255;
+          data[i + 3] = 200;
         }
         gctx.putImageData(imgData, 0, 0);
       }
@@ -3706,8 +3828,8 @@
     }
     drawGrain();
 
-    // ── TEXT SCRAMBLE on section titles ──
-    const scrambleChars = '!<>-_\\/[]{}—=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    // TEXT SCRAMBLE on section titles (smoother)
+    const scrambleChars = '!<>-_\\/[]{}.=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     function scrambleText(el) {
       const html = el.innerHTML;
       const tokens = [];
@@ -3722,17 +3844,26 @@
         }
       });
       let iteration = 0;
+      const totalFrames = textLen + 10;
       const interval = setInterval(() => {
         let result = '';
         tokens.forEach(tok => {
           if (tok.type === 'br') { result += tok.value; return; }
           if (tok.value === ' ') { result += ' '; return; }
-          result += tok.idx < iteration ? tok.value : scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+          // Smooth reveal: each char has a window where it scrambles before resolving
+          const revealAt = tok.idx * 0.8;
+          if (iteration >= revealAt + 4) {
+            result += tok.value;
+          } else if (iteration >= revealAt) {
+            result += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+          } else {
+            result += tok.value.replace(/[^\s]/, scrambleChars[Math.floor(Math.random() * scrambleChars.length)]);
+          }
         });
         el.innerHTML = result;
-        if (iteration >= textLen) clearInterval(interval);
-        iteration += 1.5;
-      }, 30);
+        if (iteration >= totalFrames) clearInterval(interval);
+        iteration += 1;
+      }, 25);
     }
     // observe section titles for scramble
     const titleObs = new IntersectionObserver(entries => {
@@ -3745,73 +3876,184 @@
     }, { threshold: 0.5 });
     document.querySelectorAll('.section-title').forEach(t => titleObs.observe(t));
 
-    // ── MAGNETIC BUTTONS ──
+    // MAGNETIC BUTTONS (smoother with lerp)
     document.querySelectorAll('.btn-primary, .btn-secondary, .cv-btn').forEach(btn => {
+      let btnX = 0, btnY = 0, targetX = 0, targetY = 0;
+      let btnAnimId = null;
+      
+      function animateBtn() {
+        btnX = lerp(btnX, targetX, 0.1);
+        btnY = lerp(btnY, targetY, 0.1);
+        btn.style.transform = `translate(${btnX}px, ${btnY}px)`;
+        if (Math.abs(btnX - targetX) > 0.1 || Math.abs(btnY - targetY) > 0.1) {
+          btnAnimId = requestAnimationFrame(animateBtn);
+        }
+      }
+      
       btn.addEventListener('mousemove', e => {
         const r = btn.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width / 2;
-        const y = e.clientY - r.top - r.height / 2;
-        btn.style.transform = `translate(${x * .2}px, ${y * .2}px)`;
+        targetX = (e.clientX - r.left - r.width / 2) * 0.2;
+        targetY = (e.clientY - r.top - r.height / 2) * 0.2;
+        if (!btnAnimId) btnAnimId = requestAnimationFrame(animateBtn);
       });
-      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+      btn.addEventListener('mouseleave', () => { 
+        targetX = 0; targetY = 0;
+        if (!btnAnimId) btnAnimId = requestAnimationFrame(animateBtn);
+      });
     });
 
-    // ── ACHIEVEMENT PANEL 3D TILT ──
+    // ACHIEVEMENT PANEL 3D TILT (smooth lerp)
     document.querySelectorAll('.ach-panel').forEach(panel => {
+      let tiltX = 0, tiltY = 0, targetTiltX = 0, targetTiltY = 0;
+      let tiltAnim = null;
+      
+      function animateTilt() {
+        tiltX = lerp(tiltX, targetTiltX, 0.08);
+        tiltY = lerp(tiltY, targetTiltY, 0.08);
+        panel.style.transform = `perspective(600px) rotateY(${tiltX}deg) rotateX(${tiltY}deg) translateY(-8px)`;
+        if (Math.abs(tiltX - targetTiltX) > 0.05 || Math.abs(tiltY - targetTiltY) > 0.05) {
+          tiltAnim = requestAnimationFrame(animateTilt);
+        } else { tiltAnim = null; }
+      }
+      
       panel.addEventListener('mousemove', e => {
         const r = panel.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - .5;
-        const y = (e.clientY - r.top) / r.height - .5;
-        panel.style.transform = `perspective(600px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateY(-8px)`;
+        targetTiltX = ((e.clientX - r.left) / r.width - .5) * 10;
+        targetTiltY = -((e.clientY - r.top) / r.height - .5) * 10;
+        if (!tiltAnim) tiltAnim = requestAnimationFrame(animateTilt);
       });
-      panel.addEventListener('mouseleave', () => { panel.style.transform = ''; });
+      panel.addEventListener('mouseleave', () => { 
+        targetTiltX = 0; targetTiltY = 0;
+        // Smooth return to origin
+        function returnToZero() {
+          tiltX = lerp(tiltX, 0, 0.06);
+          tiltY = lerp(tiltY, 0, 0.06);
+          if (Math.abs(tiltX) > 0.05 || Math.abs(tiltY) > 0.05) {
+            panel.style.transform = `perspective(600px) rotateY(${tiltX}deg) rotateX(${tiltY}deg)`;
+            requestAnimationFrame(returnToZero);
+          } else {
+            panel.style.transform = '';
+            tiltAnim = null;
+          }
+        }
+        requestAnimationFrame(returnToZero);
+      });
     });
 
-    // ── PROJECT CARD 3D TILT ──
+    // PROJECT CARD 3D TILT (smooth lerp)
     document.querySelectorAll('.project-card').forEach(card => {
+      let tiltX = 0, tiltY = 0, targetTiltX = 0, targetTiltY = 0;
+      let tiltAnim = null;
+      
+      function animateTilt() {
+        tiltX = lerp(tiltX, targetTiltX, 0.08);
+        tiltY = lerp(tiltY, targetTiltY, 0.08);
+        card.style.transform = `perspective(800px) rotateY(${tiltX}deg) rotateX(${tiltY}deg) translateY(-6px)`;
+        if (Math.abs(tiltX - targetTiltX) > 0.05 || Math.abs(tiltY - targetTiltY) > 0.05) {
+          tiltAnim = requestAnimationFrame(animateTilt);
+        } else { tiltAnim = null; }
+      }
+      
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - .5;
-        const y = (e.clientY - r.top) / r.height - .5;
-        card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-6px)`;
+        targetTiltX = ((e.clientX - r.left) / r.width - .5) * 6;
+        targetTiltY = -((e.clientY - r.top) / r.height - .5) * 6;
+        if (!tiltAnim) tiltAnim = requestAnimationFrame(animateTilt);
       });
-      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      card.addEventListener('mouseleave', () => { 
+        targetTiltX = 0; targetTiltY = 0;
+        function returnToZero() {
+          tiltX = lerp(tiltX, 0, 0.06);
+          tiltY = lerp(tiltY, 0, 0.06);
+          if (Math.abs(tiltX) > 0.05 || Math.abs(tiltY) > 0.05) {
+            card.style.transform = `perspective(800px) rotateY(${tiltX}deg) rotateX(${tiltY}deg)`;
+            requestAnimationFrame(returnToZero);
+          } else {
+            card.style.transform = '';
+            tiltAnim = null;
+          }
+        }
+        requestAnimationFrame(returnToZero);
+      });
     });
 
-    // ── BENTO CARD 3D TILT ──
+    // BENTO CARD 3D TILT (smooth lerp)
     document.querySelectorAll('.bento-card').forEach(card => {
+      let tiltX = 0, tiltY = 0, targetTiltX = 0, targetTiltY = 0;
+      let tiltAnim = null;
+      
+      function animateTilt() {
+        tiltX = lerp(tiltX, targetTiltX, 0.08);
+        tiltY = lerp(tiltY, targetTiltY, 0.08);
+        card.style.transform = `perspective(600px) rotateY(${tiltX}deg) rotateX(${tiltY}deg) translateY(-4px)`;
+        if (Math.abs(tiltX - targetTiltX) > 0.05 || Math.abs(tiltY - targetTiltY) > 0.05) {
+          tiltAnim = requestAnimationFrame(animateTilt);
+        } else { tiltAnim = null; }
+      }
+      
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - .5;
-        const y = (e.clientY - r.top) / r.height - .5;
-        card.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-4px)`;
+        targetTiltX = ((e.clientX - r.left) / r.width - .5) * 5;
+        targetTiltY = -((e.clientY - r.top) / r.height - .5) * 5;
+        if (!tiltAnim) tiltAnim = requestAnimationFrame(animateTilt);
       });
-      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      card.addEventListener('mouseleave', () => { 
+        targetTiltX = 0; targetTiltY = 0;
+        function returnToZero() {
+          tiltX = lerp(tiltX, 0, 0.06);
+          tiltY = lerp(tiltY, 0, 0.06);
+          if (Math.abs(tiltX) > 0.05 || Math.abs(tiltY) > 0.05) {
+            card.style.transform = `perspective(600px) rotateY(${tiltX}deg) rotateX(${tiltY}deg)`;
+            requestAnimationFrame(returnToZero);
+          } else {
+            card.style.transform = '';
+            tiltAnim = null;
+          }
+        }
+        requestAnimationFrame(returnToZero);
+      });
     });
 
-    // ── PARALLAX ON SCROLL ──
+    // PARALLAX ON SCROLL (rAF-smoothed)
     const parallaxSections = document.querySelectorAll('.floating-shapes');
-    window.addEventListener('scroll', () => {
-      const sy = window.scrollY;
+    let parallaxTicking = false;
+    let parallaxTargets = new Map();
+    let parallaxCurrent = new Map();
+    
+    function updateParallax() {
       parallaxSections.forEach(el => {
         const parent = el.closest('section');
         if (!parent) return;
         const rect = parent.getBoundingClientRect();
         if (rect.bottom > 0 && rect.top < window.innerHeight) {
-          const offset = (rect.top / window.innerHeight) * 30;
-          el.style.transform = `translateY(${offset}px)`;
+          const target = (rect.top / window.innerHeight) * 30;
+          const key = el;
+          const current = parallaxCurrent.get(key) || 0;
+          const smoothed = lerp(current, target, 0.08);
+          parallaxCurrent.set(key, smoothed);
+          el.style.transform = `translateY(${smoothed}px)`;
         }
       });
-    });
+      requestAnimationFrame(updateParallax);
+    }
+    requestAnimationFrame(updateParallax);
 
-    // ── SMOOTH REVEAL for left/right animations ──
+    // SMOOTH REVEAL for left/right animations
     const revealLR = document.querySelectorAll('.reveal-left, .reveal-right');
     const lrObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.1 });
+      entries.forEach(e => { 
+        if (e.isIntersecting) { 
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              e.target.classList.add('visible'); 
+            });
+          });
+        } 
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
     revealLR.forEach(r => lrObs.observe(r));
 
-    // ── KONAMI CODE EASTER EGG ──
+    // KONAMI CODE EASTER EGG
     const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     let konamiIdx = 0;
     document.addEventListener('keydown', e => {
