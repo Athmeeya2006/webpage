@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Athmeeya M Kashyap — CS student at IIIT Hyderabad. INMO qualifier, national swimmer, speedcuber, competitive programmer.">
+    content="Athmeeya M Kashyap — CS student at IIIT Hyderabad. INMO qualifier, national swimmer, competitive programmer.">
   <meta name="theme-color" content="#000000">
   <meta property="og:title" content="Athmeeya M Kashyap — Portfolio">
-  <meta property="og:description" content="CS Student. Olympiad Qualifier. National Swimmer. Speedcuber.">
+  <meta property="og:description" content="CS Student. Olympiad Qualifier. National Swimmer. Competitive Programmer.">
   <title>Athmeeya M Kashyap — Portfolio</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap"
@@ -368,7 +368,7 @@
       color: rgba(240, 240, 240, .6);
       text-decoration: none;
       letter-spacing: 2px;
-      text-transform: lowercase;
+      text-transform: uppercase;
       position: relative;
       transition: color .3s;
     }
@@ -915,7 +915,7 @@
     /* ─── SECTION SHARED ─── */
     .section-label {
       font-family: 'Space Mono', monospace;
-      font-size: 11px;
+      font-size: 14px;
       letter-spacing: 5px;
       color: var(--cyan);
       opacity: .6;
@@ -925,9 +925,9 @@
 
     .section-title {
       font-family: 'Bebas Neue';
-      font-size: clamp(52px, 8vw, 100px);
+      font-size: clamp(44px, 7vw, 80px);
       line-height: .95;
-      letter-spacing: 6px;
+      letter-spacing: 5px;
     }
 
     /* Preserve mono on labels after body font change */
@@ -996,7 +996,7 @@
     }
 
     .about-grid {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1011,7 +1011,7 @@
     .about-photo-frame {
       position: relative;
       display: block;
-      max-width: 380px;
+      max-width: 440px;
       aspect-ratio: 4 / 5;
       clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
       overflow: hidden;
@@ -1122,8 +1122,8 @@
     }
 
     .about-bio {
-      font-size: 15px;
-      line-height: 2;
+      font-size: 17px;
+      line-height: 1.9;
       color: rgba(240, 240, 240, .6);
       margin-bottom: 24px;
       font-family: 'Inter', sans-serif;
@@ -1146,7 +1146,7 @@
     }
 
     .about-tag {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 2px;
       border: 1px solid rgba(0, 255, 229, .3);
       color: var(--cyan);
@@ -1204,12 +1204,12 @@
     }
 
     .edu-header {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto 80px;
     }
 
     .edu-timeline {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 0 auto;
       position: relative;
     }
@@ -1310,7 +1310,7 @@
     }
 
     .edu-level {
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 4px;
       color: var(--orange);
       margin-bottom: 8px;
@@ -1319,14 +1319,14 @@
 
     .edu-degree {
       font-family: 'Orbitron', monospace;
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--white);
       margin-bottom: 4px;
     }
 
     .edu-school {
-      font-size: 13px;
+      font-size: 15px;
       color: rgba(240, 240, 240, .5);
       letter-spacing: 1px;
     }
@@ -1354,7 +1354,7 @@
     }
 
     .skills-header {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto 60px;
     }
 
@@ -1373,7 +1373,7 @@
     }
 
     .legend-item {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 2px;
       display: flex;
       align-items: center;
@@ -1388,46 +1388,28 @@
 
     /* ─── ACHIEVEMENTS ─── */
     #achievements {
-      padding: clamp(80px, 12vw, 180px) 0;
+      padding: clamp(80px, 12vw, 180px) 40px;
       background: var(--black);
     }
 
     .ach-header {
-      padding: 0 40px 60px;
-      max-width: 1200px;
+      padding: 0 0 60px;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
     .ach-scroll-track {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      padding: 0 40px 40px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--cyan) #111;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .ach-scroll-track::-webkit-scrollbar {
-      height: 4px;
-    }
-
-    .ach-scroll-track::-webkit-scrollbar-track {
-      background: #111;
-    }
-
-    .ach-scroll-track::-webkit-scrollbar-thumb {
-      background: var(--cyan);
-      border-radius: 2px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .ach-panel {
-      flex: 0 0 min(380px, 85vw);
-      height: 480px;
+      height: 520px;
       position: relative;
       overflow: hidden;
-      scroll-snap-align: start;
       border: 1px solid rgba(255, 255, 255, .05);
       cursor: none;
       transition: border-color .4s cubic-bezier(0.16, 1, 0.3, 1), transform .4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .4s;
@@ -1466,7 +1448,7 @@
     }
 
     .ach-tag {
-      font-size: 10px;
+      font-size: 13px;
       letter-spacing: 4px;
       color: var(--cyan);
       margin-bottom: 8px;
@@ -1475,21 +1457,21 @@
 
     .ach-title {
       font-family: 'Bebas Neue';
-      font-size: 44px;
+      font-size: 48px;
       letter-spacing: 3px;
       line-height: 1;
       margin-bottom: 12px;
     }
 
     .ach-desc {
-      font-size: 13px;
+      font-size: 15px;
       color: rgba(240, 240, 240, .6);
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
     .ach-subtitle {
       font-family: 'Space Mono', monospace;
-      font-size: 12px;
+      font-size: 14px;
       color: var(--orange);
       margin-bottom: 4px;
       letter-spacing: 1px;
@@ -1497,7 +1479,7 @@
 
     .ach-stat {
       font-family: 'Orbitron', monospace;
-      font-size: 14px;
+      font-size: 16px;
       color: var(--white);
       margin-bottom: 12px;
     }
@@ -1507,7 +1489,7 @@
       margin-top: 16px;
       padding: 8px 16px;
       font-family: 'Space Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 2px;
       color: var(--cyan);
       border: 1px solid var(--cyan);
@@ -1801,7 +1783,7 @@
     }
 
     .contact-inner {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1814,8 +1796,8 @@
     }
 
     #radarCanvas {
-      width: 320px;
-      height: 320px;
+      width: 480px;
+      height: 480px;
       display: block;
       margin: 0 auto;
     }
@@ -1833,7 +1815,7 @@
 
     .signal-line {
       font-family: 'Space Mono', monospace;
-      font-size: 13px;
+      font-size: 15px;
       color: rgba(240, 240, 240, .6);
       padding: 16px 20px;
       border: 1px solid rgba(0, 255, 229, .1);
@@ -1851,7 +1833,7 @@
     }
 
     .signal-ping {
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 2px;
       color: var(--cyan);
       border: 1px solid var(--cyan);
@@ -1931,12 +1913,12 @@
     }
 
     .projects-header {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto 60px;
     }
 
     .projects-grid {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -2019,7 +2001,7 @@
     }
 
     .project-tag {
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 4px;
       color: var(--orange);
       text-transform: uppercase;
@@ -2028,7 +2010,7 @@
 
     .project-title {
       font-family: 'Orbitron', monospace;
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 700;
       color: var(--white);
       margin-bottom: 12px;
@@ -2040,7 +2022,7 @@
     }
 
     .project-desc {
-      font-size: 13px;
+      font-size: 15px;
       line-height: 1.8;
       color: rgba(240, 240, 240, .5);
       margin-bottom: 20px;
@@ -2053,7 +2035,7 @@
     }
 
     .project-tech span {
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 1px;
       border: 1px solid rgba(0, 255, 229, .2);
       color: var(--cyan);
@@ -2069,7 +2051,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 2px;
       color: var(--cyan);
       text-decoration: none;
@@ -2091,11 +2073,11 @@
       align-items: center;
       justify-content: space-between;
       font-family: 'Space Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 2px;
       color: rgba(240, 240, 240, .2);
       position: relative;
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
@@ -2384,7 +2366,7 @@
     .cv-btn {
       margin-top: 40px;
       font-family: 'Space Mono', monospace;
-      font-size: 13px;
+      font-size: 15px;
       letter-spacing: 2px;
       background: transparent;
       border: 1px solid var(--orange);
@@ -2524,8 +2506,8 @@
       }
 
       #radarCanvas {
-        width: 240px;
-        height: 240px;
+        width: 360px;
+        height: 360px;
       }
 
       .mang-grid {
@@ -2553,6 +2535,10 @@
 
       .projects-grid {
         grid-template-columns: 1fr;
+      }
+
+      .ach-scroll-track {
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .floating-shapes {
@@ -2641,7 +2627,7 @@
       }
 
       .section-title {
-        font-size: clamp(40px, 10vw, 70px);
+        font-size: clamp(34px, 9vw, 56px);
       }
 
       .hero-name {
@@ -2679,7 +2665,6 @@
       }
 
       .ach-panel {
-        flex: 0 0 min(320px, 85vw);
         height: 440px;
       }
 
@@ -2688,8 +2673,8 @@
       }
 
       .ach-scroll-track {
-        padding: 0 16px 30px;
-        gap: 12px;
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
 
       .mang-grid {
@@ -2771,13 +2756,12 @@
           </span>] <span id="bar-pct">0</span>%</span></div>
       <div class="line" id="bl2">> Mounting Codeforces database....... <span style="color:#00ff88">250+ problems
           OK</span></div>
-      <div class="line" id="bl3">> Calibrating Rubik's solver......... <span style="color:var(--orange)">19.4s ✓</span>
-      </div>
-      <div class="line" id="bl4">> SGFI swimming records.............. <span style="color:#4499ff">NATIONAL
+      <div class="line" id="bl3">> SGFI swimming records.............. <span style="color:#4499ff">NATIONAL
           LOADED</span></div>
-      <div class="line" id="bl5">> INMO qualification status.......... <span style="color:var(--cyan)">VERIFIED</span>
+      <div class="line" id="bl4">> INMO qualification status.......... <span style="color:var(--cyan)">VERIFIED</span>
       </div>
-      <div class="line" id="bl6">> Perfect score Karnataka State...... <span style="color:#ffd700">100% ✓</span></div>
+      <div class="line" id="bl5">> Perfect score Karnataka State...... <span style="color:#ffd700">100% ✓</span></div>
+      <div class="line" id="bl6">> NSEA Top 1% State................. <span style="color:var(--cyan)">CONFIRMED</span></div>
       <div class="line" id="bl7" style="color:var(--orange)">⚠ WARNING: Exceptional human detected.</div>
       <div class="line" id="bl8">> LAUNCHING INTERFACE...<span id="blink-cursor"
           style="animation:blink 0.8s infinite">█</span></div>
@@ -2792,14 +2776,13 @@
   <nav id="nav">
     <a href="#hero" class="nav-logo">AMK</a>
     <ul class="nav-links">
-      <li><a href="#hero">home</a></li>
-      <li><a href="#about">about</a></li>
-      <li><a href="#education">education</a></li>
-      <li><a href="#skills">skills</a></li>
-      <li><a href="#achievements">achievements</a></li>
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#mangalore">mangalore</a></li>
-      <li><a href="#contact">contact</a></li>
+      <li><a href="#hero">HOME</a></li>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#education">EDUCATION</a></li>
+      <li><a href="#skills">SKILLS</a></li>
+      <li><a href="#achievements">ACHIEVEMENTS</a></li>
+      <li><a href="#projects">PROJECTS</a></li>
+      <li><a href="#contact">CONTACT</a></li>
     </ul>
     <div class="nav-hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -2807,14 +2790,13 @@
   </nav>
   <div class="mobile-menu" id="mobileMenu">
     <span class="mobile-close" id="mobileClose">✕</span>
-    <a href="#hero" onclick="closeMobile()">home</a>
-    <a href="#about" onclick="closeMobile()">about</a>
-    <a href="#education" onclick="closeMobile()">education</a>
-    <a href="#skills" onclick="closeMobile()">skills</a>
-    <a href="#achievements" onclick="closeMobile()">achievements</a>
-    <a href="#projects" onclick="closeMobile()">projects</a>
-    <a href="#mangalore" onclick="closeMobile()">mangalore</a>
-    <a href="#contact" onclick="closeMobile()">contact</a>
+    <a href="#hero" onclick="closeMobile()">HOME</a>
+    <a href="#about" onclick="closeMobile()">ABOUT</a>
+    <a href="#education" onclick="closeMobile()">EDUCATION</a>
+    <a href="#skills" onclick="closeMobile()">SKILLS</a>
+    <a href="#achievements" onclick="closeMobile()">ACHIEVEMENTS</a>
+    <a href="#projects" onclick="closeMobile()">PROJECTS</a>
+    <a href="#contact" onclick="closeMobile()">CONTACT</a>
   </div>
 
   <!-- ── HERO ── -->
@@ -2829,7 +2811,6 @@
     </div>
     <div class="hero-scan"></div>
     <div class="hero-content">
-      <div class="hero-status"><span class="hero-status-dot"></span> IIIT HYDERABAD · CS · 2026</div>
       <div class="hero-initials">A . M . K</div>
       <div class="hero-name" id="heroName"></div>
       <div class="hero-subtitle" id="heroSubtitle"></div>
@@ -2838,10 +2819,7 @@
         <a href="assets/cv.pdf" download class="btn-secondary">$ ./download_cv</a>
       </div>
     </div>
-    <div class="scroll-indicator">
-      <span>SCROLL TO ENTER</span>
-      <div class="scroll-arrow"></div>
-    </div>
+
   </section>
 
   <div class="section-divider"></div>
@@ -2860,45 +2838,29 @@
         </svg>
       </div>
       <div class="about-text">
-        <span class="about-file-tag reveal">// SUBJECT_FILE.TXT</span>
         <div class="section-label reveal">ABOUT</div>
         <h2 class="section-title reveal" style="margin-bottom:24px">THE<br>PERSON</h2>
         <p class="about-bio reveal">
-          CS student at <strong>IIIT Hyderabad</strong> with a passion for technology and innovation. Originally from
-          <strong>Mangalore, Karnataka</strong> — combining technical precision with creative problem-solving across
-          everything from olympiad mathematics to competitive swimming.
+          I don't dabble — I <strong>lock in</strong>. Whether it's cracking an INMO problem at 3 AM or 
+          architecting a system from first principles, I operate at one speed: <strong>all in</strong>. 
+          CS at <strong>IIIT Hyderabad</strong> gave me the playground. Everything else, I built myself.
         </p>
         <p class="about-bio reveal">
-          When not solving problems on Codeforces, you'll find me on the chess board, in the pool, or racing a Rubik's
-          cube against the clock. I don't just build things — I obsess over them.
+          I think in structures — proofs, algorithms, systems. The kind of person who reverse-engineers 
+          how things work before deciding whether to use them. Mediocrity is physically uncomfortable; 
+          I'd rather fail at something hard than coast through something easy.
+        </p>
+        <p class="about-bio reveal">
+          Olympiad mathematics sharpened the blade. Competitive programming keeps it lethal. 
+          I don't build things to finish them — I build things to <strong>understand</strong> them. 
+          And once I understand something, I want to push it further than anyone expected.
         </p>
         <div class="about-tags reveal">
-          <span class="about-tag">Competitive Programming</span>
-          <span class="about-tag">Chess</span>
-          <span class="about-tag">Swimming</span>
-          <span class="about-tag">Speedcubing</span>
-          <span class="about-tag">Cricket</span>
-          <span class="about-tag">Basketball</span>
-          <span class="about-tag">Table Tennis</span>
-          <span class="about-tag">Badminton</span>
-        </div>
-        <div class="about-stats reveal">
-          <div class="stat-box">
-            <span class="stat-num" data-count="250" data-suffix="+">0</span>
-            <span class="stat-label">Problems Solved</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-num" data-count="19" data-suffix="s">0</span>
-            <span class="stat-label">Rubik's Average</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-num" data-count="100" data-suffix="%">0</span>
-            <span class="stat-label">Board Score</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-num" data-suffix="NATL">—</span>
-            <span class="stat-label">Swimming Level</span>
-          </div>
+          <span class="about-tag">First-Principles Thinker</span>
+          <span class="about-tag">Olympiad Mathematics</span>
+          <span class="about-tag">Systems Architect</span>
+          <span class="about-tag">Competitive Programmer</span>
+          <span class="about-tag">Relentlessly Curious</span>
         </div>
       </div>
     </div>
@@ -2906,56 +2868,13 @@
 
   <div class="section-divider"></div>
 
-  <!-- ── MULTIFACETED ── -->
-  <section id="bento">
-    <div class="bento-header">
-      <div class="section-label reveal">// BEYOND_CODE.SYS</div>
-      <h2 class="section-title reveal">NOT JUST<br>A CODER</h2>
-      <p class="reveal" style="color:rgba(240,240,240,.4);font-size:13px;margin-top:12px;letter-spacing:1px">A mosaic of
-        passions, each one sharpened to compete</p>
-    </div>
-    <div class="bento-grid">
-      <div class="bento-card bento-swim reveal">
-        <div class="bento-bg-text">SWIM</div>
-        <div class="bento-emoji">🏊</div>
-        <div class="bento-label">NATIONAL SWIMMER</div>
-        <div class="bento-sub">SGFI National Level · Freestyle & Butterfly · Years of competitive training in the pool
-        </div>
-      </div>
-      <div class="bento-card bento-cube reveal stagger-1">
-        <div class="bento-bg-text">19.4</div>
-        <div class="bento-emoji">🧩</div>
-        <div class="bento-label">SPEEDCUBING</div>
-        <div class="bento-sub">Sub-20s 3x3 Average · Competition Finisher</div>
-      </div>
-      <div class="bento-card bento-chess reveal stagger-2">
-        <div class="bento-bg-text">♟</div>
-        <div class="bento-emoji">♟️</div>
-        <div class="bento-label">CHESS</div>
-        <div class="bento-sub">Strategic Thinker · Tactical Patterns</div>
-      </div>
-      <div class="bento-card bento-tt reveal stagger-3">
-        <div class="bento-bg-text">TT</div>
-        <div class="bento-emoji">🏓</div>
-        <div class="bento-label">TABLE TENNIS</div>
-        <div class="bento-sub">Tournament Competitor · Reflexes & Precision</div>
-      </div>
-      <div class="bento-card bento-basket reveal stagger-4">
-        <div class="bento-bg-text">B</div>
-        <div class="bento-emoji">🏀</div>
-        <div class="bento-label">BASKETBALL</div>
-        <div class="bento-sub">Team Player · Court Vision</div>
-      </div>
-    </div>
-  </section>
 
-  <div class="section-divider"></div>
 
   <!-- ── EDUCATION ── -->
   <section id="education">
     <div class="hex-bg"></div>
     <div class="edu-header">
-      <div class="section-label reveal">// EDUCATION.LOG</div>
+      <div class="section-label reveal">EDUCATION</div>
       <h2 class="section-title reveal">LEVEL<br>UNLOCKED</h2>
     </div>
     <div class="edu-timeline">
@@ -2992,7 +2911,7 @@
       <div class="edu-item reveal stagger-4">
         <div class="edu-card" style="text-align:right; border-color: rgba(0,255,229,.4);">
           <div class="edu-level" style="color:var(--cyan)">FINAL FORM</div>
-          <div class="edu-degree" style="color:var(--cyan)">B.Tech Computer Science</div>
+          <div class="edu-degree" style="color:var(--cyan)">B.Tech CSE + MS Computational Natural Science</div>
           <div class="edu-school">IIIT Hyderabad</div>
           <div class="edu-xp">
             <div class="edu-xp-fill" data-width="45" id="iiitXP"></div>
@@ -3010,21 +2929,24 @@
   <!-- ── SKILLS ── -->
   <section id="skills">
     <div class="skills-header">
-      <div class="section-label reveal">// SKILLS.MAP</div>
+      <div class="section-label reveal">SKILLS</div>
       <h2 class="section-title reveal">NEURAL<br>NETWORK</h2>
-      <p class="reveal" style="color:rgba(240,240,240,.4);font-size:13px;margin-top:12px;letter-spacing:1px">Hover nodes
+      <p class="reveal" style="color:rgba(240,240,240,.4);font-size:15px;margin-top:12px;letter-spacing:1px">Hover nodes
         to explore connections</p>
     </div>
-    <canvas id="skillCanvas" width="900" height="500"></canvas>
+    <canvas id="skillCanvas" width="1400" height="750"></canvas>
     <div class="skills-legend reveal">
       <div class="legend-item">
-        <div class="legend-dot" style="background:var(--cyan)"></div> Programming
+        <div class="legend-dot" style="background:var(--cyan)"></div> LANGUAGES
       </div>
       <div class="legend-item">
-        <div class="legend-dot" style="background:var(--orange)"></div> Tools
+        <div class="legend-dot" style="background:var(--orange)"></div> FRAMEWORKS & TOOLS
       </div>
       <div class="legend-item">
-        <div class="legend-dot" style="background:#8844ff"></div> Web & DB
+        <div class="legend-dot" style="background:#8844ff"></div> INFRASTRUCTURE & DATA
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#ffd700"></div> CONCEPTS & SYSTEMS
       </div>
     </div>
   </section>
@@ -3034,10 +2956,8 @@
   <!-- ── ACHIEVEMENTS ── -->
   <section id="achievements">
     <div class="ach-header">
-      <div class="section-label reveal">// ACHIEVEMENTS.DAT</div>
+      <div class="section-label reveal">ACHIEVEMENTS</div>
       <h2 class="section-title reveal">HALL OF<br>LEGENDS</h2>
-      <p class="reveal" style="color:rgba(240,240,240,.4);font-size:13px;margin-top:12px;letter-spacing:1px">Scroll
-        right →</p>
     </div>
     <div class="ach-scroll-track">
 
@@ -3049,8 +2969,7 @@
           <div class="ach-icon">∑</div>
           <div class="ach-tag">Mathematics</div>
           <div class="ach-title" style="color:var(--cyan)">INMO<br>QUALIFIER</div>
-          <div class="ach-desc">Cracked IOQM → RMO → INMO. One of the top Mathematical Olympiad qualifiers in India,
-            selected through a rigorous 3-stage national elimination.</div>
+          <div class="ach-desc">Cracked IOQM → RMO → INMO. One of the top Mathematical Olympiad qualifiers in India, selected through a rigorous 3-stage national elimination.</div>
         </div>
       </div>
 
@@ -3064,14 +2983,52 @@
           <div class="ach-title" style="color:var(--cyan)">INMOTC<br>SELECTED</div>
           <div class="ach-subtitle">INMO TRAINING CAMP</div>
           <div class="ach-stat">~30 Students</div>
-          <div class="ach-desc">Invited to the Indian National Mathematical Olympiad Training Camp (INMOTC) hosted by
-            ICTS-TIFR, Bangalore. One of ~30 students selected from Karnataka to train for INMO.</div>
+          <div class="ach-desc">Invited to the Indian National Mathematical Olympiad Training Camp (INMOTC) hosted by ICTS-TIFR, Bangalore. One of ~30 students selected from Karnataka.</div>
           <a href="https://icts.res.in/event/page/24648" target="_blank" class="verify-badge">VERIFY ↗</a>
         </div>
       </div>
 
+      <!-- CODE -->
+      <div class="ach-panel code reveal stagger-2" style="position:relative">
+        <div class="ach-panel-bg"></div>
+        <canvas id="codeCanvas"></canvas>
+        <div class="ach-num">03</div>
+        <div class="ach-panel-content">
+          <div class="ach-icon" style="font-size:32px;font-family:'Space Mono'">{}</div>
+          <div class="ach-tag">Competitive Programming</div>
+          <div class="ach-title" style="color:#00ff88">250+<br>PROBLEMS</div>
+          <div class="ach-desc">Codeforces grinder. Multiple contests. Consistent improvement in algorithmic thinking.</div>
+        </div>
+      </div>
+
+      <!-- NSEA -->
+      <div class="ach-panel math reveal stagger-3">
+        <div class="ach-panel-bg"></div>
+        <div class="ach-num">04</div>
+        <div class="ach-panel-content">
+          <div class="ach-icon">🔭</div>
+          <div class="ach-tag">Astronomy</div>
+          <div class="ach-title" style="color:var(--cyan)">TOP 1%<br>STATE</div>
+          <div class="ach-subtitle">NSEA 2024</div>
+          <div class="ach-stat">Top 1%</div>
+          <div class="ach-desc">Ranked in the top 1% statewide in the National Standard Examination in Astronomy (NSEA) — Karnataka. Conducted by IAPT.</div>
+        </div>
+      </div>
+
+      <!-- PERFECT SCORE -->
+      <div class="ach-panel score reveal stagger-4">
+        <div class="ach-panel-bg"></div>
+        <div class="ach-num">05</div>
+        <div class="ach-panel-content">
+          <div class="ach-icon">★</div>
+          <div class="ach-tag">Academics</div>
+          <div class="ach-title" style="color:#ffd700">PERFECT<br>SCORE</div>
+          <div class="ach-desc">100% in Karnataka State Board Examination. Absolute precision in academics.</div>
+        </div>
+      </div>
+
       <!-- SGFI -->
-      <div class="ach-panel swim reveal stagger-2">
+      <div class="ach-panel swim reveal stagger-5">
         <div class="ach-panel-bg"></div>
         <div class="wave-container">
           <div class="wave">
@@ -3085,90 +3042,12 @@
             </svg>
           </div>
         </div>
-        <div class="ach-num">03</div>
+        <div class="ach-num">06</div>
         <div class="ach-panel-content">
           <div class="ach-icon">🏊</div>
           <div class="ach-tag">Athletics</div>
           <div class="ach-title" style="color:#4499ff">SGFI<br>NATIONALS</div>
-          <div class="ach-desc">Represented at School Games Federation of India — National Level Swimming Competition.
-          </div>
-        </div>
-      </div>
-
-      <!-- CUBE -->
-      <div class="ach-panel cube reveal stagger-3">
-        <div class="ach-panel-bg"></div>
-        <div class="css-cube"
-          style="position:absolute;top:24px;left:32px;width:60px;height:60px;transform-style:preserve-3d;animation:rotateCube 4s infinite linear">
-          <div class="cube-face cube-front"></div>
-          <div class="cube-face cube-back"></div>
-          <div class="cube-face cube-left"></div>
-          <div class="cube-face cube-right"></div>
-          <div class="cube-face cube-top"></div>
-          <div class="cube-face cube-bottom"></div>
-        </div>
-        <div class="ach-num">04</div>
-        <div class="ach-panel-content">
-          <div class="ach-tag">Speedcubing</div>
-          <div class="ach-title" style="color:var(--orange)">SUB-20<br>SECONDS</div>
-          <div class="cube-avg" id="cubeCountdown"
-            style="font-family:'Orbitron',monospace;font-size:36px;font-weight:900;color:var(--orange);text-shadow:0 0 20px var(--orange);margin-bottom:8px">
-            19.4s</div>
-          <div class="ach-desc">3x3 Rubik's Cube average. Multiple competition finishes.</div>
-        </div>
-      </div>
-
-      <!-- CODE -->
-      <div class="ach-panel code reveal stagger-4" style="position:relative">
-        <div class="ach-panel-bg"></div>
-        <canvas id="codeCanvas"></canvas>
-        <div class="ach-num">05</div>
-        <div class="ach-panel-content">
-          <div class="ach-icon" style="font-size:32px;font-family:'Space Mono'">{}</div>
-          <div class="ach-tag">Competitive Programming</div>
-          <div class="ach-title" style="color:#00ff88">250+<br>PROBLEMS</div>
-          <div class="ach-desc">Codeforces grinder. Multiple contests. Consistent improvement in algorithmic thinking.
-          </div>
-        </div>
-      </div>
-
-      <!-- PERFECT SCORE -->
-      <div class="ach-panel score reveal stagger-5">
-        <div class="ach-panel-bg"></div>
-        <div class="ach-num">06</div>
-        <div class="ach-panel-content">
-          <div class="ach-icon">★</div>
-          <div class="ach-tag">Academics</div>
-          <div class="ach-title" style="color:#ffd700">PERFECT<br>SCORE</div>
-          <div class="ach-desc">100% in Karnataka State Board Examination. Absolute precision in academics.</div>
-        </div>
-      </div>
-
-      <!-- TABLE TENNIS -->
-      <div class="ach-panel tt reveal stagger-6">
-        <div class="ach-panel-bg"></div>
-        <div class="ach-num">07</div>
-        <div class="ach-panel-content">
-          <div class="ach-icon">🏓</div>
-          <div class="ach-tag">Sports</div>
-          <div class="ach-title" style="color:#ff44ff">TABLE<br>TENNIS</div>
-          <div class="ach-desc">Tournament competitor. Precision, reflexes, and adaptability — on the table and off.
-          </div>
-        </div>
-      </div>
-
-      <!-- NSEA -->
-      <div class="ach-panel math reveal stagger-7">
-        <div class="ach-panel-bg"></div>
-        <div class="ach-num">08</div>
-        <div class="ach-panel-content">
-          <div class="ach-icon">🔭</div>
-          <div class="ach-tag">Astronomy</div>
-          <div class="ach-title" style="color:var(--cyan)">TOP 1%<br>STATE</div>
-          <div class="ach-subtitle">NSEA 2024</div>
-          <div class="ach-stat">Top 1%</div>
-          <div class="ach-desc">Ranked in the top 1% statewide in the National Standard Examination in Astronomy (NSEA)
-            — Karnataka. Conducted by IAPT.</div>
+          <div class="ach-desc">Represented at School Games Federation of India — National Level Swimming Competition.</div>
         </div>
       </div>
 
@@ -3187,9 +3066,9 @@
       <div class="floating-shape"></div>
     </div>
     <div class="projects-header">
-      <div class="section-label reveal">// PROJECTS.BUILD</div>
+      <div class="section-label reveal">PROJECTS</div>
       <h2 class="section-title reveal">THINGS I'VE<br>CRAFTED</h2>
-      <p class="reveal" style="color:rgba(240,240,240,.4);font-size:13px;margin-top:12px;letter-spacing:1px">Personal
+      <p class="reveal" style="color:rgba(240,240,240,.4);font-size:15px;margin-top:12px;letter-spacing:1px">Personal
         projects & experiments</p>
     </div>
     <div class="projects-grid">
@@ -3235,57 +3114,28 @@
 
   <div class="section-divider"></div>
 
-  <!-- ── MANGALORE ── -->
-  <section id="mangalore">
-    <div class="mang-header">
-      <div class="section-label reveal">// ORIGIN.CITY</div>
-      <h2 class="section-title reveal">WHERE IT<br>ALL STARTED</h2>
-    </div>
-    <p class="mang-sub reveal">Born in the city of beaches, temples, and gold. Mangalore made me.</p>
-    <div class="mang-grid reveal">
-      <div class="mang-card">
-        <img src="assets/manglore beach.jpg" alt="Mangalore Beach">
-        <div class="mang-overlay"></div>
-        <div class="mang-label">THE OCEAN</div>
-      </div>
-      <div class="mang-card">
-        <img src="assets/maglore temple.jpg" alt="Mangalore Temple">
-        <div class="mang-overlay"></div>
-        <div class="mang-label">THE HERITAGE</div>
-      </div>
-      <div class="mang-card">
-        <img src="assets/maglore food.jpg" alt="Mangalore Food">
-        <div class="mang-overlay"></div>
-        <div class="mang-label">THE CULTURE</div>
-      </div>
-    </div>
-    <div class="mang-coords reveal">12°N 74°E · MANGALORE, KARNATAKA · ARABIAN SEA</div>
-  </section>
-
-  <div class="section-divider"></div>
-
   <!-- ── CONTACT ── -->
   <section id="contact">
     <div class="contact-inner">
       <div class="contact-left reveal">
-        <canvas id="radarCanvas" width="320" height="320"></canvas>
+        <canvas id="radarCanvas" width="480" height="480"></canvas>
       </div>
       <div class="contact-right">
-        <div class="section-label reveal">// ESTABLISH CONNECTION</div>
+        <div class="section-label reveal">CONTACT</div>
         <h2 class="section-title reveal" style="margin-bottom:10px">LET'S<br>CONNECT</h2>
         <div class="contact-signals reveal">
           <a href="mailto:athmeeyakashyap@gmail.com" class="signal-line">
-            <span style="color:var(--cyan);letter-spacing:3px;font-size:10px">EMAIL</span>
+            <span style="color:var(--cyan);letter-spacing:3px;font-size:12px">EMAIL</span>
             <span>athmeeyakashyap@gmail.com</span>
             <span class="signal-ping">PING</span>
           </a>
           <a href="tel:+919353211491" class="signal-line">
-            <span style="color:var(--cyan);letter-spacing:3px;font-size:10px">PHONE</span>
+            <span style="color:var(--cyan);letter-spacing:3px;font-size:12px">PHONE</span>
             <span>+91 9353211491</span>
             <span class="signal-ping">PING</span>
           </a>
           <div class="signal-line" style="cursor:default">
-            <span style="color:var(--cyan);letter-spacing:3px;font-size:10px">LOCATION</span>
+            <span style="color:var(--cyan);letter-spacing:3px;font-size:12px">LOCATION</span>
             <span>IIIT Hyderabad, India</span>
             <span class="signal-ping"
               style="border-color:var(--orange);color:var(--orange);animation:none">LOCKED</span>
@@ -3426,7 +3276,7 @@
     }
     function typeSubtitle() {
       const el = document.getElementById('heroSubtitle');
-      const text = '> CS Student. Olympiad Qualifier. National Swimmer. Speedcuber.';
+      const text = '> CS Student. Olympiad Qualifier. National Swimmer. Competitive Programmer.';
       el.style.opacity = 1;
       let i = 0;
       const iv = setInterval(() => {
@@ -3525,24 +3375,90 @@
     const skillCanvas = document.getElementById('skillCanvas');
     const skctx = skillCanvas.getContext('2d');
     const isMobile = window.innerWidth < 768;
-    if (isMobile) { skillCanvas.width = window.innerWidth - 40; skillCanvas.height = 380; }
+    if (isMobile) { skillCanvas.width = window.innerWidth - 40; skillCanvas.height = 550; }
     const SW = skillCanvas.width, SH = skillCanvas.height;
 
     const skillNodes = [
-      { id: 0, label: 'C/C++', level: 'Intermediate', x: .18, y: .3, r: 28, cat: 0 },
-      { id: 1, label: 'Python', level: 'Intermediate', x: .35, y: .2, r: 28, cat: 0 },
-      { id: 2, label: 'JavaScript', level: 'Beginner', x: .52, y: .3, r: 22, cat: 0 },
-      { id: 3, label: 'Git', level: 'Intermediate', x: .68, y: .2, r: 24, cat: 1 },
-      { id: 4, label: 'FastAPI', level: 'Beginner', x: .82, y: .35, r: 20, cat: 1 },
-      { id: 5, label: 'Jinja', level: 'Beginner', x: .75, y: .55, r: 18, cat: 1 },
-      { id: 6, label: 'HTML/CSS', level: 'Advanced', x: .2, y: .7, r: 34, cat: 2 },
-      { id: 7, label: 'SQL', level: 'Intermediate', x: .42, y: .75, r: 26, cat: 2 },
-      { id: 8, label: 'MongoDB', level: 'Intermediate', x: .62, y: .7, r: 26, cat: 2 },
+      // Languages (cat 0 - cyan)
+      { id: 0,  label: 'C/C++',       level: 'Advanced',      x: .08, y: .22, r: 32, cat: 0 },
+      { id: 1,  label: 'Python',      level: 'Advanced',      x: .22, y: .15, r: 32, cat: 0 },
+      { id: 2,  label: 'JavaScript',  level: 'Proficient',    x: .36, y: .22, r: 28, cat: 0 },
+      { id: 3,  label: 'TypeScript',  level: 'Proficient',    x: .50, y: .12, r: 26, cat: 0 },
+      { id: 4,  label: 'Rust',        level: 'Intermediate',  x: .06, y: .60, r: 22, cat: 0 },
+      { id: 5,  label: 'Bash',        level: 'Proficient',    x: .28, y: .38, r: 22, cat: 0 },
+      // Frameworks & Tools (cat 1 - orange)
+      { id: 6,  label: 'React',       level: 'Proficient',    x: .62, y: .18, r: 28, cat: 1 },
+      { id: 7,  label: 'Node.js',     level: 'Proficient',    x: .76, y: .12, r: 26, cat: 1 },
+      { id: 8,  label: 'FastAPI',     level: 'Proficient',    x: .44, y: .38, r: 24, cat: 1 },
+      { id: 9,  label: 'Git',         level: 'Advanced',      x: .90, y: .22, r: 28, cat: 1 },
+      { id: 10, label: 'Docker',      level: 'Proficient',    x: .82, y: .38, r: 26, cat: 1 },
+      { id: 11, label: 'Linux',       level: 'Advanced',      x: .94, y: .48, r: 28, cat: 1 },
+      { id: 12, label: 'Next.js',     level: 'Intermediate',  x: .68, y: .32, r: 22, cat: 1 },
+      // Infrastructure & Data (cat 2 - purple)
+      { id: 13, label: 'SQL',         level: 'Advanced',      x: .18, y: .72, r: 28, cat: 2 },
+      { id: 14, label: 'MongoDB',     level: 'Proficient',    x: .34, y: .78, r: 26, cat: 2 },
+      { id: 15, label: 'Redis',       level: 'Intermediate',  x: .50, y: .72, r: 22, cat: 2 },
+      { id: 16, label: 'AWS',         level: 'Intermediate',  x: .66, y: .82, r: 24, cat: 2 },
+      { id: 17, label: 'PostgreSQL',  level: 'Proficient',    x: .34, y: .60, r: 24, cat: 2 },
+      { id: 18, label: 'GraphQL',     level: 'Intermediate',  x: .52, y: .52, r: 20, cat: 2 },
+      // Concepts & Systems (cat 3 - gold)
+      { id: 19, label: 'DSA',         level: 'Advanced',      x: .10, y: .88, r: 32, cat: 3 },
+      { id: 20, label: 'Sys Design',  level: 'Proficient',    x: .78, y: .62, r: 28, cat: 3 },
+      { id: 21, label: 'CI/CD',       level: 'Proficient',    x: .92, y: .72, r: 24, cat: 3 },
+      { id: 22, label: 'REST APIs',   level: 'Advanced',      x: .64, y: .58, r: 26, cat: 3 },
+      { id: 23, label: 'Testing',     level: 'Proficient',    x: .82, y: .85, r: 22, cat: 3 },
+      { id: 24, label: 'ML Basics',   level: 'Intermediate',  x: .48, y: .90, r: 20, cat: 3 },
     ];
-    const edges = [[0, 1], [0, 6], [1, 4], [1, 7], [2, 5], [2, 6], [3, 4], [4, 5], [6, 7], [7, 8], [2, 8], [3, 0]];
-    const catColors = ['#00FFE5', '#FF4500', '#8844ff'];
+    const edges = [
+      // Language family connections
+      [0,4],    // C/C++ → Rust (systems languages)
+      [1,5],    // Python → Bash (scripting)
+      [2,3],    // JavaScript → TypeScript (superset)
+      // Language → Framework connections
+      [2,6],    // JavaScript → React
+      [3,6],    // TypeScript → React
+      [3,12],   // TypeScript → Next.js
+      [6,12],   // React → Next.js (framework stack)
+      [2,7],    // JavaScript → Node.js
+      [3,7],    // TypeScript → Node.js
+      [1,8],    // Python → FastAPI
+      // Tool ecosystem
+      [9,10],   // Git → Docker (DevOps)
+      [10,11],  // Docker → Linux (infrastructure)
+      [5,11],   // Bash → Linux (shell)
+      [9,21],   // Git → CI/CD (pipeline)
+      [10,21],  // Docker → CI/CD (deployment)
+      // Data layer connections
+      [13,17],  // SQL → PostgreSQL (SQL databases)
+      [13,14],  // SQL → MongoDB (data storage)
+      [14,15],  // MongoDB → Redis (NoSQL)
+      [15,18],  // Redis → GraphQL (data layer)
+      [17,18],  // PostgreSQL → GraphQL (data access)
+      // Backend → Data
+      [8,17],   // FastAPI → PostgreSQL (backend stack)
+      [7,14],   // Node.js → MongoDB (MERN)
+      [7,15],   // Node.js → Redis (caching)
+      // Infrastructure
+      [16,10],  // AWS → Docker (cloud deploy)
+      [16,21],  // AWS → CI/CD (cloud pipeline)
+      [11,16],  // Linux → AWS (cloud)
+      // Concepts wired to practice
+      [19,0],   // DSA → C/C++ (competitive programming)
+      [19,1],   // DSA → Python (algorithmic)
+      [20,22],  // Sys Design → REST APIs
+      [20,10],  // Sys Design → Docker
+      [20,16],  // Sys Design → AWS
+      [22,8],   // REST APIs → FastAPI
+      [22,7],   // REST APIs → Node.js
+      [22,18],  // REST APIs → GraphQL (API paradigms)
+      [21,23],  // CI/CD → Testing (quality pipeline)
+      [23,8],   // Testing → FastAPI
+      [24,1],   // ML Basics → Python
+      [24,19],  // ML Basics → DSA (algorithms)
+    ];
+    const catColors = ['#00FFE5', '#FF4500', '#8844ff', '#ffd700'];
 
-    skillNodes.forEach(n => { n.px = n.x * SW; n.py = n.y * SH; n.vx = (Math.random() - .5) * 0.3; n.vy = (Math.random() - .5) * 0.3; n.hover = false; });
+    skillNodes.forEach(n => { n.px = n.x * SW; n.py = n.y * SH; n.vx = (Math.random() - .5) * 0.15; n.vy = (Math.random() - .5) * 0.15; n.hover = false; });
     let hoverNode = null;
     skillCanvas.addEventListener('mousemove', e => {
       const rect = skillCanvas.getBoundingClientRect();
@@ -3627,14 +3543,14 @@
         skctx.stroke();
         skctx.shadowBlur = 0;
         // label
-        skctx.fillStyle = isHov ? col : 'rgba(240,240,240,0.7)';
-        skctx.font = `${isHov ? 'bold ' : ''} ${Math.round(r * .38)}px Space Mono, monospace`;
+        skctx.fillStyle = isHov ? col : 'rgba(240,240,240,0.85)';
+        skctx.font = `${isHov ? 'bold ' : ''}${Math.max(10, Math.round(r * .42))}px Space Mono, monospace`;
         skctx.textAlign = 'center'; skctx.textBaseline = 'middle';
         skctx.fillText(n.label, n.px, n.py);
         if (isHov) {
-          skctx.font = `10px Space Mono, monospace`;
-          skctx.fillStyle = 'rgba(240,240,240,0.5)';
-          skctx.fillText(n.level, n.px, n.py + r + 14);
+          skctx.font = `11px Space Mono, monospace`;
+          skctx.fillStyle = 'rgba(240,240,240,0.6)';
+          skctx.fillText(n.level, n.px, n.py + r + 16);
         }
       });
       requestAnimationFrame(drawSkills);
@@ -3673,7 +3589,7 @@
     let radarAngle = 0;
     const blips = [
       { angle: 0.8, dist: .6, label: 'IIIT HYD' },
-      { angle: 2.1, dist: .4, label: 'MANGALORE' },
+
       { angle: 4.5, dist: .75, label: 'CODEFORCES' },
       { angle: 3.2, dist: .5, label: 'SGFI' },
     ];
@@ -3720,7 +3636,7 @@
         rctx.fill();
         rctx.shadowBlur = 0;
         rctx.fillStyle = `rgba(0,255,229,${fade * .7})`;
-        rctx.font = '9px Space Mono, monospace';
+        rctx.font = '12px Space Mono, monospace';
         rctx.fillText(b.label, bx + 8, by + 4);
       });
       requestAnimationFrame(drawRadar);
@@ -3740,7 +3656,7 @@
       // back to top
       backToTop.classList.toggle('visible', window.scrollY > 500);
       // active section
-      const secs = ['hero', 'about', 'bento', 'education', 'skills', 'achievements', 'projects', 'mangalore', 'contact'];
+      const secs = ['hero', 'about', 'education', 'skills', 'achievements', 'projects', 'contact'];
       let active = 'hero';
       secs.forEach(id => {
         const el = document.getElementById(id);

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Athmeeya M Kashyap - Resume</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page { size: A4; margin: 0; }
+
+  body {
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    line-height: 1.4;
+    color: #222;
+    background: #fff;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 24px 32px 20px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a { color: #222; text-decoration: none; }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    border-bottom: 2px solid #222;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+
+  .header-photo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    flex-shrink: 0;
+  }
+
+  .header-info { flex: 1; }
+
+  .header-info h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+  }
+
+  .header-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin-top: 6px;
+    font-size: 9.5pt;
+    color: #444;
+  }
+
+  .header-contact span { white-space: nowrap; }
+
+  /* SECTIONS */
+  .section { margin-bottom: 11px; }
+
+  h2 {
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #222;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 2px;
+    margin-bottom: 6px;
+  }
+
+  /* SUMMARY */
+  .summary {
+    font-size: 10pt;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  /* EDUCATION */
+  .edu-entry { margin-bottom: 6px; }
+
+  .edu-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .edu-school { font-weight: 600; font-size: 10.5pt; }
+  .edu-date { font-size: 9pt; color: #666; }
+  .edu-degree { font-size: 9.5pt; color: #444; }
+
+  /* SKILLS */
+  .skills-list {
+    font-size: 10pt;
+    line-height: 1.6;
+  }
+
+  .skills-list strong {
+    font-weight: 600;
+    color: #222;
+  }
+
+  /* BULLET ITEMS */
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul li {
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 5px;
+    font-size: 10pt;
+    line-height: 1.45;
+    color: #333;
+  }
+
+  ul li::before {
+    content: '•';
+    position: absolute;
+    left: 2px;
+    color: #222;
+    font-weight: 700;
+  }
+
+  ul li strong { font-weight: 600; color: #222; }
+
+  /* PROJECTS */
+  .proj { margin-bottom: 7px; }
+  .proj-top { display: flex; justify-content: space-between; align-items: baseline; }
+  .proj-name { font-weight: 600; font-size: 10.5pt; }
+  .proj-tech { font-size: 9pt; color: #666; }
+  .proj-desc { font-size: 9.5pt; color: #444; margin-top: 1px; line-height: 1.45; }
+
+  /* COURSEWORK / EXTRA */
+  .inline-list {
+    font-size: 9.5pt;
+    color: #444;
+    line-height: 1.55;
+  }
+
+  @media print {
+    body { padding: 20px 28px 16px; }
+    .section { break-inside: avoid; }
+    a { color: #222 !important; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="athmeeyacv.jpg" alt="Athmeeya M Kashyap" class="header-photo">
+    <div class="header-info">
+      <h1>ATHMEEYA M KASHYAP</h1>
+      <div class="header-contact">
+        <span>athmeeyakashyap@gmail.com</span>
+        <span>+91 93532 11491</span>
+        <span>Hyderabad, India</span>
+        <span>github.com/athmeeya</span>
+        <span>linkedin.com/in/athmeeya</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFESSIONAL SUMMARY -->
+  <div class="section">
+    <h2>Summary</h2>
+    <p class="summary">B.Tech CSE + MS Computational Natural Science student at IIIT Hyderabad with strong foundations in algorithms, data structures, and mathematical problem-solving. INMO qualifier with competitive programming experience (250+ problems on Codeforces). Proficient in C/C++, Python, JavaScript, and modern web technologies. Seeking software engineering and quantitative roles where analytical rigor and systems thinking drive impact.</p>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <h2>Education</h2>
+    <div class="edu-entry">
+      <div class="edu-top">
+        <span class="edu-school">IIIT Hyderabad — B.Tech, Computer Science & Engineering + MS, Computational Natural Science</span>
+        <span class="edu-date">2024 – 2029 (Expected)</span>
+      </div>
+      <div class="edu-degree">Relevant Coursework: Data Structures & Algorithms, Discrete Mathematics, Linear Algebra, Probability & Statistics, Computer Organization</div>
+    </div>
+    <div class="edu-entry">
+      <div class="edu-top">
+        <span class="edu-school">CFAL — Higher Secondary (Science, PCM)</span>
+        <span class="edu-date">2022 – 2024</span>
+      </div>
+    </div>
+    <div class="edu-entry">
+      <div class="edu-top">
+        <span class="edu-school">VEMS — Secondary Education</span>
+        <span class="edu-date">Completed 2022</span>
+      </div>
+      <div class="edu-degree">Karnataka State Board — Scored 100%</div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL SKILLS -->
+  <div class="section">
+    <h2>Technical Skills</h2>
+    <div class="skills-list">
+      <strong>Languages:</strong> C, C++, Python, JavaScript, TypeScript, Rust, Bash/Shell<br>
+      <strong>Frameworks & Libraries:</strong> React, Next.js, Node.js, FastAPI, Express.js<br>
+      <strong>Databases & Infrastructure:</strong> PostgreSQL, MySQL, MongoDB, Redis, AWS, Docker, GraphQL<br>
+      <strong>Developer Tools:</strong> Git, GitHub, Linux, CI/CD, REST APIs, Unit Testing<br>
+      <strong>Core Competencies:</strong> Data Structures & Algorithms, System Design, Object-Oriented Programming, Competitive Programming, Mathematical Problem-Solving
+    </div>
+  </div>
+
+  <!-- ACHIEVEMENTS -->
+  <div class="section">
+    <h2>Achievements & Awards</h2>
+    <ul>
+      <li><strong>INMO Qualifier</strong> — Cleared India's 3-stage Mathematical Olympiad selection (IOQM → RMO → INMO). One of the top math olympiad qualifiers nationally.</li>
+      <li><strong>INMOTC Selection</strong> — Invited to the Indian National Mathematical Olympiad Training Camp at ICTS-TIFR, Bangalore. One of approximately 30 students selected from Karnataka state.</li>
+      <li><strong>NSEA — Top 1% in Karnataka</strong> — Ranked in the top 1% statewide in the National Standard Examination in Astronomy conducted by IAPT.</li>
+      <li><strong>Competitive Programming</strong> — Solved 250+ problems on Codeforces covering data structures, dynamic programming, graph theory, number theory, and greedy algorithms.</li>
+      <li><strong>SGFI National Swimming</strong> — Represented at the School Games Federation of India (SGFI) National Level Swimming Competition.</li>
+      <li><strong>100% Score — Karnataka State Board</strong> — Achieved a perfect score in the Karnataka State Board Secondary Examination.</li>
+    </ul>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section">
+    <h2>Projects</h2>
+    <div class="proj">
+      <div class="proj-top">
+        <span class="proj-name">Interactive Portfolio Website</span>
+        <span class="proj-tech">HTML, CSS, JavaScript, Canvas API</span>
+      </div>
+      <div class="proj-desc">Built a fully custom single-page application from scratch with zero dependencies. Implemented real-time HTML5 Canvas animations (starfield, neural network graph, radar sweep), physics-based custom cursor with trail, boot-sequence preloader, 3D card tilt interactions, and responsive design across all breakpoints.</div>
+    </div>
+    <div class="proj">
+      <div class="proj-top">
+        <span class="proj-name">Algorithmic Problem Solving — Codeforces</span>
+        <span class="proj-tech">C++, Python, Algorithms</span>
+      </div>
+      <div class="proj-desc">Solved 250+ competitive programming problems. Focused on dynamic programming, segment trees, graph algorithms (BFS, DFS, Dijkstra), number theory (modular arithmetic, sieve), combinatorics, and greedy optimization.</div>
+    </div>
+    <div class="proj">
+      <div class="proj-top">
+        <span class="proj-name">Mathematical Olympiad Preparation</span>
+        <span class="proj-tech">Combinatorics, Number Theory, Algebra, Geometry</span>
+      </div>
+      <div class="proj-desc">Systematic progression through India's olympiad pipeline (IOQM → RMO → INMO). Developed proof-writing skills and deep problem-solving intuition across all four olympiad branches.</div>
+    </div>
+  </div>
+
+  <!-- EXTRACURRICULAR -->
+  <div class="section">
+    <h2>Extracurricular Activities</h2>
+    <ul>
+      <li><strong>National Level Swimmer</strong> — SGFI National Competition participant; trained competitively for multiple years.</li>
+      <li><strong>Astronomy Enthusiast</strong> — Top 1% in NSEA; active interest in astrophysics and scientific computation.</li>
+    </ul>
+  </div>
+
+</body>
+</html>
