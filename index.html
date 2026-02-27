@@ -999,21 +999,20 @@
       max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      grid-template-columns: auto 1fr;
+      gap: 60px;
       align-items: center;
     }
 
     .about-photo-wrap {
       position: relative;
       width: fit-content;
-      max-width: 440px;
     }
 
     .about-photo-frame {
       position: relative;
       display: block;
-      width: 440px;
+      width: 520px;
       max-width: 100%;
       aspect-ratio: 3 / 4;
       clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
@@ -1114,7 +1113,7 @@
     }
 
     .about-text {
-      padding-left: 20px;
+      padding-left: 0;
     }
 
     .about-file-tag {
@@ -1126,10 +1125,10 @@
     }
 
     .about-bio {
-      font-size: 17px;
-      line-height: 1.9;
+      font-size: 18px;
+      line-height: 1.85;
       color: rgba(240, 240, 240, .6);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       font-family: 'Inter', sans-serif;
       font-weight: 300;
     }
@@ -1145,12 +1144,12 @@
     .about-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       margin-bottom: 40px;
     }
 
     .about-tag {
-      font-size: 13px;
+      font-size: 14px;
       letter-spacing: 2px;
       border: 1px solid rgba(0, 255, 229, .3);
       color: var(--cyan);
@@ -2485,12 +2484,12 @@
       }
 
       .about-photo-wrap {
-        max-width: 280px;
+        max-width: 320px;
         margin: 0 auto;
       }
 
       .about-photo-frame {
-        width: 280px;
+        width: 320px;
         max-width: 100%;
         margin: 0 auto;
       }
