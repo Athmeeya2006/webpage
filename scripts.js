@@ -62,7 +62,7 @@
     }
     function typeSubtitle() {
       const el = document.getElementById('heroSubtitle');
-      const text = 'Computer Science · IIIT Hyderabad · Researcher · Builder · Competitive Programmer';
+      const text = 'Computer Science · IIIT Hyderabad · Researcher · Olympiad Qualifier · Competitive Programmer';
       el.style.opacity = 1;
       let i = 0;
       const iv = setInterval(() => {
