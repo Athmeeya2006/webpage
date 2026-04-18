@@ -1,80 +1,23 @@
-    // CURSOR + TRAIL
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    let mx = 0, my = 0, dx = 0, dy = 0, rx = 0, ry = 0;
-    const trailDots = [];
-    const TRAIL_LENGTH = 8;
-    for (let i = 0; i < TRAIL_LENGTH; i++) {
-      const d = document.createElement('div');
-      d.className = 'cursor-trail';
-      d.style.opacity = (1 - i / TRAIL_LENGTH) * 0.3;
-      d.style.width = d.style.height = Math.max(2, 4 - i * 0.3) + 'px';
-      document.body.appendChild(d);
-      trailDots.push({ el: d, x: 0, y: 0 });
-    }
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
     // Smooth lerp helper
     function lerp(a, b, t) { return a + (b - a) * t; }
 
-    function animCursor() {
-      // Smooth dot follow with lerp
-      dx = lerp(dx, mx, 0.25);
-      dy = lerp(dy, my, 0.25);
-      dot.style.left = dx + 'px'; dot.style.top = dy + 'px';
-
-      // Even smoother ring follow
-      rx = lerp(rx, mx, 0.08);
-      ry = lerp(ry, my, 0.08);
-      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-
-      // Smooth trail with cascading lerp
-      trailDots.forEach((t, i) => {
-        const prev = i === 0 ? { x: dx, y: dy } : trailDots[i - 1];
-        const factor = 0.18 - i * 0.012;
-        t.x = lerp(t.x, prev.x, Math.max(factor, 0.04));
-        t.y = lerp(t.y, prev.y, Math.max(factor, 0.04));
-        t.el.style.left = t.x + 'px';
-        t.el.style.top = t.y + 'px';
-      });
-      requestAnimationFrame(animCursor);
-    }
-    animCursor();
-    document.querySelectorAll('a, button, .ach-panel, .mang-card, .edu-card, .stat-box, .about-tag, .project-card, .social-link, .bento-card').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-    });
-
     // PRELOADER
-    const bootLines = ['bl0', 'bl1', 'bl2', 'bl3', 'bl4', 'bl5', 'bl6', 'bl7', 'bl8'];
     const bootFill = document.getElementById('bootFill');
-    const bootPct = document.getElementById('bootPct');
-    let lineIdx = 0;
-    let smoothBootPct = 0;
-    
-    function animateBootBar(target) {
-      function step() {
-        smoothBootPct = lerp(smoothBootPct, target, 0.12);
-        bootFill.style.width = smoothBootPct + '%';
-        bootPct.textContent = Math.round(smoothBootPct) + '%';
-        if (Math.abs(smoothBootPct - target) > 0.5) requestAnimationFrame(step);
-        else { bootFill.style.width = target + '%'; bootPct.textContent = target + '%'; }
-      }
-      requestAnimationFrame(step);
+    let pct = 0;
+    const duration = 1200;
+    const start = performance.now();
+
+    function animateLoader(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      pct = eased * 100;
+      if (bootFill) bootFill.style.width = pct + '%';
+      if (progress < 1) requestAnimationFrame(animateLoader);
+      else setTimeout(launchSite, 200);
     }
-    
-    function showNextLine() {
-      if (lineIdx >= bootLines.length) return;
-      const el = document.getElementById(bootLines[lineIdx]);
-      if (el) el.classList.add('visible');
-      lineIdx++;
-      const pct = Math.round((lineIdx / bootLines.length) * 100);
-      animateBootBar(pct);
-      const delay = lineIdx < 3 ? 400 : lineIdx < 6 ? 350 : 300;
-      if (lineIdx < bootLines.length) setTimeout(showNextLine, delay);
-      else setTimeout(launchSite, 600);
-    }
-    setTimeout(showNextLine, 600);
+    requestAnimationFrame(animateLoader);
+
     function launchSite() {
       const pre = document.getElementById('preloader');
       pre.classList.add('shatter');
@@ -119,7 +62,7 @@
     }
     function typeSubtitle() {
       const el = document.getElementById('heroSubtitle');
-      const text = '> CS Student. Olympiad Qualifier. National Swimmer. Competitive Programmer.';
+      const text = 'Computer Science · IIIT Hyderabad · Researcher · Builder · Competitive Programmer';
       el.style.opacity = 1;
       let i = 0;
       const iv = setInterval(() => {
@@ -251,6 +194,7 @@
 
     // SKILLS NEURAL NETWORK
     const skillCanvas = document.getElementById('skillCanvas');
+    if (skillCanvas) {
     const skctx = skillCanvas.getContext('2d');
     const isMobile = window.innerWidth < 768;
     if (isMobile) { skillCanvas.width = window.innerWidth - 40; skillCanvas.height = 550; }
@@ -355,9 +299,8 @@
       skillNodes.forEach(n => {
         const d = Math.hypot(mx - n.px, my - n.py);
         n.hover = d < n.r + 10;
-        if (n.hover) { hoverNode = n; document.body.classList.add('cursor-hover'); }
+        if (n.hover) { hoverNode = n; }
       });
-      if (!hoverNode) document.body.classList.remove('cursor-hover');
     });
 
     const packets = [];
@@ -443,6 +386,7 @@
       requestAnimationFrame(drawSkills);
     }
     drawSkills();
+    }
 
     // MATRIX RAIN
     const codeC = document.getElementById('codeCanvas');
@@ -556,7 +500,7 @@
       backToTop.classList.toggle('visible', sy > 500);
       
       // active section (with hysteresis to avoid flickering)
-      const secs = ['hero', 'about', 'education', 'skills', 'achievements', 'projects', 'contact'];
+      const secs = ['hero', 'about', 'experience', 'education', 'skills', 'achievements', 'projects', 'contact'];
       let active = 'hero';
       secs.forEach(id => {
         const el = document.getElementById(id);

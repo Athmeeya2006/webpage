@@ -18,10 +18,6 @@
 
 <body>
 
-  <!-- CURSOR -->
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
-
   <!-- SCROLL PROGRESS -->
   <div id="scroll-progress"></div>
 
@@ -33,26 +29,11 @@
 
   <!-- PRELOADER -->
   <div id="preloader">
-    <div id="boot-terminal">
-      <div class="line" id="bl0">> INITIALIZING AMK_OS v2.6...</div>
-      <div class="line" id="bl1">> Loading neural modules <span class="bar-inline">............ [<span id="bar-text">
-          </span>] <span id="bar-pct">0</span>%</span></div>
-      <div class="line" id="bl2">> Mounting Codeforces database....... <span style="color:#00ff88">300+ problems
-          OK</span></div>
-      <div class="line" id="bl3">> SGFI swimming records.............. <span style="color:#4499ff">NATIONAL
-          LOADED</span></div>
-      <div class="line" id="bl4">> INMO qualification status.......... <span style="color:var(--cyan)">VERIFIED</span>
-      </div>
-      <div class="line" id="bl5">> Perfect score Karnataka State...... <span style="color:#ffd700">100% ✓</span></div>
-      <div class="line" id="bl6">> NSEA Top 1% State................. <span style="color:var(--cyan)">CONFIRMED</span></div>
-      <div class="line" id="bl7" style="color:var(--orange)">⚠ WARNING: Exceptional human detected.</div>
-      <div class="line" id="bl8">> LAUNCHING INTERFACE...<span id="blink-cursor"
-          style="animation:blink 0.8s infinite">█</span></div>
-    </div>
+    <div class="pre-name" id="preName">AMK</div>
+    <div class="pre-subtitle">ATHMEEYA M KASHYAP</div>
     <div class="boot-bar">
       <div class="boot-fill" id="bootFill"></div>
     </div>
-    <div class="boot-pct" id="bootPct">0%</div>
   </div>
 
   <!-- NAV -->
@@ -61,6 +42,7 @@
     <ul class="nav-links">
       <li><a href="#hero">HOME</a></li>
       <li><a href="#about">ABOUT</a></li>
+      <li><a href="#experience">EXPERIENCE</a></li>
       <li><a href="#education">EDUCATION</a></li>
       <li><a href="#skills">SKILLS</a></li>
       <li><a href="#achievements">ACHIEVEMENTS</a></li>
@@ -75,6 +57,7 @@
     <span class="mobile-close" id="mobileClose">✕</span>
     <a href="#hero" onclick="closeMobile()">HOME</a>
     <a href="#about" onclick="closeMobile()">ABOUT</a>
+    <a href="#experience" onclick="closeMobile()">EXPERIENCE</a>
     <a href="#education" onclick="closeMobile()">EDUCATION</a>
     <a href="#skills" onclick="closeMobile()">SKILLS</a>
     <a href="#achievements" onclick="closeMobile()">ACHIEVEMENTS</a>
@@ -94,7 +77,6 @@
     </div>
     <div class="hero-scan"></div>
     <div class="hero-content">
-      <div class="hero-initials">A . M . K</div>
       <div class="hero-name" id="heroName"></div>
       <div class="hero-subtitle" id="heroSubtitle"></div>
       <div class="hero-ctas">
@@ -122,7 +104,7 @@
       </div>
       <div class="about-text">
         <div class="section-label reveal">ABOUT</div>
-        <h2 class="section-title reveal" style="margin-bottom:24px">THE<br>PERSON</h2>
+        <h2 class="section-title reveal" style="margin-bottom:24px">WHO<br>I AM</h2>
         <p class="about-bio reveal">
           I don't dabble. I <strong>lock in</strong>. Whether it's cracking an INMO problem at 3 AM or 
           architecting a system from first principles, I operate at one speed: <strong>all in</strong>. 
@@ -150,8 +132,37 @@
   </section>
 
   <div class="section-divider"></div>
+  
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="exp-header">
+      <div class="section-label reveal">EXPERIENCE</div>
+      <h2 class="section-title reveal">WHERE I'VE<br>WORKED</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-card reveal">
+        <div class="exp-card-accent"></div>
+        <div class="exp-left">
+          <div class="exp-role">Undergraduate Research Assistant</div>
+          <div class="exp-org">CCNSB Lab · IIIT Hyderabad</div>
+          <div class="exp-period">2024 — Present</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-meta">Under Prof. Chittaranjan Hens</div>
+          <ul class="exp-bullets">
+            <li>Simulation and analysis of complex networks, Erdős-Rényi random graphs, and brain signal dynamics.</li>
+            <li>Built a 9-module Python toolkit covering connectivity, percolation thresholds, spectral analysis, and graph generation benchmarks.</li>
+            <li>Produced Manim animations and a LaTeX research paper; derived theoretical results including cluster size power law at criticality (s<sup>−3/2</sup>).</li>
+          </ul>
+          <div class="exp-tags">
+            <span>Python</span><span>NetworkX</span><span>SciPy</span><span>Manim</span><span>LaTeX</span><span>Graph Theory</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-
+  <div class="section-divider"></div>
 
   <!-- EDUCATION -->
   <section id="education">
@@ -193,7 +204,7 @@
 
       <div class="edu-item reveal stagger-4">
         <div class="edu-card" style="text-align:right; border-color: rgba(0,255,229,.4);">
-          <div class="edu-level" style="color:var(--cyan)">FINAL FORM</div>
+          <div class="edu-level">FINAL FORM</div>
           <div class="edu-degree" style="color:var(--cyan)">B.Tech CSE + MS Computational Natural Science</div>
           <div class="edu-school">IIIT Hyderabad</div>
           <div class="edu-xp">
@@ -213,23 +224,32 @@
   <section id="skills">
     <div class="skills-header">
       <div class="section-label reveal">SKILLS</div>
-      <h2 class="section-title reveal">NEURAL<br>NETWORK</h2>
-      <p class="reveal" style="color:rgba(240,240,240,.4);font-size:15px;margin-top:12px;letter-spacing:1px">Hover nodes
-        to explore connections</p>
+      <h2 class="section-title reveal">TECHNICAL<br>STACK</h2>
     </div>
-    <canvas id="skillCanvas" width="1400" height="750"></canvas>
-    <div class="skills-legend reveal">
-      <div class="legend-item">
-        <div class="legend-dot" style="background:var(--cyan)"></div> LANGUAGES
+    <div class="skills-grid reveal">
+      <div class="skill-category">
+        <div class="skill-cat-label" style="color:var(--cyan)">LANGUAGES</div>
+        <div class="skill-tags">
+          <span>C / C++</span><span>Python</span><span>JavaScript</span><span>TypeScript</span><span>SQL</span><span>Rust</span><span>Bash</span>
+        </div>
       </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:var(--orange)"></div> FRAMEWORKS & TOOLS
+      <div class="skill-category">
+        <div class="skill-cat-label" style="color:var(--orange)">FRAMEWORKS & LIBRARIES</div>
+        <div class="skill-tags">
+          <span>React 18/19</span><span>Next.js</span><span>Node.js</span><span>Express.js</span><span>FastAPI</span><span>Prisma ORM</span><span>Tailwind CSS</span><span>Framer Motion</span>
+        </div>
       </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:#8844ff"></div> INFRASTRUCTURE & DATA
+      <div class="skill-category">
+        <div class="skill-cat-label" style="color:#8844ff">DATABASES & INFRA</div>
+        <div class="skill-tags">
+          <span>PostgreSQL</span><span>MongoDB</span><span>MySQL</span><span>SQLite</span><span>Redis</span><span>Docker</span><span>AWS</span><span>GraphQL</span><span>REST APIs</span>
+        </div>
       </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:#ffd700"></div> CONCEPTS & SYSTEMS
+      <div class="skill-category">
+        <div class="skill-cat-label" style="color:#ffd700">CONCEPTS & TOOLS</div>
+        <div class="skill-tags">
+          <span>Data Structures & Algorithms</span><span>System Design</span><span>Graph Theory</span><span>Scientific Computation</span><span>Git / CI-CD</span><span>Linux</span><span>Unit Testing</span>
+        </div>
       </div>
     </div>
   </section>
@@ -462,7 +482,7 @@
 
   <footer>
     <div>© 2026 ATHMEEYA M KASHYAP</div>
-    <div>BUILT WITH <span>PASSION</span> & <span>CODE</span> · IIIT HYDERABAD</div>
+    <div>IIIT HYDERABAD · CCNSB LAB</div>
   </footer>
 
 
