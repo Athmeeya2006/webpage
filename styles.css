@@ -989,7 +989,7 @@
     /* ABOUT */
     #about {
       padding: clamp(80px, 12vw, 180px) 40px;
-      background: var(--dark);
+      background: var(--black);
       overflow: hidden;
     }
 
@@ -1125,7 +1125,7 @@
     .about-bio {
       font-size: 18px;
       line-height: 1.85;
-      color: rgba(240, 240, 240, .6);
+      color: rgba(240, 240, 240, .85);
       margin-bottom: 28px;
       font-family: 'Inter', sans-serif;
       font-weight: 300;
