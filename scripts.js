@@ -373,13 +373,13 @@
         skctx.stroke();
         skctx.shadowBlur = 0;
         // label
-        skctx.fillStyle = isHov ? col : 'rgba(240,240,240,0.85)';
+        skctx.fillStyle = isHov ? col : '#EAEAEA';
         skctx.font = `${isHov ? 'bold ' : ''}${Math.max(10, Math.round(r * .42))}px Space Mono, monospace`;
         skctx.textAlign = 'center'; skctx.textBaseline = 'middle';
         skctx.fillText(n.label, n.px, n.py);
         if (isHov) {
           skctx.font = `11px Space Mono, monospace`;
-          skctx.fillStyle = 'rgba(240,240,240,0.6)';
+          skctx.fillStyle = '#EAEAEA';
           skctx.fillText(n.level, n.px, n.py + r + 16);
         }
       });

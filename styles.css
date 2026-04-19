@@ -186,7 +186,7 @@
     .pre-subtitle {
       font-family: 'Space Mono', monospace;
       font-size: clamp(10px, 1.5vw, 13px);
-      color: rgba(240,240,240,.5);
+      color: var(--white);
       letter-spacing: 6px;
       margin-bottom: 24px;
     }
@@ -351,7 +351,7 @@
     .nav-links a {
       font-family: 'Space Mono', monospace;
       font-size: 13px;
-      color: rgba(240, 240, 240, .85);
+      color: var(--white);
       text-decoration: none;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -515,7 +515,7 @@
       gap: 10px;
       font-size: 11px;
       letter-spacing: 4px;
-      color: rgba(240, 240, 240, .3);
+      color: var(--white);
       margin-bottom: 28px;
       text-transform: uppercase;
       opacity: 0;
@@ -1023,12 +1023,12 @@
       object-fit: cover;
       object-position: center 20%;
       display: block;
-      filter: grayscale(20%) contrast(1.1);
+      filter: contrast(1.1);
       transition: filter .3s;
     }
 
     .about-photo-frame:hover img {
-      filter: grayscale(0%) contrast(1.2);
+      filter: contrast(1.2);
     }
 
     .about-photo-frame .scanlines {
@@ -1125,7 +1125,7 @@
     .about-bio {
       font-size: 18px;
       line-height: 1.85;
-      color: rgba(240, 240, 240, .85);
+      color: var(--white);
       margin-bottom: 28px;
       font-family: 'Inter', sans-serif;
       font-weight: 300;
@@ -1193,7 +1193,7 @@
     .stat-label {
       font-size: 10px;
       letter-spacing: 2px;
-      color: rgba(240, 240, 240, .5);
+      color: var(--white);
       text-transform: uppercase;
     }
 
@@ -1241,7 +1241,7 @@
 
     .exp-role {
       font-family: 'Orbitron', monospace;
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--cyan);
       letter-spacing: 1px;
@@ -1251,23 +1251,23 @@
 
     .exp-org {
       font-family: 'Space Mono', monospace;
-      font-size: 13px;
-      color: rgba(240,240,240,.7);
+      font-size: 15px;
+      color: var(--white);
       letter-spacing: 1px;
       margin-bottom: 10px;
     }
 
     .exp-period {
       font-family: 'Space Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--orange);
       letter-spacing: 2px;
     }
 
     .exp-meta {
       font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      color: rgba(240,240,240,.45);
+      font-size: 14px;
+      color: var(--white);
       letter-spacing: 1px;
       margin-bottom: 16px;
     }
@@ -1282,8 +1282,8 @@
     }
 
     .exp-bullets li {
-      font-size: 14px;
-      color: rgba(240,240,240,.72);
+      font-size: 16px;
+      color: var(--white);
       line-height: 1.65;
       padding-left: 16px;
       position: relative;
@@ -1294,7 +1294,7 @@
       position: absolute;
       left: 0;
       color: var(--cyan);
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .exp-tags {
@@ -1305,10 +1305,10 @@
 
     .exp-tags span {
       font-family: 'Space Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--cyan);
       border: 1px solid rgba(0,255,229,.25);
-      padding: 4px 10px;
+      padding: 5px 12px;
       letter-spacing: 1px;
     }
 
@@ -1443,7 +1443,7 @@
 
     .edu-school {
       font-size: 15px;
-      color: rgba(240, 240, 240, .5);
+      color: var(--white);
       letter-spacing: 1px;
     }
 
@@ -1474,53 +1474,107 @@
       margin-bottom: 64px;
     }
 
-    .skills-grid {
+    .skills-board {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
     }
 
-    .skill-category {
-      padding: 32px 36px;
-      background: var(--glass);
-      border: 1px solid rgba(255,255,255,.05);
+    .skill-cluster {
+      position: relative;
+      padding: 28px 30px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 255, 229, .08), transparent 55%),
+        linear-gradient(160deg, rgba(10, 10, 18, .92), rgba(5, 5, 8, .92));
+      border: 1px solid rgba(255,255,255,.06);
       backdrop-filter: blur(8px);
-      transition: border-color .3s;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      overflow: hidden;
     }
 
-    .skill-category:hover {
-      border-color: rgba(0,255,229,.15);
+    .skill-cluster::after {
+      content: '';
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: rgba(0, 255, 229, .05);
+      filter: blur(30px);
+      pointer-events: none;
     }
 
-    .skill-cat-label {
+    .skill-cluster:hover {
+      border-color: rgba(0,255,229,.25);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 255, 229, .08);
+    }
+
+    .skill-cluster-label {
       font-family: 'Orbitron', monospace;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 3px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
     }
 
-    .skill-tags {
+    .skill-row {
+      margin-bottom: 14px;
+    }
+
+    .skill-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-row-head {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .skill-tags span {
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
       font-family: 'Space Mono', monospace;
+      letter-spacing: .4px;
       font-size: 12px;
-      color: rgba(240,240,240,.8);
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-      padding: 6px 14px;
-      letter-spacing: .5px;
-      transition: background .2s, border-color .2s, color .2s;
+      color: var(--white);
+      gap: 12px;
     }
 
-    .skill-tags span:hover {
-      background: rgba(0,255,229,.07);
-      border-color: rgba(0,255,229,.3);
-      color: var(--cyan);
+    .skill-row-head span:last-child {
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,.85);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .skill-meter {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .skill-meter-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), #7ff5ff);
+      box-shadow: 0 0 14px rgba(0,255,229,.4);
+      animation: skillFill 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes skillFill {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: var(--level, 70%);
+      }
     }
 
     /* ACHIEVEMENTS */
@@ -1603,7 +1657,7 @@
 
     .ach-desc {
       font-size: 15px;
-      color: rgba(240, 240, 240, .6);
+      color: var(--white);
       line-height: 1.8;
     }
 
@@ -1836,7 +1890,7 @@
 
     .mang-sub {
       font-size: 15px;
-      color: rgba(240, 240, 240, .5);
+      color: var(--white);
       margin-bottom: 60px;
       font-style: italic;
       max-width: 1200px;
@@ -1909,7 +1963,7 @@
       margin-top: 40px;
       font-size: 11px;
       letter-spacing: 6px;
-      color: rgba(240, 240, 240, .25);
+      color: var(--white);
       font-family: 'Orbitron', monospace;
     }
 
@@ -1954,7 +2008,7 @@
     .signal-line {
       font-family: 'Space Mono', monospace;
       font-size: 15px;
-      color: rgba(240, 240, 240, .6);
+      color: var(--white);
       padding: 16px 20px;
       border: 1px solid rgba(0, 255, 229, .1);
       display: flex;
@@ -2100,7 +2154,7 @@
     }
 
     .project-card--minor .project-title {
-      color: rgba(240, 240, 240, .9);
+      color: var(--white);
     }
 
     .project-card--minor .project-tag,
@@ -2178,7 +2232,7 @@
     .project-desc {
       font-size: 15px;
       line-height: 1.8;
-      color: rgba(240, 240, 240, .5);
+      color: var(--white);
       margin-bottom: 20px;
     }
 
@@ -2229,7 +2283,7 @@
       font-family: 'Space Mono', monospace;
       font-size: 13px;
       letter-spacing: 2px;
-      color: rgba(240, 240, 240, .85);
+      color: var(--white);
       position: relative;
       max-width: 1400px;
       margin: 0 auto;
@@ -2382,7 +2436,7 @@
 
     .bento-card .bento-sub {
       font-size: 11px;
-      color: rgba(240, 240, 240, .35);
+      color: var(--white);
       letter-spacing: 1px;
       line-height: 1.6;
     }
@@ -2919,7 +2973,7 @@
         padding: 28px 24px;
       }
 
-      .skills-grid {
+      .skills-board {
         grid-template-columns: 1fr;
       }
     }
