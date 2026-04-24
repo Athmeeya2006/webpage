@@ -388,6 +388,450 @@
     drawSkills();
     }
 
+    // SKILLS D3 FORCE GRAPH
+    const skillsGraphCanvas = document.getElementById('skillsGraphCanvas');
+    if (skillsGraphCanvas && window.d3) {
+      const graphCtx = skillsGraphCanvas.getContext('2d');
+      const graphTooltip = document.getElementById('skillsGraphTooltip');
+
+      const categoryColors = {
+        Languages: '#00FFE5',
+        'Frameworks & Libraries': '#FF4500',
+        'Databases & Tools': '#4499FF'
+      };
+
+      const nodes = [
+        { id: 'Python', category: 'Languages' },
+        { id: 'JavaScript', category: 'Languages' },
+        { id: 'TypeScript', category: 'Languages' },
+        { id: 'SQL', category: 'Languages' },
+        { id: 'C', category: 'Languages' },
+        { id: 'C++', category: 'Languages' },
+        { id: 'Kotlin', category: 'Languages' },
+        { id: 'Bash/Shell', category: 'Languages' },
+        { id: 'React.js', category: 'Frameworks & Libraries' },
+        { id: 'Node.js', category: 'Frameworks & Libraries' },
+        { id: 'Express.js', category: 'Frameworks & Libraries' },
+        { id: 'Prisma ORM', category: 'Frameworks & Libraries' },
+        { id: 'Tailwind CSS', category: 'Frameworks & Libraries' },
+        { id: 'Socket.IO', category: 'Frameworks & Libraries' },
+        { id: 'Jetpack Compose', category: 'Frameworks & Libraries' },
+        { id: 'Room', category: 'Frameworks & Libraries' },
+        { id: 'NumPy', category: 'Frameworks & Libraries' },
+        { id: 'Matplotlib', category: 'Frameworks & Libraries' },
+        { id: 'Pandas', category: 'Frameworks & Libraries' },
+        { id: 'Scikit-learn', category: 'Frameworks & Libraries' },
+        { id: 'Manim', category: 'Frameworks & Libraries' },
+        { id: 'PostgreSQL', category: 'Databases & Tools' },
+        { id: 'MongoDB', category: 'Databases & Tools' },
+        { id: 'SQLite', category: 'Databases & Tools' },
+        { id: 'Vite', category: 'Databases & Tools' },
+        { id: 'Git', category: 'Databases & Tools' },
+        { id: 'GitHub', category: 'Databases & Tools' },
+        { id: 'Docker', category: 'Databases & Tools' },
+        { id: 'AWS', category: 'Databases & Tools' },
+        { id: 'CI/CD', category: 'Databases & Tools' },
+        { id: 'Linux', category: 'Databases & Tools' }
+      ];
+
+      const edgePairs = [
+        ['Python', 'NumPy'],
+        ['Python', 'Pandas'],
+        ['Python', 'Matplotlib'],
+        ['Python', 'Scikit-learn'],
+        ['Python', 'Manim'],
+        ['JavaScript', 'React.js'],
+        ['JavaScript', 'Node.js'],
+        ['JavaScript', 'Socket.IO'],
+        ['TypeScript', 'React.js'],
+        ['TypeScript', 'Node.js'],
+        ['TypeScript', 'Express.js'],
+        ['TypeScript', 'Prisma ORM'],
+        ['TypeScript', 'Vite'],
+        ['SQL', 'PostgreSQL'],
+        ['SQL', 'SQLite'],
+        ['Kotlin', 'Jetpack Compose'],
+        ['Kotlin', 'Room'],
+        ['Bash/Shell', 'Linux'],
+        ['Bash/Shell', 'Docker'],
+        ['Bash/Shell', 'CI/CD'],
+        ['React.js', 'Tailwind CSS'],
+        ['React.js', 'Vite'],
+        ['Node.js', 'Express.js'],
+        ['Node.js', 'Socket.IO'],
+        ['Express.js', 'Prisma ORM'],
+        ['Express.js', 'MongoDB'],
+        ['Express.js', 'PostgreSQL'],
+        ['Express.js', 'Socket.IO'],
+        ['Prisma ORM', 'PostgreSQL'],
+        ['Prisma ORM', 'SQLite'],
+        ['Tailwind CSS', 'Vite'],
+        ['Jetpack Compose', 'Room'],
+        ['Room', 'SQLite'],
+        ['Git', 'GitHub'],
+        ['Git', 'CI/CD'],
+        ['Git', 'Linux'],
+        ['GitHub', 'CI/CD'],
+        ['Docker', 'AWS'],
+        ['Docker', 'Linux'],
+        ['Docker', 'CI/CD'],
+        ['AWS', 'CI/CD']
+      ];
+
+      const links = edgePairs.map(([source, target]) => ({ source, target }));
+      const neighbors = new Map(nodes.map((node) => [node.id, new Set()]));
+      edgePairs.forEach(([source, target]) => {
+        neighbors.get(source).add(target);
+        neighbors.get(target).add(source);
+      });
+
+      const nodeLookup = new Map(nodes.map((node) => [node.id, node]));
+      let width = 0;
+      let height = 0;
+      let hoverNode = null;
+      let dragNode = null;
+      const baseNodeRadius = 10;
+      const hoverNodeRadius = 13;
+      const labelHeight = 24;
+      const labelPaddingX = 10;
+      const canvasPadding = 104;
+
+      function hexToRgba(hex, alpha) {
+        const value = hex.replace('#', '');
+        const bigint = parseInt(value, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+
+      function getPointerPosition(event) {
+        const rect = skillsGraphCanvas.getBoundingClientRect();
+        return {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top
+        };
+      }
+
+      function getNodeRadius(node) {
+        return hoverNode && hoverNode.id === node.id ? hoverNodeRadius : baseNodeRadius;
+      }
+
+      function getLabelMetrics(node) {
+        graphCtx.save();
+        graphCtx.font = hoverNode && hoverNode.id === node.id ? '600 11px Space Mono, monospace' : '10px Space Mono, monospace';
+        const width = Math.max(74, Math.ceil(graphCtx.measureText(node.id).width + labelPaddingX * 2));
+        graphCtx.restore();
+        return { width, height: labelHeight };
+      }
+
+      function getLabelBounds(node) {
+        const radius = getNodeRadius(node);
+        const metrics = getLabelMetrics(node);
+        const prefersBelow = node.y < height * 0.24;
+        const rawCenterY = prefersBelow
+          ? node.y + radius + 18 + metrics.height / 2
+          : node.y - radius - 18 - metrics.height / 2;
+        const centerX = clamp(node.x, metrics.width / 2 + 8, Math.max(metrics.width / 2 + 8, width - metrics.width / 2 - 8));
+        const centerY = clamp(rawCenterY, metrics.height / 2 + 8, Math.max(metrics.height / 2 + 8, height - metrics.height / 2 - 8));
+
+        return {
+          x: centerX,
+          y: centerY,
+          width: metrics.width,
+          height: metrics.height,
+          anchorY: prefersBelow ? node.y + radius : node.y - radius
+        };
+      }
+
+      function drawRoundedRect(x, y, boxWidth, boxHeight, radius) {
+        graphCtx.beginPath();
+        graphCtx.moveTo(x + radius, y);
+        graphCtx.lineTo(x + boxWidth - radius, y);
+        graphCtx.quadraticCurveTo(x + boxWidth, y, x + boxWidth, y + radius);
+        graphCtx.lineTo(x + boxWidth, y + boxHeight - radius);
+        graphCtx.quadraticCurveTo(x + boxWidth, y + boxHeight, x + boxWidth - radius, y + boxHeight);
+        graphCtx.lineTo(x + radius, y + boxHeight);
+        graphCtx.quadraticCurveTo(x, y + boxHeight, x, y + boxHeight - radius);
+        graphCtx.lineTo(x, y + radius);
+        graphCtx.quadraticCurveTo(x, y, x + radius, y);
+        graphCtx.closePath();
+      }
+
+      function nodeAtPosition(x, y) {
+        for (let i = nodes.length - 1; i >= 0; i -= 1) {
+          const node = nodes[i];
+          const radius = getNodeRadius(node) + 4;
+          const label = getLabelBounds(node);
+          const withinLabel = x >= label.x - label.width / 2
+            && x <= label.x + label.width / 2
+            && y >= label.y - label.height / 2
+            && y <= label.y + label.height / 2;
+          if (Math.hypot(node.x - x, node.y - y) <= radius || withinLabel) {
+            return node;
+          }
+        }
+        return null;
+      }
+
+      function updateTooltip() {
+        if (!graphTooltip) {
+          return;
+        }
+        if (hoverNode) {
+          graphTooltip.textContent = `${hoverNode.id} - ${hoverNode.category}`;
+        } else {
+          graphTooltip.textContent = 'Hover or drag a skill node to inspect the cluster.';
+        }
+      }
+
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function clampNodePosition(node) {
+        const padding = canvasPadding;
+        node.x = clamp(node.x, padding, Math.max(padding, width - padding));
+        node.y = clamp(node.y, padding, Math.max(padding, height - padding));
+        if (node.fx != null) {
+          node.fx = clamp(node.fx, padding, Math.max(padding, width - padding));
+        }
+        if (node.fy != null) {
+          node.fy = clamp(node.fy, padding, Math.max(padding, height - padding));
+        }
+      }
+
+      function getCategoryAnchor(category) {
+        const anchors = {
+          Languages: { x: width * 0.2, y: height * 0.5 },
+          'Frameworks & Libraries': { x: width * 0.5, y: height * 0.3 },
+          'Databases & Tools': { x: width * 0.8, y: height * 0.5 }
+        };
+        return anchors[category] || { x: width / 2, y: height / 2 };
+      }
+
+      function renderGraph() {
+        nodes.forEach(clampNodePosition);
+        graphCtx.clearRect(0, 0, width, height);
+
+        links.forEach((link) => {
+          const source = typeof link.source === 'string' ? nodeLookup.get(link.source) : link.source;
+          const target = typeof link.target === 'string' ? nodeLookup.get(link.target) : link.target;
+
+          const connectedToHover = hoverNode && (source.id === hoverNode.id || target.id === hoverNode.id);
+          graphCtx.beginPath();
+          graphCtx.moveTo(source.x, source.y);
+          graphCtx.lineTo(target.x, target.y);
+
+          if (hoverNode && connectedToHover) {
+            graphCtx.strokeStyle = hexToRgba(categoryColors[hoverNode.category], 1);
+            graphCtx.lineWidth = 2;
+          } else if (hoverNode) {
+            graphCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+            graphCtx.lineWidth = 1;
+          } else {
+            graphCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            graphCtx.lineWidth = 1;
+          }
+
+          graphCtx.stroke();
+        });
+
+        nodes.forEach((node) => {
+          const isHover = hoverNode && node.id === hoverNode.id;
+          const isConnected = hoverNode && (node.id === hoverNode.id || neighbors.get(hoverNode.id).has(node.id));
+          const radius = getNodeRadius(node);
+          const color = categoryColors[node.category];
+          const label = getLabelBounds(node);
+          const labelX = label.x - label.width / 2;
+          const labelY = label.y - label.height / 2;
+          const isMuted = hoverNode && !isConnected;
+
+          graphCtx.beginPath();
+          graphCtx.moveTo(node.x, label.anchorY);
+          graphCtx.lineTo(label.x, label.y < node.y ? labelY + label.height : labelY);
+          graphCtx.strokeStyle = isMuted ? 'rgba(255, 255, 255, 0.12)' : hexToRgba(color, isHover ? 0.9 : 0.42);
+          graphCtx.lineWidth = isHover ? 1.6 : 1;
+          graphCtx.stroke();
+
+          graphCtx.save();
+          graphCtx.shadowColor = isHover ? hexToRgba(color, 0.4) : 'transparent';
+          graphCtx.shadowBlur = isHover ? 18 : 0;
+          drawRoundedRect(labelX, labelY, label.width, label.height, 8);
+          graphCtx.fillStyle = isMuted ? 'rgba(5, 5, 12, 0.78)' : 'rgba(5, 5, 12, 0.92)';
+          graphCtx.fill();
+          graphCtx.lineWidth = isHover ? 1.5 : 1;
+          graphCtx.strokeStyle = isMuted ? 'rgba(255, 255, 255, 0.16)' : hexToRgba(color, isHover ? 0.95 : 0.45);
+          graphCtx.stroke();
+          graphCtx.restore();
+
+          graphCtx.save();
+          graphCtx.beginPath();
+          graphCtx.arc(node.x, node.y, radius + (isHover ? 5 : 3), 0, Math.PI * 2);
+          graphCtx.fillStyle = hexToRgba(color, isMuted ? 0.06 : 0.14);
+          graphCtx.fill();
+          graphCtx.beginPath();
+          graphCtx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+          graphCtx.fillStyle = hexToRgba(color, isMuted ? 0.4 : (isHover ? 1 : 0.82));
+          graphCtx.fill();
+          graphCtx.restore();
+
+          graphCtx.font = isHover ? '600 11px Space Mono, monospace' : '10px Space Mono, monospace';
+          graphCtx.textAlign = 'center';
+          graphCtx.textBaseline = 'middle';
+          graphCtx.fillStyle = isMuted ? 'rgba(255, 255, 255, 0.6)' : '#ffffff';
+          graphCtx.fillText(node.id, label.x, label.y + 0.5);
+        });
+      }
+
+      const simulation = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(links).id((node) => node.id).distance(68).strength(0.32))
+        .force('charge', d3.forceManyBody().strength(-125))
+        .force('center', d3.forceCenter(0, 0))
+        .force('x', d3.forceX((node) => getCategoryAnchor(node.category).x).strength(0.16))
+        .force('y', d3.forceY((node) => getCategoryAnchor(node.category).y).strength(0.16))
+        .force('collide', d3.forceCollide().radius((node) => Math.max(34, Math.min(88, 20 + node.id.length * 2.6))))
+        .on('tick', renderGraph);
+
+      function resizeGraph() {
+        const rect = skillsGraphCanvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        width = rect.width;
+        height = rect.height;
+        skillsGraphCanvas.width = Math.max(1, Math.floor(width * dpr));
+        skillsGraphCanvas.height = Math.max(1, Math.floor(height * dpr));
+        graphCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        simulation.force('center', d3.forceCenter(width / 2, height / 2));
+        nodes.forEach(clampNodePosition);
+        simulation.alpha(0.6).restart();
+      }
+
+      skillsGraphCanvas.addEventListener('mousemove', (event) => {
+        const pointer = getPointerPosition(event);
+        if (dragNode) {
+          const padding = canvasPadding;
+          dragNode.fx = clamp(pointer.x, padding, Math.max(padding, width - padding));
+          dragNode.fy = clamp(pointer.y, padding, Math.max(padding, height - padding));
+          simulation.alphaTarget(0.2).restart();
+          return;
+        }
+
+        hoverNode = nodeAtPosition(pointer.x, pointer.y);
+        updateTooltip();
+        skillsGraphCanvas.style.cursor = hoverNode ? 'pointer' : 'grab';
+        renderGraph();
+      });
+
+      skillsGraphCanvas.addEventListener('mousedown', (event) => {
+        const pointer = getPointerPosition(event);
+        const selectedNode = nodeAtPosition(pointer.x, pointer.y);
+        if (!selectedNode) {
+          return;
+        }
+        const padding = canvasPadding;
+        dragNode = selectedNode;
+        hoverNode = selectedNode;
+        selectedNode.fx = clamp(pointer.x, padding, Math.max(padding, width - padding));
+        selectedNode.fy = clamp(pointer.y, padding, Math.max(padding, height - padding));
+        simulation.alphaTarget(0.25).restart();
+        updateTooltip();
+        skillsGraphCanvas.style.cursor = 'grabbing';
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!dragNode) {
+          return;
+        }
+        dragNode.fx = null;
+        dragNode.fy = null;
+        dragNode = null;
+        simulation.alphaTarget(0);
+        skillsGraphCanvas.style.cursor = hoverNode ? 'pointer' : 'grab';
+      });
+
+      skillsGraphCanvas.addEventListener('mouseleave', () => {
+        if (!dragNode) {
+          hoverNode = null;
+          updateTooltip();
+          skillsGraphCanvas.style.cursor = 'grab';
+          renderGraph();
+        }
+      });
+
+      updateTooltip();
+      resizeGraph();
+      window.addEventListener('resize', resizeGraph);
+    }
+
+    const projectsTrack = document.getElementById('projectsTrack');
+    const projectsPrev = document.getElementById('projectsPrev');
+    const projectsNext = document.getElementById('projectsNext');
+    const projectsPagination = document.getElementById('projectsPagination');
+    if (projectsTrack && projectsPrev && projectsNext && projectsPagination) {
+      const projectCards = Array.from(projectsTrack.querySelectorAll('.project-card'));
+      const projectsViewport = projectsTrack.parentElement;
+      let currentPage = 0;
+      let cardsPerPage = 2;
+      let pageCount = 1;
+
+      function getCardsPerPage() {
+        return window.innerWidth <= 600 ? 1 : 2;
+      }
+
+      function buildProjectDots() {
+        projectsPagination.innerHTML = '';
+        for (let index = 0; index < pageCount; index += 1) {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'projects-dot';
+          dot.setAttribute('aria-label', `Go to project page ${index + 1}`);
+          dot.addEventListener('click', () => {
+            currentPage = index;
+            updateProjectsCarousel();
+          });
+          projectsPagination.appendChild(dot);
+        }
+      }
+
+      function updateProjectsCarousel() {
+        cardsPerPage = getCardsPerPage();
+        const nextPageCount = Math.max(1, Math.ceil(projectCards.length / cardsPerPage));
+        if (nextPageCount !== pageCount) {
+          pageCount = nextPageCount;
+          buildProjectDots();
+        }
+
+        currentPage = Math.max(0, Math.min(currentPage, pageCount - 1));
+        const gap = parseFloat(window.getComputedStyle(projectsTrack).gap) || 0;
+        const offset = currentPage * (projectsViewport.clientWidth + gap);
+        projectsTrack.style.transform = `translateX(-${offset}px)`;
+
+        const dots = projectsPagination.querySelectorAll('.projects-dot');
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentPage);
+          dot.setAttribute('aria-pressed', index === currentPage ? 'true' : 'false');
+        });
+
+        const singlePage = pageCount <= 1;
+        projectsPrev.disabled = singlePage || currentPage === 0;
+        projectsNext.disabled = singlePage || currentPage === pageCount - 1;
+        projectsPagination.style.display = singlePage ? 'none' : 'flex';
+      }
+
+      projectsPrev.addEventListener('click', () => {
+        currentPage -= 1;
+        updateProjectsCarousel();
+      });
+
+      projectsNext.addEventListener('click', () => {
+        currentPage += 1;
+        updateProjectsCarousel();
+      });
+
+      updateProjectsCarousel();
+      window.addEventListener('resize', updateProjectsCarousel);
+    }
+
     // MATRIX RAIN
     const codeC = document.getElementById('codeCanvas');
     if (codeC) {
