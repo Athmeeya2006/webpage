@@ -494,7 +494,14 @@
       const hoverNodeRadius = 13;
       const labelHeight = 24;
       const labelPaddingX = 10;
-      const canvasPadding = 104;
+
+      function isCompactGraph() {
+        return width < 640;
+      }
+
+      function getCanvasPadding() {
+        return isCompactGraph() ? 34 : 104;
+      }
 
       function hexToRgba(hex, alpha) {
         const value = hex.replace('#', '');
@@ -514,15 +521,26 @@
       }
 
       function getNodeRadius(node) {
-        return hoverNode && hoverNode.id === node.id ? hoverNodeRadius : baseNodeRadius;
+        const compactOffset = isCompactGraph() ? -2 : 0;
+        return hoverNode && hoverNode.id === node.id
+          ? hoverNodeRadius + compactOffset
+          : baseNodeRadius + compactOffset;
       }
 
       function getLabelMetrics(node) {
         graphCtx.save();
-        graphCtx.font = hoverNode && hoverNode.id === node.id ? '600 11px Space Mono, monospace' : '10px Space Mono, monospace';
-        const width = Math.max(74, Math.ceil(graphCtx.measureText(node.id).width + labelPaddingX * 2));
+        const compact = isCompactGraph();
+        const labelFontSize = compact ? 8 : 10;
+        const hoverFontSize = compact ? 9 : 11;
+        graphCtx.font = hoverNode && hoverNode.id === node.id
+          ? `600 ${hoverFontSize}px Space Mono, monospace`
+          : `${labelFontSize}px Space Mono, monospace`;
+        const minWidth = compact ? 54 : 74;
+        const maxWidth = compact ? Math.max(70, width * 0.42) : width;
+        const measuredWidth = Math.ceil(graphCtx.measureText(node.id).width + labelPaddingX * 2);
+        const labelWidth = Math.min(maxWidth, Math.max(minWidth, measuredWidth));
         graphCtx.restore();
-        return { width, height: labelHeight };
+        return { width: labelWidth, height: labelHeight };
       }
 
       function getLabelBounds(node) {
@@ -590,7 +608,7 @@
       }
 
       function clampNodePosition(node) {
-        const padding = canvasPadding;
+        const padding = getCanvasPadding();
         node.x = clamp(node.x, padding, Math.max(padding, width - padding));
         node.y = clamp(node.y, padding, Math.max(padding, height - padding));
         if (node.fx != null) {
@@ -602,6 +620,15 @@
       }
 
       function getCategoryAnchor(category) {
+        if (isCompactGraph()) {
+          const anchors = {
+            Languages: { x: width * 0.32, y: height * 0.24 },
+            'Frameworks & Libraries': { x: width * 0.68, y: height * 0.5 },
+            'Databases & Tools': { x: width * 0.38, y: height * 0.76 }
+          };
+          return anchors[category] || { x: width / 2, y: height / 2 };
+        }
+
         const anchors = {
           Languages: { x: width * 0.2, y: height * 0.5 },
           'Frameworks & Libraries': { x: width * 0.5, y: height * 0.3 },
@@ -676,7 +703,9 @@
           graphCtx.fill();
           graphCtx.restore();
 
-          graphCtx.font = isHover ? '600 11px Space Mono, monospace' : '10px Space Mono, monospace';
+          graphCtx.font = isHover
+            ? `600 ${isCompactGraph() ? 9 : 11}px Space Mono, monospace`
+            : `${isCompactGraph() ? 8 : 10}px Space Mono, monospace`;
           graphCtx.textAlign = 'center';
           graphCtx.textBaseline = 'middle';
           graphCtx.fillStyle = isMuted ? 'rgba(255, 255, 255, 0.6)' : '#ffffff';
@@ -702,6 +731,16 @@
         skillsGraphCanvas.height = Math.max(1, Math.floor(height * dpr));
         graphCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
         simulation.force('center', d3.forceCenter(width / 2, height / 2));
+        simulation.force('link').distance(isCompactGraph() ? 44 : 68);
+        simulation.force('charge').strength(isCompactGraph() ? -62 : -125);
+        simulation.force('x', d3.forceX((node) => getCategoryAnchor(node.category).x).strength(isCompactGraph() ? 0.24 : 0.16));
+        simulation.force('y', d3.forceY((node) => getCategoryAnchor(node.category).y).strength(isCompactGraph() ? 0.24 : 0.16));
+        simulation.force('collide').radius((node) => {
+          if (isCompactGraph()) {
+            return Math.max(22, Math.min(54, 15 + node.id.length * 1.65));
+          }
+          return Math.max(34, Math.min(88, 20 + node.id.length * 2.6));
+        });
         nodes.forEach(clampNodePosition);
         simulation.alpha(0.6).restart();
       }
@@ -709,7 +748,7 @@
       skillsGraphCanvas.addEventListener('mousemove', (event) => {
         const pointer = getPointerPosition(event);
         if (dragNode) {
-          const padding = canvasPadding;
+          const padding = getCanvasPadding();
           dragNode.fx = clamp(pointer.x, padding, Math.max(padding, width - padding));
           dragNode.fy = clamp(pointer.y, padding, Math.max(padding, height - padding));
           simulation.alphaTarget(0.2).restart();
@@ -728,7 +767,7 @@
         if (!selectedNode) {
           return;
         }
-        const padding = canvasPadding;
+        const padding = getCanvasPadding();
         dragNode = selectedNode;
         hoverNode = selectedNode;
         selectedNode.fx = clamp(pointer.x, padding, Math.max(padding, width - padding));

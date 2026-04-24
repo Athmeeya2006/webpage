@@ -118,6 +118,7 @@
       scroll-padding-top: 80px;
       scrollbar-width: thin;
       scrollbar-color: rgba(0, 255, 229, .12) var(--black);
+      overflow-x: hidden;
     }
 
     ::selection {
@@ -152,6 +153,7 @@
       cursor: auto;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      min-width: 320px;
     }
 
     /* CUSTOM CURSOR - removed */
@@ -400,7 +402,7 @@
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, .97);
-      z-index: 999;
+      z-index: 10000;
       align-items: center;
       justify-content: center;
       flex-direction: column;
@@ -1131,6 +1133,7 @@
       margin-bottom: 28px;
       font-family: 'Inter', sans-serif;
       font-weight: 300;
+      overflow-wrap: anywhere;
     }
 
     .about-bio:last-of-type {
@@ -1240,6 +1243,7 @@
       border-left: 3px solid var(--cyan);
       backdrop-filter: blur(10px);
       transition: border-color .3s, box-shadow .3s;
+      min-width: 0;
     }
 
     .exp-card:hover {
@@ -1262,6 +1266,7 @@
       letter-spacing: 1px;
       margin-bottom: 8px;
       line-height: 1.3;
+      overflow-wrap: anywhere;
     }
 
     .exp-org {
@@ -1270,6 +1275,7 @@
       color: var(--white);
       letter-spacing: 1px;
       margin-bottom: 10px;
+      overflow-wrap: anywhere;
     }
 
     .exp-period {
@@ -1302,6 +1308,7 @@
       line-height: 1.65;
       padding-left: 16px;
       position: relative;
+      overflow-wrap: anywhere;
     }
 
     .exp-bullets li::before {
@@ -1454,6 +1461,7 @@
       font-weight: 700;
       color: var(--white);
       margin-bottom: 4px;
+      overflow-wrap: anywhere;
     }
 
     .edu-school {
@@ -1528,6 +1536,7 @@
       border: 1px solid rgba(0, 255, 229, .14);
       background: linear-gradient(150deg, rgba(0, 255, 229, .03), rgba(5, 5, 12, .95));
       padding: 12px;
+      min-width: 0;
     }
 
     .skills-graph-canvas {
@@ -1565,6 +1574,7 @@
       line-height: 1.6;
       color: var(--white);
       font-family: 'Inter', sans-serif;
+      overflow-wrap: anywhere;
     }
 
     .skills-cv-row strong {
@@ -2080,6 +2090,7 @@
 
     .contact-left {
       position: relative;
+      min-width: 0;
     }
 
     #radarCanvas {
@@ -2091,6 +2102,7 @@
 
     .contact-right {
       position: relative;
+      min-width: 0;
     }
 
     .contact-signals {
@@ -2111,6 +2123,12 @@
       gap: 12px;
       transition: all .3s;
       text-decoration: none;
+      min-width: 0;
+    }
+
+    .signal-line > span {
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .signal-line:hover {
@@ -2395,6 +2413,7 @@
       color: var(--white);
       margin-bottom: 12px;
       transition: color .3s;
+      overflow-wrap: anywhere;
     }
 
     .project-card:hover .project-title {
@@ -2406,6 +2425,7 @@
       line-height: 1.8;
       color: var(--white);
       margin-bottom: 20px;
+      overflow-wrap: anywhere;
     }
 
     .project-tech {
@@ -2858,6 +2878,12 @@
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
+      nav,
+      nav.scrolled {
+        padding-left: 28px;
+        padding-right: 28px;
+      }
+
       .about-grid {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -2880,6 +2906,12 @@
 
       .edu-item {
         grid-template-columns: 1fr;
+        margin-bottom: 28px;
+      }
+
+      .edu-item .edu-card {
+        grid-column: 1 !important;
+        text-align: left !important;
       }
 
       .edu-item .edu-empty {
@@ -2896,6 +2928,7 @@
 
       .contact-inner {
         grid-template-columns: 1fr;
+        gap: 48px;
       }
 
       #radarCanvas {
@@ -2972,6 +3005,10 @@
     }
 
     @media (max-width: 600px) {
+      html {
+        scroll-padding-top: 68px;
+      }
+
       nav {
         padding: 16px 20px;
       }
@@ -2993,7 +3030,29 @@
       }
 
       #achievements {
-        padding: 80px 0;
+        padding: 80px 16px;
+      }
+
+      .section-label {
+        font-size: 12px;
+        letter-spacing: 3px;
+      }
+
+      .pre-name {
+        letter-spacing: 8px;
+      }
+
+      .pre-subtitle {
+        max-width: 280px;
+        text-align: center;
+        letter-spacing: 3px;
+      }
+
+      #back-to-top {
+        right: 16px;
+        bottom: 16px;
+        width: 42px;
+        height: 42px;
       }
 
       .about-stats {
@@ -3030,10 +3089,24 @@
 
       .section-title {
         font-size: clamp(38px, 9vw, 62px);
+        letter-spacing: 3px;
       }
 
       .skills-graph-canvas {
         height: 500px;
+      }
+
+      .skills-graph-wrap {
+        padding: 8px;
+      }
+
+      .skills-graph-legend {
+        align-items: stretch;
+      }
+
+      .skills-legend-item {
+        width: 100%;
+        font-size: 12px;
       }
 
       .skills-cv-row {
@@ -3042,9 +3115,14 @@
       }
 
       .hero-name {
-        font-size: clamp(40px, 11vw, 80px);
-        letter-spacing: 3px;
+        font-size: clamp(40px, 14vw, 72px);
+        letter-spacing: 2px;
         line-height: .9;
+        gap: 4px 4px;
+      }
+
+      .hero-name .space {
+        display: none;
       }
 
       .hero-initials {
@@ -3068,6 +3146,9 @@
         font-size: 11px;
         letter-spacing: 1px;
         margin-bottom: 36px;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .scroll-indicator {
@@ -3076,11 +3157,28 @@
       }
 
       .ach-panel {
-        height: 440px;
+        min-height: 360px;
+        height: auto;
+      }
+
+      .ach-panel-content {
+        position: relative;
+        min-height: 360px;
+        padding: 84px 22px 28px;
       }
 
       .ach-title {
         font-size: 36px;
+      }
+
+      .ach-tag {
+        font-size: 11px;
+        letter-spacing: 2px;
+      }
+
+      .ach-desc {
+        font-size: 14px;
+        line-height: 1.65;
       }
 
       .ach-scroll-track {
@@ -3096,17 +3194,43 @@
         padding: 18px 20px;
       }
 
+      .edu-degree {
+        font-size: 17px;
+      }
+
+      .edu-level {
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+
       .project-card {
         flex-basis: 100%;
         padding: 28px 20px 20px;
       }
 
+      .project-title {
+        font-size: 19px;
+        line-height: 1.35;
+      }
+
+      .project-tag,
+      .project-tech span {
+        font-size: 11px;
+        letter-spacing: 1px;
+      }
+
+      .project-desc {
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
       .projects-carousel {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 16px;
       }
 
       .projects-viewport {
+        grid-column: 1 / -1;
         order: 1;
       }
 
@@ -3115,15 +3239,31 @@
         height: 46px;
       }
 
+      #projectsPrev {
+        order: 2;
+      }
+
+      #projectsNext {
+        order: 3;
+      }
+
       .contact-signals .signal-line {
-        font-size: 11px;
+        font-size: 12px;
         padding: 12px 14px;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+
+      .contact-signals .signal-line span:first-child {
+        grid-column: 1 / -1;
       }
 
       .cv-btn {
         padding: 14px 24px;
         font-size: 11px;
+        width: 100%;
+        text-align: center;
       }
 
       footer {
@@ -3138,6 +3278,21 @@
       .hero-name {
         font-size: 36px;
         letter-spacing: 2px;
+      }
+
+      .mobile-menu {
+        gap: 22px;
+        padding: 72px 20px 32px;
+      }
+
+      .mobile-menu a {
+        font-size: 36px;
+        letter-spacing: 4px;
+      }
+
+      #radarCanvas {
+        width: min(100%, 300px);
+        height: auto;
       }
 
       .about-stats {
