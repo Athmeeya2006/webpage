@@ -1216,7 +1216,8 @@
 
     /* EXPERIENCE */
     #experience,
-    #research-experience {
+    #research-experience,
+    #ventures {
       padding: 120px 48px;
       max-width: 1400px;
       margin: 0 auto;
@@ -2209,6 +2210,14 @@
       fill: currentColor;
     }
 
+    .cf-rating-badge {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 12px auto 14px;
+      filter: drop-shadow(0 0 12px rgba(0, 255, 229, 0.3));
+    }
+
     /* PROJECTS */
     #projects {
       padding: clamp(80px, 12vw, 180px) 40px;
@@ -2485,6 +2494,28 @@
       position: relative;
       max-width: 1400px;
       margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      letter-spacing: 2px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--cyan);
+      border: 1px solid rgba(0, 255, 229, .22);
+      padding: 6px 10px;
+      transition: all .25s ease;
+      background: rgba(0, 255, 229, .03);
+    }
+
+    .footer-links a:hover {
+      color: var(--black);
+      background: var(--cyan);
+      box-shadow: 0 0 16px rgba(0, 255, 229, .45);
     }
 
     footer span {
@@ -3019,6 +3050,7 @@
 
       #about,
       #experience,
+      #ventures,
       #education,
       #skills,
       #achievements,
@@ -3271,6 +3303,11 @@
         gap: 10px;
         text-align: center;
         padding: 30px 20px;
+      }
+
+      .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
       }
     }
 

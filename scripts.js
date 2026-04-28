@@ -395,79 +395,68 @@
       const graphTooltip = document.getElementById('skillsGraphTooltip');
 
       const categoryColors = {
-        Languages: '#00FFE5',
-        'Frameworks & Libraries': '#FF4500',
-        'Databases & Tools': '#4499FF'
+        'Low-Level & Quant Core': '#00FFE5',
+        'Scientific & Research Stack': '#FF4500',
+        'Systems, Databases & Tooling': '#4499FF'
       };
 
       const nodes = [
-        { id: 'Python', category: 'Languages' },
-        { id: 'JavaScript', category: 'Languages' },
-        { id: 'TypeScript', category: 'Languages' },
-        { id: 'SQL', category: 'Languages' },
-        { id: 'C', category: 'Languages' },
-        { id: 'C++', category: 'Languages' },
-        { id: 'Kotlin', category: 'Languages' },
-        { id: 'Bash/Shell', category: 'Languages' },
-        { id: 'React.js', category: 'Frameworks & Libraries' },
-        { id: 'Node.js', category: 'Frameworks & Libraries' },
-        { id: 'Express.js', category: 'Frameworks & Libraries' },
-        { id: 'Prisma ORM', category: 'Frameworks & Libraries' },
-        { id: 'Tailwind CSS', category: 'Frameworks & Libraries' },
-        { id: 'Socket.IO', category: 'Frameworks & Libraries' },
-        { id: 'Jetpack Compose', category: 'Frameworks & Libraries' },
-        { id: 'Room', category: 'Frameworks & Libraries' },
-        { id: 'NumPy', category: 'Frameworks & Libraries' },
-        { id: 'Matplotlib', category: 'Frameworks & Libraries' },
-        { id: 'Pandas', category: 'Frameworks & Libraries' },
-        { id: 'Scikit-learn', category: 'Frameworks & Libraries' },
-        { id: 'Manim', category: 'Frameworks & Libraries' },
-        { id: 'PostgreSQL', category: 'Databases & Tools' },
-        { id: 'MongoDB', category: 'Databases & Tools' },
-        { id: 'SQLite', category: 'Databases & Tools' },
-        { id: 'Vite', category: 'Databases & Tools' },
-        { id: 'Git', category: 'Databases & Tools' },
-        { id: 'GitHub', category: 'Databases & Tools' },
-        { id: 'Docker', category: 'Databases & Tools' },
-        { id: 'AWS', category: 'Databases & Tools' },
-        { id: 'CI/CD', category: 'Databases & Tools' },
-        { id: 'Linux', category: 'Databases & Tools' }
+        { id: 'C', category: 'Low-Level & Quant Core' },
+        { id: 'C++', category: 'Low-Level & Quant Core' },
+        { id: 'Probability', category: 'Low-Level & Quant Core' },
+        { id: 'Graph Theory', category: 'Low-Level & Quant Core' },
+        { id: 'Scientific Computing', category: 'Low-Level & Quant Core' },
+        { id: 'Algorithms', category: 'Low-Level & Quant Core' },
+        { id: 'Python', category: 'Scientific & Research Stack' },
+        { id: 'NumPy', category: 'Scientific & Research Stack' },
+        { id: 'SciPy', category: 'Scientific & Research Stack' },
+        { id: 'NetworkX', category: 'Scientific & Research Stack' },
+        { id: 'Matplotlib', category: 'Scientific & Research Stack' },
+        { id: 'Pandas', category: 'Scientific & Research Stack' },
+        { id: 'Scikit-learn', category: 'Scientific & Research Stack' },
+        { id: 'Manim', category: 'Scientific & Research Stack' },
+        { id: 'SQL', category: 'Systems, Databases & Tooling' },
+        { id: 'PostgreSQL', category: 'Systems, Databases & Tooling' },
+        { id: 'MongoDB', category: 'Systems, Databases & Tooling' },
+        { id: 'SQLite', category: 'Systems, Databases & Tooling' },
+        { id: 'Linux', category: 'Systems, Databases & Tooling' },
+        { id: 'Bash/Shell', category: 'Systems, Databases & Tooling' },
+        { id: 'Git', category: 'Systems, Databases & Tooling' },
+        { id: 'GitHub', category: 'Systems, Databases & Tooling' },
+        { id: 'Docker', category: 'Systems, Databases & Tooling' },
+        { id: 'AWS', category: 'Systems, Databases & Tooling' },
+        { id: 'CI/CD', category: 'Systems, Databases & Tooling' },
+        { id: 'React.js', category: 'Systems, Databases & Tooling' },
+        { id: 'Node.js', category: 'Systems, Databases & Tooling' },
+        { id: 'Express.js', category: 'Systems, Databases & Tooling' }
       ];
 
       const edgePairs = [
+        ['C', 'C++'],
+        ['C++', 'Algorithms'],
+        ['Algorithms', 'Graph Theory'],
+        ['Probability', 'Graph Theory'],
+        ['Probability', 'Scientific Computing'],
+        ['Scientific Computing', 'Python'],
+        ['Graph Theory', 'NetworkX'],
+        ['Algorithms', 'Python'],
         ['Python', 'NumPy'],
+        ['Python', 'SciPy'],
         ['Python', 'Pandas'],
         ['Python', 'Matplotlib'],
         ['Python', 'Scikit-learn'],
         ['Python', 'Manim'],
-        ['JavaScript', 'React.js'],
-        ['JavaScript', 'Node.js'],
-        ['JavaScript', 'Socket.IO'],
-        ['TypeScript', 'React.js'],
-        ['TypeScript', 'Node.js'],
-        ['TypeScript', 'Express.js'],
-        ['TypeScript', 'Prisma ORM'],
-        ['TypeScript', 'Vite'],
+        ['SciPy', 'NumPy'],
+        ['NetworkX', 'Matplotlib'],
         ['SQL', 'PostgreSQL'],
         ['SQL', 'SQLite'],
-        ['Kotlin', 'Jetpack Compose'],
-        ['Kotlin', 'Room'],
         ['Bash/Shell', 'Linux'],
         ['Bash/Shell', 'Docker'],
         ['Bash/Shell', 'CI/CD'],
-        ['React.js', 'Tailwind CSS'],
-        ['React.js', 'Vite'],
+        ['React.js', 'Node.js'],
         ['Node.js', 'Express.js'],
-        ['Node.js', 'Socket.IO'],
-        ['Express.js', 'Prisma ORM'],
         ['Express.js', 'MongoDB'],
         ['Express.js', 'PostgreSQL'],
-        ['Express.js', 'Socket.IO'],
-        ['Prisma ORM', 'PostgreSQL'],
-        ['Prisma ORM', 'SQLite'],
-        ['Tailwind CSS', 'Vite'],
-        ['Jetpack Compose', 'Room'],
-        ['Room', 'SQLite'],
         ['Git', 'GitHub'],
         ['Git', 'CI/CD'],
         ['Git', 'Linux'],
@@ -475,7 +464,9 @@
         ['Docker', 'AWS'],
         ['Docker', 'Linux'],
         ['Docker', 'CI/CD'],
-        ['AWS', 'CI/CD']
+        ['AWS', 'CI/CD'],
+        ['Scientific Computing', 'Linux'],
+        ['Scientific Computing', 'SQL']
       ];
 
       const links = edgePairs.map(([source, target]) => ({ source, target }));
@@ -622,17 +613,17 @@
       function getCategoryAnchor(category) {
         if (isCompactGraph()) {
           const anchors = {
-            Languages: { x: width * 0.32, y: height * 0.24 },
-            'Frameworks & Libraries': { x: width * 0.68, y: height * 0.5 },
-            'Databases & Tools': { x: width * 0.38, y: height * 0.76 }
+            'Low-Level & Quant Core': { x: width * 0.28, y: height * 0.24 },
+            'Scientific & Research Stack': { x: width * 0.68, y: height * 0.48 },
+            'Systems, Databases & Tooling': { x: width * 0.38, y: height * 0.78 }
           };
           return anchors[category] || { x: width / 2, y: height / 2 };
         }
 
         const anchors = {
-          Languages: { x: width * 0.2, y: height * 0.5 },
-          'Frameworks & Libraries': { x: width * 0.5, y: height * 0.3 },
-          'Databases & Tools': { x: width * 0.8, y: height * 0.5 }
+          'Low-Level & Quant Core': { x: width * 0.2, y: height * 0.42 },
+          'Scientific & Research Stack': { x: width * 0.5, y: height * 0.28 },
+          'Systems, Databases & Tooling': { x: width * 0.8, y: height * 0.56 }
         };
         return anchors[category] || { x: width / 2, y: height / 2 };
       }
