@@ -957,6 +957,19 @@
     let scrollTicking = false;
     let smoothScrollProgress = 0;
     let lastActiveSection = 'hero';
+    const navSectionMap = {
+      hero: 'hero',
+      about: 'about',
+      experience: 'experience',
+      'research-experience': 'experience',
+      ventures: 'ventures',
+      education: 'education',
+      skills: 'skills',
+      achievements: 'achievements',
+      projects: 'projects',
+      contact: 'contact'
+    };
+    const navSectionOrder = ['hero', 'about', 'experience', 'research-experience', 'ventures', 'education', 'skills', 'achievements', 'projects', 'contact'];
     
     function updateScroll() {
       const sy = window.scrollY;
@@ -974,11 +987,10 @@
       backToTop.classList.toggle('visible', sy > 500);
       
       // active section (with hysteresis to avoid flickering)
-      const secs = ['hero', 'about', 'experience', 'education', 'skills', 'achievements', 'projects', 'contact'];
       let active = 'hero';
-      secs.forEach(id => {
+      navSectionOrder.forEach(id => {
         const el = document.getElementById(id);
-        if (el && sy >= el.offsetTop - 250) active = id;
+        if (el && sy >= el.offsetTop - 250) active = navSectionMap[id] || id;
       });
       
       if (active !== lastActiveSection) {
