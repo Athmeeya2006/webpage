@@ -63,7 +63,7 @@
     function typeSubtitle() {
       const el = document.getElementById('heroSubtitle');
       el.style.opacity = 1;
-      el.innerHTML = 'B.Tech CS + MS Computational Natural Sciences · IIIT Hyderabad<br>Complex Networks Researcher · INMO Qualifier · Quant Finance Track';
+      el.innerHTML = 'B.Tech CS + MS Computational Natural Sciences · IIIT Hyderabad<br>Undergraduate Researcher, Complex Networks · INMO Qualifier';
     }
 
     // STARFIELD

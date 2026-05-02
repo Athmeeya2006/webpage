@@ -2265,8 +2265,8 @@
 
     .project-card--minor {
       background: linear-gradient(145deg, rgba(255, 69, 0, .02), rgba(5, 5, 12, .9));
-      border-color: rgba(255, 255, 255, .05);
-      opacity: .88;
+      border: 1px dashed rgba(255, 255, 255, .35);
+      opacity: .78;
     }
 
     .project-card--minor .project-title {
