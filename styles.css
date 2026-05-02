@@ -662,12 +662,30 @@
       font-family: 'Space Mono', monospace;
       font-size: clamp(11px, 1.6vw, 15px);
       color: var(--cyan);
-      letter-spacing: 3px;
       min-height: 24px;
       margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeUp .5s 2.8s forwards;
+      opacity: 1;
       text-shadow: 0 0 20px rgba(0, 255, 229, .25);
+    }
+
+    .hero-subtitle .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      transition: opacity .3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform .3s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--cyan);
+      text-shadow: 0 0 20px rgba(0, 255, 229, .25);
+      position: relative;
+      will-change: opacity, transform;
+    }
+
+    .hero-subtitle .letter.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .hero-subtitle .space {
+      width: 8px;
     }
 
     .hero-ctas {

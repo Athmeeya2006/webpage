@@ -63,7 +63,29 @@
     function typeSubtitle() {
       const el = document.getElementById('heroSubtitle');
       el.style.opacity = 1;
-      el.innerHTML = 'B.Tech CS + MS Computational Natural Sciences · IIIT Hyderabad<br>Undergraduate Researcher, Complex Networks · INMO Qualifier';
+      el.innerHTML = '';
+      const text = ['B.Tech CS + MS Computational Natural Sciences · IIIT Hyderabad', 'Undergraduate Researcher · INMO Qualifier'];
+      let ci = 0;
+      text.forEach((line, li) => {
+        line.split('').forEach(ch => {
+          const span = document.createElement('span');
+          span.className = 'letter';
+          if (ch === ' ') {
+            span.classList.add('space');
+            span.textContent = '\u00A0';
+          } else {
+            span.textContent = ch;
+          }
+          span.style.transitionDelay = (ci * 15) + 'ms';
+          setTimeout(() => span.classList.add('visible'), ci * 15);
+          el.appendChild(span);
+          ci++;
+        });
+        if (li < text.length - 1) {
+          const br = document.createElement('br');
+          el.appendChild(br);
+        }
+      });
     }
 
     // STARFIELD
