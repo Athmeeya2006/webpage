@@ -67,19 +67,33 @@
       const text = ['B.Tech CS + MS Computational Natural Sciences · IIIT Hyderabad', 'Undergraduate Researcher · INMO Qualifier'];
       let ci = 0;
       text.forEach((line, li) => {
-        line.split('').forEach(ch => {
-          const span = document.createElement('span');
-          span.className = 'letter';
-          if (ch === ' ') {
-            span.classList.add('space');
-            span.textContent = '\u00A0';
-          } else {
+        // Split into words so we can wrap each word in a nowrap container,
+        // preventing mid-word breaks on narrow mobile screens.
+        const words = line.split(' ');
+        words.forEach((word, wi) => {
+          const wordWrap = document.createElement('span');
+          wordWrap.style.display = 'inline-flex';
+          wordWrap.style.whiteSpace = 'nowrap';
+          word.split('').forEach(ch => {
+            const span = document.createElement('span');
+            span.className = 'letter';
             span.textContent = ch;
+            span.style.transitionDelay = (ci * 15) + 'ms';
+            setTimeout(() => span.classList.add('visible'), ci * 15);
+            wordWrap.appendChild(span);
+            ci++;
+          });
+          el.appendChild(wordWrap);
+          // Add a space span between words
+          if (wi < words.length - 1) {
+            const space = document.createElement('span');
+            space.className = 'letter space';
+            space.textContent = '\u00A0';
+            space.style.transitionDelay = (ci * 15) + 'ms';
+            setTimeout(() => space.classList.add('visible'), ci * 15);
+            el.appendChild(space);
+            ci++;
           }
-          span.style.transitionDelay = (ci * 15) + 'ms';
-          setTimeout(() => span.classList.add('visible'), ci * 15);
-          el.appendChild(span);
-          ci++;
         });
         if (li < text.length - 1) {
           const br = document.createElement('br');

@@ -666,6 +666,10 @@
       margin-bottom: 48px;
       opacity: 1;
       text-shadow: 0 0 20px rgba(0, 255, 229, .25);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
     }
 
     .hero-subtitle .letter {
@@ -3102,9 +3106,11 @@
         font-size: 11px;
         letter-spacing: 1px;
         margin-bottom: 36px;
-        max-width: 320px;
+        max-width: 90vw;
         margin-left: auto;
         margin-right: auto;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
       .scroll-indicator {
