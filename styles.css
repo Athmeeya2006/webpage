@@ -1216,8 +1216,7 @@
 
     /* EXPERIENCE */
     #experience,
-    #research-experience,
-    #ventures {
+    #research-experience {
       padding: 120px 48px;
       max-width: 1400px;
       margin: 0 auto;
@@ -1499,75 +1498,13 @@
     }
 
     .skills-board {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .skills-graph-legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 1px;
-      color: var(--white);
-    }
-
-    .skills-legend-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 8px;
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(255, 255, 255, .02);
-    }
-
-    .skills-legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-      box-shadow: 0 0 8px rgba(255, 255, 255, .2);
-    }
-
-    .skills-graph-wrap {
-      width: 100%;
-      border: 1px solid rgba(0, 255, 229, .14);
-      background: linear-gradient(150deg, rgba(0, 255, 229, .03), rgba(5, 5, 12, .95));
-      padding: 12px;
-      min-width: 0;
-    }
-
-    .skills-graph-canvas {
-      width: 100%;
-      height: 620px;
       display: block;
-      cursor: grab;
     }
 
-    .skills-graph-canvas:active {
-      cursor: grabbing;
-    }
-
-    .skills-graph-tooltip {
-      min-height: 22px;
-      font-family: 'Space Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, .9);
-      padding: 6px 0 0;
-    }
-
-    .skills-cv-list {
-      margin-top: 8px;
-      border: 1px solid rgba(0, 255, 229, .14);
-      background: rgba(0, 255, 229, .03);
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .skills-static-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
     }
 
     .skills-cv-row {
@@ -1576,14 +1513,6 @@
       color: var(--white);
       font-family: 'Inter', sans-serif;
       overflow-wrap: anywhere;
-    }
-
-    .skills-cv-row strong {
-      color: var(--cyan);
-      font-family: 'Space Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
     }
 
     .skill-cluster {
@@ -2247,16 +2176,16 @@
     }
 
     .projects-grid {
-      display: flex;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--projects-gap);
-      transition: transform .65s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform;
     }
 
     .project-card {
       position: relative;
       overflow: hidden;
-      flex: 0 0 calc((100% - var(--projects-gap)) / 2);
       min-width: 0;
       border: 1px solid rgba(0, 255, 229, .06);
       background: linear-gradient(145deg, rgba(0, 255, 229, .02), rgba(5, 5, 12, .95));
@@ -2994,12 +2923,8 @@
         gap: 20px;
       }
 
-      .project-card {
-        flex-basis: calc((100% - 20px) / 2);
-      }
-
-      .skills-graph-canvas {
-        height: 560px;
+      .skills-static-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .ach-scroll-track {
@@ -3050,7 +2975,6 @@
 
       #about,
       #experience,
-      #ventures,
       #education,
       #skills,
       #achievements,
@@ -3124,26 +3048,8 @@
         letter-spacing: 3px;
       }
 
-      .skills-graph-canvas {
-        height: 500px;
-      }
-
-      .skills-graph-wrap {
-        padding: 8px;
-      }
-
-      .skills-graph-legend {
-        align-items: stretch;
-      }
-
-      .skills-legend-item {
-        width: 100%;
-        font-size: 12px;
-      }
-
-      .skills-cv-row {
-        font-size: 14px;
-        line-height: 1.5;
+      .skills-static-grid {
+        grid-template-columns: 1fr;
       }
 
       .hero-name {
@@ -3236,7 +3142,6 @@
       }
 
       .project-card {
-        flex-basis: 100%;
         padding: 28px 20px 20px;
       }
 
@@ -3256,27 +3161,9 @@
         line-height: 1.65;
       }
 
-      .projects-carousel {
-        grid-template-columns: 1fr 1fr;
+      .projects-grid {
+        grid-template-columns: 1fr;
         gap: 16px;
-      }
-
-      .projects-viewport {
-        grid-column: 1 / -1;
-        order: 1;
-      }
-
-      .projects-nav {
-        width: 100%;
-        height: 46px;
-      }
-
-      #projectsPrev {
-        order: 2;
-      }
-
-      #projectsNext {
-        order: 3;
       }
 
       .contact-signals .signal-line {
