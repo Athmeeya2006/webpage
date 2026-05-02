@@ -5,7 +5,6 @@
 > A premium, high-performance, responsive personal portfolio website with a sci-fi/terminal aesthetic.
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-View_Website-00FFE5?style=for-the-badge&logo=vercel)](https://athmeeya2006.github.io/webpage/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-FF4500.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 ## 📌 Overview
 
@@ -74,10 +73,6 @@ Since this project relies purely on standard web technologies, there is no build
 │   └── Athmeeya_Kashyap_cv.pdf
 └── README.md         # Project documentation (You are here)
 ```
-
-## 📄 License
-
-This project is open-sourced under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 *Crafted with precision and a passion for complex systems.*
