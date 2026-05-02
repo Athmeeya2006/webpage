@@ -96,8 +96,10 @@
           }
         });
         if (li < text.length - 1) {
-          const br = document.createElement('br');
-          el.appendChild(br);
+          // Full-width block forces a clean line break in the flex container
+          const lineBreak = document.createElement('span');
+          lineBreak.style.cssText = 'width:100%;display:block;height:6px;';
+          el.appendChild(lineBreak);
         }
       });
     }
